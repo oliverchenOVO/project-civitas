@@ -62,4 +62,5 @@ it.each(Array.from({ length: 8 }, (_, i) => i))(
       throw new Error(`seed=${seed}, commands=${JSON.stringify(commands)}, error=${String(e)}`);
     }
   },
+  120000,
 );

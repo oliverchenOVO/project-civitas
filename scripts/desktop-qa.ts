@@ -65,8 +65,10 @@ async function closeTestApp(app: ElectronApplication) {
   // Playwright destroys its dispatcher after close; retain the actual child
   // before shutdown rather than asking app.process() after disposal.
   const child = appProcesses.get(app)!;
+  console.log('QA: normal native close begins', child.pid);
   if (child.exitCode === null) await app.close();
   assert.equal(child.exitCode, 0);
+  console.log('QA: normal native close completes with exit code 0', child.pid);
 }
 async function day(page: BrowserPage) {
   const text = await page.locator('.clock small').innerText();
@@ -199,8 +201,7 @@ try {
   await closeTestApp(app);
   desktop = undefined;
   // Browser responsive QA in addition to the real packaged Windows executable.
-  const browserServer = await chromium.launchServer({ channel: 'msedge', headless: true });
-  const browser = await chromium.connect(browserServer.wsEndpoint());
+  const browser = await chromium.launch({ channel: 'msedge', headless: true });
   try {
     const mobile = await browser.newPage({ viewport: { width: 390, height: 844 } });
     watch(mobile);
@@ -218,7 +219,6 @@ try {
     mark('390×844 responsive browser layout and policy controls render without body overflow');
   } finally {
     await browser.close();
-    await browserServer.close();
   }
   assert.deepEqual(errors, []);
   writeFileSync(

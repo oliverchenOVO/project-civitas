@@ -18,6 +18,18 @@ import { usePresentation } from '../store';
 import { date, money, policyLabels } from '../format';
 import { EventRow, EventFeed } from './EventFeed';
 import { humanDevelopment } from '../../../../packages/application/src/human-development';
+import { educationLabels, classLabels } from './HumanDevelopment';
+
+const developmentLabels: Record<string, string> = {
+  adults: '成年人口',
+  upward: '家庭向上轉變',
+  downward: '家庭向下轉變',
+  mobilityHouseholdYears: '已觀測家庭年',
+  educationSpending: '公共教育支出',
+  vocationalSpending: '職訓支出',
+  subsidySpending: '高等教育補助',
+  productivity: '技能生產力',
+};
 
 export const metricLabels: Record<MetricKey, string> = {
   population: '現居人口',
@@ -639,6 +651,7 @@ export function ScenarioPage() {
     }
   };
   const values = workspace?.branches.map((b) => sampleCity(b.state).values);
+  const development = workspace?.branches.map((b) => humanDevelopment(b.state));
   return (
     <section className="investigation">
       <p className="eyebrow">SIMULATION COMPARISON</p>
@@ -804,17 +817,18 @@ export function ScenarioPage() {
                     'adults',
                     'upward',
                     'downward',
+                    'mobilityHouseholdYears',
                     'educationSpending',
                     'vocationalSpending',
                     'subsidySpending',
                     'productivity',
                   ] as const
                 ).map((k) => {
-                  const measures = workspace.branches.map((b) => humanDevelopment(b.state));
+                  const measures = development!;
                   return (
                     <tr key={k}>
                       <td>
-                        {k}（
+                        {developmentLabels[k]}（
                         {k.endsWith('Spending')
                           ? '累計實付'
                           : k === 'productivity'
@@ -825,15 +839,19 @@ export function ScenarioPage() {
                       {measures.map((r, i) => (
                         <td key={i}>{k.endsWith('Spending') ? money(r[k]) : r[k]}</td>
                       ))}
-                      <td>{measures[1][k] - measures[0][k]}</td>
+                      <td>
+                        {k.endsWith('Spending')
+                          ? money(measures[1][k] - measures[0][k])
+                          : measures[1][k] - measures[0][k]}
+                      </td>
                     </tr>
                   );
                 })}
                 {(['basic', 'secondary', 'vocational', 'tertiary'] as const).map((k) => {
-                  const measures = workspace.branches.map((b) => humanDevelopment(b.state));
+                  const measures = development!;
                   return (
                     <tr key={k}>
-                      <td>{k} 完成教育（成年 cohort）</td>
+                      <td>{educationLabels[k]} 完成教育（成年 cohort）</td>
                       {measures.map((r, i) => (
                         <td key={i}>
                           {r.education[k]} / n={r.adults} · 成年平均月薪{' '}
@@ -844,6 +862,14 @@ export function ScenarioPage() {
                     </tr>
                   );
                 })}
+                {(['vulnerable', 'working', 'middle', 'affluent'] as const).map((k) => (
+                  <tr key={k}>
+                    <td>{classLabels[k]}家庭（目前戶數）</td>
+                    <td>{development![0].classes[k]}</td>
+                    <td>{development![1].classes[k]}</td>
+                    <td>{development![1].classes[k] - development![0].classes[k]}</td>
+                  </tr>
+                ))}
                 <tr>
                   <td>Fork 後累計稅收（flow）</td>
                   {workspace.branches.map((b) => (

@@ -39,6 +39,14 @@ export const classLabels = {
   affluent: '富裕',
 };
 const skillLabels = { general: '通用', technical: '技術', service: '服務', managerial: '管理' };
+const qualificationLabels: Record<string, string> = {
+  education: '完成教育',
+  general: '通用技能',
+  technical: '技術技能',
+  service: '服務技能',
+  managerial: '管理技能',
+  experienceMonths: '任職經驗（月）',
+};
 const pct = (n: number, d: number) => (d ? `${((n * 100) / d).toFixed(1)}%` : '無可比較樣本');
 
 export function CitizenDevelopment({ state, citizen }: { state: CityState; citizen: Citizen }) {
@@ -143,13 +151,22 @@ export function CitizenDevelopment({ state, citizen }: { state: CityState; citiz
             ))}
           </select>
           <p role="status">
-            {evidence.eligible ? '符合此職業能力門檻' : '尚不符合此職業能力門檻'}
+            {evidence.eligible && !evidence.checks.every((x) => x.actual >= x.required)
+              ? '既有遷移任用可保留；未達新版招聘能力門檻'
+              : evidence.eligible
+                ? '符合此職業能力門檻'
+                : '尚不符合此職業能力門檻'}
             ；能力資格不代表有職缺、已獲聘或適齡。
           </p>
           <ul>
             {evidence.checks.map((x) => (
               <li key={x.name}>
-                {x.name}：{x.actual} ≥ {x.required} {x.actual >= x.required ? '✓' : '未達'}
+                {qualificationLabels[x.name] ?? x.name}：
+                {x.name === 'education' ? educationLabels[EDUCATION_LEVELS[x.actual]] : x.actual} ≥{' '}
+                {x.name === 'education'
+                  ? educationLabels[EDUCATION_LEVELS[x.required]]
+                  : x.required}{' '}
+                {x.actual >= x.required ? '✓' : '未達'}
               </li>
             ))}
           </ul>

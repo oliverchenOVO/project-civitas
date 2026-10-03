@@ -6,6 +6,9 @@ import { loadObservatory } from '../packages/application/src/save';
 import { verifyScenarios } from '../packages/application/src/scenarios';
 import { stateHash } from '../packages/shared/src/canonical';
 import { age } from '../packages/domain/src/index';
+import { advance } from '../packages/simulation/src/index';
+import { qualification } from '../packages/domain/src/occupations';
+import type { Occupation } from '../packages/domain/src/index';
 
 const version = JSON.parse(readFileSync('package.json', 'utf8')).version;
 const out = path.resolve('artifacts/qa/phase2a');
@@ -81,7 +84,25 @@ try {
     (c) => age(initial.state, c) >= 14 && age(initial.state, c) < 18,
   );
   assert.ok(children.length > 0);
-  await select(p, children[0].id);
+  // Predict only to choose a surviving subject; the native UI must independently
+  // generate and persist every event. No state is injected into the renderer.
+  const prediction = structuredClone(initial.state);
+  advance(prediction, 5475);
+  const subject = children.find((c) => {
+    const adult = prediction.citizens.find((x) => x.id === c.id)!;
+    return (
+      adult.lifecycleStatus === 'alive' &&
+      adult.humanCapital.adultComparison &&
+      prediction.events.some(
+        (e) => e.type === 'EDUCATION_COMPLETED' && e.actorIds.includes(c.id),
+      ) &&
+      prediction.events.some(
+        (e) => e.type === 'CITIZEN_HIRED' && e.actorIds.includes(c.id) && e.tick > 0,
+      )
+    );
+  });
+  assert.ok(subject);
+  await select(p, subject.id);
   await p.locator('.human-citizen').scrollIntoViewIfNeeded();
   assert.ok((await p.locator('.human-citizen').innerText()).includes('基礎'));
   await shot(p, 'child-education');
@@ -95,16 +116,18 @@ try {
   );
   await p.getByRole('button', { name: '暫停', exact: true }).click();
   const observed = await save(p);
-  const grown = children
-    .map((c) => observed.state.citizens.find((x) => x.id === c.id)!)
-    .find(
-      (c) =>
-        c.lifecycleStatus === 'alive' &&
-        observed.state.events.some(
-          (e) => e.type === 'CITIZEN_HIRED' && e.actorIds.includes(c.id) && e.tick > 0,
-        ),
-    );
+  const grown = observed.state.citizens.find((c) => c.id === subject.id);
   assert.ok(grown);
+  assert.equal(grown.lifecycleStatus, 'alive');
+  assert.ok(
+    observed.state.events.some(
+      (e) => e.type === 'EDUCATION_COMPLETED' && e.actorIds.includes(grown.id),
+    ),
+  );
+  assert.ok(
+    grown.humanCapital.skills.general > subject.humanCapital.skills.general ||
+      grown.humanCapital.skills.technical > subject.humanCapital.skills.technical,
+  );
   assert.ok(age(observed.state, grown) >= 25);
   assert.ok(grown.humanCapital.adultComparison);
   await select(p, grown.id);
@@ -140,7 +163,7 @@ try {
   mark(
     'Actual initial children become adults; native career qualification and age-25 origin comparison agree with recorded events; different origins are inspectable',
   );
-  await p.getByRole('button', { name: '人力發展', exact: true }).click();
+  await p.getByRole('button', { name: /^人力發展/ }).click();
   await p.getByRole('heading', { name: '人力發展與社會流動', exact: true }).waitFor();
   await p.getByLabel('社會流動同群', { exact: true }).selectOption('low');
   await shot(p, 'city-development-cohort');
@@ -162,13 +185,29 @@ try {
   await p.getByRole('button', { name: 'Replay A / B', exact: true }).click();
   await p.getByRole('status').filter({ hasText: 'Replay A / B 通過' }).waitFor({ timeout: 240000 });
   await shot(p, 'education-policy-comparison');
+  await p.getByText('高等 完成教育（成年 cohort）', { exact: true }).scrollIntoViewIfNeeded();
+  await shot(p, 'education-policy-outcomes');
+  await p.getByRole('button', { name: '兩分支推進 20 年', exact: true }).click();
+  await p
+    .getByRole('status')
+    .filter({ hasText: '兩分支各推進 7300 日' })
+    .waitFor({ timeout: 240000 });
+  await p.getByRole('button', { name: 'Replay A / B', exact: true }).click();
+  await p.getByRole('status').filter({ hasText: 'Replay A / B 通過' }).waitFor({ timeout: 240000 });
+  await p.getByText('高等 完成教育（成年 cohort）', { exact: true }).scrollIntoViewIfNeeded();
+  await shot(p, 'education-policy-20-year-outcomes');
   const persisted = await save(p);
   assert.ok(persisted.scenarios);
   assert.equal((await verifyScenarios(persisted.scenarios)).ok, true);
+  assert.equal(
+    persisted.scenarios.branches[0].state.day - persisted.scenarios.checkpoint.day,
+    10950,
+  );
+  writeFileSync(path.join(out, 'education-scenarios.civitas'), readFileSync(file, 'utf8'));
   assert.equal(persisted.scenarios.branches[1].state.commands.at(-1)?.command.type, 'SET_POLICY');
   const integrity = await stateHash(persisted);
   mark(
-    'Native higher-education policy branch runs ten years with real budget accounts, education/mobility comparison and identical A/B replay',
+    'Native higher-education policy branches run 10 then 20 years with real budget accounts, education/mobility/class comparison and identical A/B replay',
   );
   await close();
   p = await launch();
@@ -180,7 +219,7 @@ try {
   await dialogs(legacy);
   await p.getByRole('button', { name: '載入', exact: true }).click();
   await p.getByRole('status').filter({ hasText: '城市已載入' }).waitFor();
-  await p.getByRole('button', { name: '人力發展', exact: true }).click();
+  await p.getByRole('button', { name: /^人力發展/ }).click();
   await shot(p, 'legacy-availability');
   await dialogs(file);
   const migrated = await save(p);
@@ -188,6 +227,21 @@ try {
   assert.equal(migrated.history.humanDevelopment.availableFromDay, 30);
   assert.ok(migrated.state.citizens.every((c) => c.humanCapital.provenance === 'legacy-inferred'));
   assert.equal((await verifyScenarios(migrated.scenarios!)).ok, true);
+  const retained = migrated.state.citizens.find(
+    (c) =>
+      c.employmentStatus === 'employed' &&
+      c.humanCapital.legacyOccupation &&
+      !qualification(c, c.occupation as Occupation).checks.every((x) => x.actual >= x.required),
+  );
+  assert.ok(retained);
+  await select(p, retained.id);
+  const legacySection = p.locator('.human-citizen');
+  await legacySection.getByRole('button', { name: '職涯', exact: true }).click();
+  await legacySection
+    .getByLabel('檢查職業資格', { exact: true })
+    .selectOption(retained.occupation!);
+  assert.ok((await legacySection.innerText()).includes('既有遷移任用可保留；未達新版招聘能力門檻'));
+  await shot(p, 'legacy-retained-job-qualification');
   mark(
     'Genuine released v0.2.0 save loads through native IPC, exposes the upgrade availability boundary, saves as v3 and preserves branch replay',
   );
@@ -197,7 +251,7 @@ try {
     const mobile = await browser.newPage({ viewport: { width: 390, height: 844 } });
     watch(mobile);
     await mobile.goto('http://127.0.0.1:4173/');
-    await mobile.getByRole('button', { name: '人力發展', exact: true }).click();
+    await mobile.getByRole('button', { name: /^人力發展/ }).click();
     await mobile.getByLabel('社會流動同群', { exact: true }).selectOption('tertiary');
     assert.equal(await mobile.evaluate(() => document.body.scrollWidth > innerWidth), false);
     await shot(mobile, 'development-mobile');
