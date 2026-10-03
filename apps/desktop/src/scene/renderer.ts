@@ -82,6 +82,7 @@ export class CityScene {
       this.hovered = undefined;
       this.hover('');
       this.drawSelection();
+      this.app.render();
     });
     app.stage.addChild(this.root);
   }
@@ -129,12 +130,10 @@ export class CityScene {
       // Irregular cadastral ground, never dashboard containers.
       ground.poly(flat(d.polygon)).fill({ color: colors[d.character], alpha: 0.3 });
       for (const block of d.blocks) {
-        ground
-          .poly(flat(corners(block)))
-          .fill({
-            color: block.garden ? 0x2d493b : colors[d.character],
-            alpha: block.garden ? 0.65 : 0.18,
-          });
+        ground.poly(flat(corners(block))).fill({
+          color: block.garden ? 0x2d493b : colors[d.character],
+          alpha: block.garden ? 0.65 : 0.18,
+        });
       }
     }
     // Landscape texture has no entity IDs and never stands in for inhabitants.

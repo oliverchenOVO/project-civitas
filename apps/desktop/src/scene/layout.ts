@@ -129,7 +129,7 @@ const styles = {
     height: 169,
     angle: 0.08,
     tags: 'BUSINESS · CULTURE',
-    label: { x: 757, y: 536 },
+    label: { x: 757, y: 508 },
   },
 } as const;
 
@@ -150,8 +150,10 @@ export function createCityLayout(s: CityState): CityLayout {
         style.origin,
         angle,
       );
-    const cols = Math.ceil((style.character === 'industrial' ? 5 : 6) * density);
-    const rows = Math.ceil(4 * density);
+    const cols = Math.ceil(
+      (style.character === 'industrial' ? 5 : style.character === 'historic' ? 7 : 6) * density,
+    );
+    const rows = Math.ceil((style.character === 'historic' ? 5 : 4) * density);
     const cw = style.width / cols,
       ch = style.height / rows;
     const blocks: Block[] = [],

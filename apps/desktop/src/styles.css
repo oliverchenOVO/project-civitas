@@ -1215,6 +1215,7 @@ tbody tr:hover {
   font-size: 15px;
   font-weight: 400;
   letter-spacing: 0.3px;
+  line-height: 1.2;
 }
 .district-label small {
   font:
@@ -1222,10 +1223,12 @@ tbody tr:hover {
     sans-serif;
   letter-spacing: 0.6px;
   color: #bac9c5;
+  line-height: 1.2;
 }
 .district-label > span {
   font-size: 9px;
   color: #92a8b0;
+  line-height: 1.2;
 }
 .district-label.chosen {
   border-color: var(--district-color);
@@ -1294,6 +1297,13 @@ tbody tr:hover {
   }
   .district-label strong {
     font-size: 12px;
+  }
+  .district-label small,
+  .district-label > span {
+    display: none;
+  }
+  .map-host {
+    height: 300px;
   }
   .district-label small {
     font-size: 7px;
