@@ -54,6 +54,9 @@ importers:
       playwright:
         specifier: ^1.55.0
         version: 1.63.0
+      prettier:
+        specifier: ^3.9.9
+        version: 3.9.9
       tsx:
         specifier: ^4.20.0
         version: 4.23.15
@@ -71,6 +74,30 @@ importers:
         version: 3.2.7(@types/debug@4.1.13)(@types/node@24.19.1)(jiti@2.7.0)(supports-color@7.2.0)(tsx@4.23.15)
 
   packages/application: {}
+
+  packages/domain: {}
+
+  packages/narrative:
+    dependencies:
+      '@civitas/domain':
+        specifier: workspace:*
+        version: link:../domain
+
+  packages/shared: {}
+
+  packages/simulation:
+    dependencies:
+      '@civitas/domain':
+        specifier: workspace:*
+        version: link:../domain
+      '@civitas/shared':
+        specifier: workspace:*
+        version: link:../shared
+      zod:
+        specifier: ^4.1.0
+        version: 4.6.5
+
+  packages/ui: {}
 
 packages:
 
@@ -1842,6 +1869,11 @@ packages:
   prelude-ls@1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
+
+  prettier@3.9.9:
+    resolution: {integrity: sha512-Z/CJHIkdujO/OtN7nXUii0Rf3VT5SRuhjBA82Xvu2XhBUgX3nhP67T0LHceBdQLex7OOFGTox+Q5Yg8Jk2Qivg==}
+    engines: {node: '>=14'}
+    hasBin: true
 
   proc-log@6.1.0:
     resolution: {integrity: sha512-iG+GYldRf2BQ0UDUAd6JQ/RwzaQy6mXmsk/IzlYyal4A4SNFw54MeH4/tLkF4I5WoWG9SQwuqWzS99jaFQHBuQ==}
@@ -4115,11 +4147,11 @@ snapshots:
 
   node-abi@4.35.0:
     dependencies:
-      semver: 7.7.4
+      semver: 7.8.5
 
   node-api-version@0.2.1:
     dependencies:
-      semver: 7.7.4
+      semver: 7.8.5
 
   node-gyp@12.4.0:
     dependencies:
@@ -4128,7 +4160,7 @@ snapshots:
       graceful-fs: 4.2.11
       nopt: 9.0.0
       proc-log: 6.1.0
-      semver: 7.7.4
+      semver: 7.8.5
       tar: 7.5.22
       tinyglobby: 0.2.17
       undici: 6.29.0
@@ -4240,6 +4272,8 @@ snapshots:
     optional: true
 
   prelude-ls@1.2.1: {}
+
+  prettier@3.9.9: {}
 
   proc-log@6.1.0: {}
 

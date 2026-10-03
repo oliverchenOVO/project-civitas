@@ -1,1 +1,6 @@
-{"name":"@civitas/application","version":"0.1.0","private":true,"type":"module"}
+{
+  "name": "@civitas/application",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module"
+}

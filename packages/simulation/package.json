@@ -1,0 +1,11 @@
+{
+  "name": "@civitas/simulation",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@civitas/domain": "workspace:*",
+    "@civitas/shared": "workspace:*",
+    "zod": "^4.1.0"
+  }
+}

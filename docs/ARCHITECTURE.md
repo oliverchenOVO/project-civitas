@@ -1,0 +1,13 @@
+# Architecture — implemented Phase 1
+
+`packages/domain` defines plain entity, event and command types. `packages/simulation` owns the sole canonical CityState: creation, daily systems, commands, event ledger and save/replay validation. `packages/shared` supplies ordered serialization and browser/Node-compatible SHA-256. `packages/application` owns CityController, real-time speed, subscriptions and simulation orchestration. `packages/narrative` reads DomainEvent through NarrativeProvider and TemplateNarrativeProvider. `apps/desktop` composes React, PixiJS, Recharts and Electron. `packages/ui` reserves the extraction boundary for future shared components; current components live with the desktop renderer.
+
+Imports flow from the renderer to application to simulation to domain. Domain/simulation never import React, Electron, PixiJS, narrative, Zustand or wall-clock APIs. Controller uses performance.now only for diagnostics outside canonical truth. Simulation state is a controller-owned object, not a Zustand store; Zustand contains navigation, selection, notice and citizen filter. useSyncExternalStore publishes revision changes for React.
+
+Pixi maps actual buildings, units, companies and household residents; schematic positions/layout are presentation, not physical movement or simulated traffic. No city screenshot is shipped as the map. There is no second mock city, backend or API dependency. Charts show only actual 30-day snapshots; insufficient history displays a factual empty state.
+
+Entity stores retain historical citizens, bankrupt companies and events. IDs come from one monotonic deterministic counter. WeakMap lookup caches are ephemeral references into stores, rebuilt after collection growth, and excluded from saves/hashes. Arrays determine system traversal and tie-breaking uses ordinal IDs. A versioned fixed system pipeline supplies all simulation progression.
+
+Electron uses contextIsolation, sandboxed preload, no renderer Node access, denied window creation/navigation and two sender-validated IPC operations. Saving writes a temporary sibling file then renames it; loading checks the size and the renderer validates full structure, integrity and invariants before replacing the live city. Browser-mode download/upload shares the exact persistence implementation.
+
+Phase 1 deliberately runs on one thread. Benchmark evidence justified indexed lookups; workers, Rust and WASM were not introduced. The UI limits Max to 30 deterministic ticks per 500 ms batch. Exact ticks and commands, rather than real duration, define replay inputs.

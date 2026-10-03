@@ -1,0 +1,11 @@
+# Civic Observatory design contract
+
+Concept: `observatory-concept.png`, generated with built-in Image Gen. Full desktop shell reference, 1536×1024.
+
+Tokens: background #101b25, surface #182632, border #30424e, foreground #edf2ef, secondary #92a5b3, mint #8fd7c1, gold #d4b778. Dark slate civic observatory, no neon. Serif CIVITAS wordmark, Segoe UI/Microsoft JhengHei controls. Header 78px, footer 34px; navigation 185px, main flexible, right rail 330px. Header contains date, speed, day step, save/load/new. Five requested navigation pages. Main uses canvas/table/list/policy rows; right rail uses open metric rows and a real selected entity inspector. Button radii 5px, panel radii 6px. Motion is restrained hover transitions and respects reduced motion.
+
+Production UI copy is Traditional Chinese for the user's locale, with CIVITAS, City Map, City Pulse and English entity names. Browser controls, text, tables and news are code-native. Icons use coherent Lucide outlines. No image-generated control or city image is used as interactive UI.
+
+Intentional concept deviations required by the user's Phase 1 truth/scope rules: a deterministic schematic map replaces the illustrative road/aerial map; no train routes, daily breakfast, trips, hour clock, invented percent deltas, fictitious employer or claims of simulation transport. Four actual district footprints, actual entities and employment dots take their place. Metrics are open rows, giving enough room for real numbers and inspector text. Event feed is a factual page plus recent city events, rather than an invented intraday timetable. Initial relationships are starting facts, not invented marriage biographies. Native implementation data replaces all example concept values.
+
+Desktop at 1536×1024 and 1280×800; responsive additional browser check at 390×844. Tables scroll inside the main surface. Native minimum window is 960×700. At narrow width, full nav text collapses, right rail moves below main, and header wraps. Selection compresses metrics to expose the inspector. Focus rings and accessible names are applied to icon controls. The final fidelity/visual QA findings belong in PHASE1_REPORT, with actual screenshots; the illustrative concept is not an assertion that Phase 1 implements traffic or raster city art.
