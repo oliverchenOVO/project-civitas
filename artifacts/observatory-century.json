@@ -1,0 +1,79 @@
+{
+  "passed": true,
+  "initialPopulation": 1000,
+  "years": 100,
+  "growth": [
+    {
+      "year": 10,
+      "population": 1048,
+      "events": 27294,
+      "historyBytes": 6824970
+    },
+    {
+      "year": 20,
+      "population": 989,
+      "events": 52242,
+      "historyBytes": 13830258
+    },
+    {
+      "year": 30,
+      "population": 869,
+      "events": 56941,
+      "historyBytes": 21130651
+    },
+    {
+      "year": 40,
+      "population": 726,
+      "events": 62716,
+      "historyBytes": 28756306
+    },
+    {
+      "year": 50,
+      "population": 604,
+      "events": 66355,
+      "historyBytes": 36493973
+    },
+    {
+      "year": 60,
+      "population": 462,
+      "events": 78228,
+      "historyBytes": 44323818
+    },
+    {
+      "year": 70,
+      "population": 340,
+      "events": 130596,
+      "historyBytes": 52229330
+    },
+    {
+      "year": 80,
+      "population": 252,
+      "events": 167200,
+      "historyBytes": 60229751
+    },
+    {
+      "year": 90,
+      "population": 162,
+      "events": 168244,
+      "historyBytes": 68365265
+    },
+    {
+      "year": 100,
+      "population": 104,
+      "events": 168672,
+      "historyBytes": 76563528
+    }
+  ],
+  "advanceMs": 16888.476599999998,
+  "saveMs": 5748.770199999999,
+  "loadMs": 7073.344800000003,
+  "saveBytes": 14138575,
+  "encoding": "gzip-base64",
+  "truthHash": "e9aa92f368380e5c24a795c2ba4785bee6eb4bff4e8780b5879e95525171be01",
+  "continuationVerified": true,
+  "historyIntegrityVerified": true,
+  "compressedTamperRejected": true,
+  "dailySamples": 400,
+  "monthlyPeriods": 1201,
+  "yearlyPeriods": 101
+}

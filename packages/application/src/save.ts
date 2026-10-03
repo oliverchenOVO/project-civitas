@@ -64,6 +64,7 @@ const saveSchema = z
         simulationVersion: z.literal(SIMULATION_VERSION),
         simulationTruthHash: hash,
         containerIntegrityHash: hash,
+        encoding: z.enum(['json', 'gzip-base64']).optional(),
       })
       .strict(),
     body: bodySchema,
@@ -133,15 +134,23 @@ function validateBody(body: ObservatorySave) {
 }
 export async function saveObservatory(body: ObservatorySave) {
   validateBody(body);
-  return JSON.stringify({
-    manifest: {
-      saveVersion: 2,
-      simulationVersion: SIMULATION_VERSION,
-      simulationTruthHash: await stateHash(body.state),
-      containerIntegrityHash: await stateHash(body),
-    },
-    body,
-  });
+  const manifest = {
+    saveVersion: 2,
+    simulationVersion: SIMULATION_VERSION,
+    simulationTruthHash: await stateHash(body.state),
+    containerIntegrityHash: await stateHash(body),
+    encoding: 'json' as 'json' | 'gzip-base64',
+  };
+  const text = JSON.stringify(body);
+  if (text.length > 500_000_000) throw new Error('Expanded save exceeds 500 MB limit');
+  if (text.length <= 1_000_000) return JSON.stringify({ manifest, body });
+  const stream = new Blob([text]).stream().pipeThrough(new CompressionStream('gzip'));
+  const bytes = new Uint8Array(await new Response(stream).arrayBuffer());
+  let binary = '';
+  for (let offset = 0; offset < bytes.length; offset += 32768)
+    binary += String.fromCharCode(...bytes.subarray(offset, offset + 32768));
+  manifest.encoding = 'gzip-base64';
+  return JSON.stringify({ manifest, compressedPayload: btoa(binary) });
 }
 export const MIGRATIONS = {
   1: (state: CityState): ObservatorySave => ({
@@ -154,6 +163,39 @@ export async function loadObservatory(text: string): Promise<ObservatorySave> {
   if (text.length > 100_000_000) throw new Error('Save exceeds 100 MB limit');
   const input = JSON.parse(text);
   if (input?.manifest?.saveVersion === 1) return MIGRATIONS[1](await loadCity(text));
+  if (input?.manifest?.encoding === 'gzip-base64') {
+    const encoded = z
+      .object({ manifest: saveSchema.shape.manifest, compressedPayload: z.string() })
+      .strict()
+      .parse(input);
+    const bytes = Uint8Array.from(atob(encoded.compressedPayload), (c) => c.charCodeAt(0));
+    const reader = new Blob([bytes])
+      .stream()
+      .pipeThrough(new DecompressionStream('gzip'))
+      .getReader();
+    const chunks: Uint8Array[] = [];
+    let size = 0;
+    try {
+      while (true) {
+        const item = await reader.read();
+        if (item.done) break;
+        size += item.value.length;
+        if (size > 500_000_000) throw new Error('Expanded save exceeds 500 MB limit');
+        chunks.push(item.value);
+      }
+    } finally {
+      await reader.cancel();
+      reader.releaseLock();
+    }
+    const expanded = new Uint8Array(size);
+    let offset = 0;
+    for (const chunk of chunks) {
+      expanded.set(chunk, offset);
+      offset += chunk.length;
+    }
+    input.body = JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(expanded));
+    delete input.compressedPayload;
+  }
   const save = saveSchema.parse(input),
     body = save.body as ObservatorySave;
   if ((await stateHash(body)) !== save.manifest.containerIntegrityHash)
