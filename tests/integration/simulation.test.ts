@@ -46,6 +46,8 @@ describe('deterministic primitives', () => {
       'calendarSystem',
       'demographySystem',
       'householdSystem',
+      'educationSystem',
+      'careerSystem',
       'employmentSystem',
       'incomeSystem',
       'governmentSystem',
@@ -54,6 +56,8 @@ describe('deterministic primitives', () => {
       'housingSystem',
       'relationshipSystem',
       'migrationSystem',
+      'familyFormationSystem',
+      'mobilitySystem',
       'metricsSystem',
       'eventAggregationSystem',
     ]);

@@ -2,6 +2,7 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 import { createCity, advance } from '../packages/simulation/src/index';
 import { checkInvariants } from '../packages/simulation/src/invariants';
 import { stateHash } from '../packages/shared/src/canonical';
+import { humanDevelopment } from '../packages/application/src/human-development';
 const results = [];
 for (let i = 0; i < 100; i++) {
   const seed = `CIVITAS-STABILITY-${i}`;
@@ -14,6 +15,8 @@ for (let i = 0; i < 100; i++) {
     }
     results.push({
       seed,
+      simulationVersion: s.simulationVersion,
+      humanDevelopment: humanDevelopment(s),
       days: s.day,
       population: s.metrics.population,
       companies: s.metrics.companies,

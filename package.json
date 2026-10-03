@@ -1,6 +1,6 @@
 {
   "name": "project-civitas",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -16,7 +16,8 @@
     "qa:desktop": "tsx scripts/desktop-qa.ts",
     "qa:scene": "tsx scripts/scene-qa.ts",
     "qa:observatory": "tsx scripts/observatory-qa.ts",
-    "benchmark:observatory": "tsx scripts/observatory-benchmark.ts"
+    "benchmark:observatory": "tsx scripts/observatory-benchmark.ts",
+    "benchmark:human": "tsx scripts/human-development-benchmark.ts"
   },
   "main": "apps/desktop/electron/main.cjs",
   "dependencies": {
@@ -50,7 +51,7 @@
     "appId": "studio.civitas.observatory",
     "productName": "Project CIVITAS",
     "directories": {
-      "output": "release/0.2.1",
+      "output": "release/0.3.0",
       "app": ".desktop-runtime"
     },
     "files": [

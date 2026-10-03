@@ -85,7 +85,7 @@ try {
   const observed = await save(page);
   assert.ok(observed.state.day >= 1825);
   assert.equal(observed.history.yearly.filter((p) => p.count === 365).length, 5);
-  mark('Native city advances 5 years; v2 save contains real observed metric/entity history');
+  mark('Native city advances 5 years; v3 save contains real observed metric/entity history');
   await page.getByRole('button', { name: '解釋失業率', exact: true }).click();
   await page.getByRole('heading', { name: '勞動人口失業率', exact: true }).waitFor();
   await page.getByRole('button', { name: '10 年 / 月採樣', exact: true }).click();

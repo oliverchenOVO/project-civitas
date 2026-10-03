@@ -14,6 +14,7 @@ for (const population of [100, 250, 500, 1000]) {
   }
   const ms = performance.now() - start;
   const row = {
+    simulationVersion: s.simulationVersion,
     initialPopulation: population,
     years: 10,
     day: s.day,

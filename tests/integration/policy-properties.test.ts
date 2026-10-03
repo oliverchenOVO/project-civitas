@@ -34,23 +34,40 @@ describe('bounded policy sequence properties', () => {
       rng ^= rng << 5;
       return (rng >>> 0) % max;
     };
-    const s = createCity({ seed, population: 100 }),
-      commands: Command[] = [];
+    let s = createCity({ seed, population: 100 });
+    const commands: Command[] = [];
     try {
       for (let i = 0; i < 24; i++) {
-        const choice = pick(5),
-          keys: (keyof Policies)[] = ['incomeTax', 'corporateTax', 'welfare', 'minimumWage'];
+        const choice = pick(8),
+          keys: (keyof Policies)[] = [
+            'incomeTax',
+            'corporateTax',
+            'welfare',
+            'minimumWage',
+            'publicEducationFunding',
+            'vocationalFunding',
+            'higherEducationSubsidy',
+          ];
         const command: Command =
-          choice === 4 && s.government.cash >= 800000
+          choice === 7 && s.government.cash >= 800000
             ? { type: 'BUILD_HOUSING', districtId: s.districts[pick(4)].id, units: 1 }
             : {
                 type: 'SET_POLICY',
-                key: keys[choice % 4],
-                value: pick(choice % 4 < 2 ? 6001 : choice % 4 === 2 ? 300001 : 600001),
+                key: keys[choice % 7],
+                value: pick(
+                  choice % 7 < 2
+                    ? 6001
+                    : choice % 7 === 2
+                      ? 300001
+                      : choice % 7 === 3
+                        ? 600001
+                        : 100001,
+                ),
               };
         commands.push(command);
         applyCommand(s, command);
         advance(s, 15);
+        if (i % 6 === 0) s = await loadCity(await saveCity(s));
         expect(checkInvariants(s), `seed=${seed}, step=${i}`).toEqual([]);
         expect(
           s.citizens.every(
