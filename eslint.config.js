@@ -6,6 +6,7 @@ export default tseslint.config(
       'dist/**',
       'release/**',
       '.desktop-runtime/**',
+      'artifacts/qa/**',
       'apps/desktop/electron/**',
     ],
   },

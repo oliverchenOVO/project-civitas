@@ -1,0 +1,28 @@
+{
+  "passed": false,
+  "testedAt": "2026-10-03T16:00:31.2833362+08:00",
+  "results": [
+    {
+      "executable": "release/0.1.0/win-unpacked/Project CIVITAS.exe",
+      "launched": true,
+      "title": "Project CIVITAS",
+      "nativeWindowClosed": true,
+      "processExited": false,
+      "launcherExited": false,
+      "normalWindowClose": false,
+      "exitCode": null,
+      "shutdownMs": 60032.0
+    },
+    {
+      "executable": "release/0.1.0/CIVITAS-0.1.0-Windows-portable.exe",
+      "launched": true,
+      "title": "Project CIVITAS",
+      "nativeWindowClosed": true,
+      "processExited": false,
+      "launcherExited": false,
+      "normalWindowClose": false,
+      "exitCode": null,
+      "shutdownMs": 60037.0
+    }
+  ]
+}

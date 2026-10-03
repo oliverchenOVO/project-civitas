@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "executable": "F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\release\\0.1.0\\win-unpacked\\Project CIVITAS.exe",
+  "viewports": [
+    "1536×1024",
+    "1280×800",
+    "390×844"
+  ],
+  "steps": [
+    "Packaged app launches and creates seeded 250-person city",
+    "20x advances and Pause stops simulation",
+    "Citizen search, employment filter, inspector and real life history",
+    "Citizen employer link opens actual company finances and history",
+    "Tax policy command and funded construction modify simulation",
+    "News displays real policy event and related entities",
+    "Native IPC writes validated versioned save including command ledger",
+    "Close, relaunch, load restores identical canonical SHA-256",
+    "Continued packaged simulation equals uninterrupted run and full replay",
+    "UI replay verification reports matching SHA-256",
+    "1000-person city creates, renders and advances at 1280×800",
+    "1x, 5x and bounded Max all advance the actual 1000-citizen city",
+    "390×844 responsive browser layout and policy controls render without body overflow"
+  ],
+  "consoleErrors": [],
+  "dialogAutomation": "Native dialog result paths controlled by test harness; actual packaged IPC/filesystem/save validation exercised. Test-owned packaged process trees are terminated to avoid the Windows CDP quit hang; normal window-close behavior is not asserted by this harness.",
+  "saveHash": "9a3d773536cffa3ac9c58db25500cb9ecb730bc002fcceef80038267957b5956"
+}

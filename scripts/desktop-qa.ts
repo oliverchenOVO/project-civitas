@@ -188,7 +188,8 @@ try {
   await closeTestApp(app);
   desktop = undefined;
   // Browser responsive QA in addition to the real packaged Windows executable.
-  const browser = await chromium.launch({ channel: 'msedge', headless: true });
+  const browserServer = await chromium.launchServer({ channel: 'msedge', headless: true });
+  const browser = await chromium.connect(browserServer.wsEndpoint());
   try {
     const mobile = await browser.newPage({ viewport: { width: 390, height: 844 } });
     watch(mobile);
@@ -205,7 +206,9 @@ try {
     await screenshot(mobile, 'government-mobile');
     mark('390×844 responsive browser layout and policy controls render without body overflow');
   } finally {
-    await browser.close();
+    execFileSync('taskkill', ['/PID', String(browserServer.process().pid), '/T', '/F'], {
+      stdio: 'ignore',
+    });
   }
   assert.deepEqual(errors, []);
   writeFileSync(
@@ -226,6 +229,7 @@ try {
     ),
   );
   console.log(`PASS: ${steps.length} desktop/responsive checks, no console errors.`);
+  process.exit(0);
 } catch (e) {
   writeFileSync(
     'artifacts/desktop-qa.json',
