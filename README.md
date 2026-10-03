@@ -4,8 +4,8 @@
 
 ## 使用
 
-Phase 1.1 觀測與調查版：`release/0.2.0/CIVITAS-0.2.0-Windows-portable.exe`。
-也可執行 `release/0.2.0/win-unpacked/Project CIVITAS.exe`（必須保留同資料夾其他檔案）。Phase 1A 的本地 0.1.1 成品與既有 GitHub v0.1.0 release 保留。
+Phase 1.1 加上 3D 城市視角版：`release/0.2.1/CIVITAS-0.2.1-Windows-portable.exe`。
+也可執行 `release/0.2.1/win-unpacked/Project CIVITAS.exe`（必須保留同資料夾其他檔案）。先前 0.2.0、0.1.1 成品與既有 GitHub v0.1.0 release 保留。
 
 1. 用右上角「＋」輸入種子，選擇 100／250／500／1000 人。
 2. 透過 1x／5x／20x／Max 推進；「前進一天」可逐日觀察。
@@ -16,6 +16,7 @@ Phase 1.1 觀測與調查版：`release/0.2.0/CIVITAS-0.2.0-Windows-portable.exe
 7. 點 City Pulse 指標，再按 Explain，查看真正的居民、企業與相關事件；事件可追查已記錄的原因與後果。
 8. 「城市歷史」查看年度回顧；「Focus on Map」回到實體目前可定位的位置，「Back」恢復調查脈絡。
 9. 「情境比較」從目前城市建立 A/B 分支，調整 B 政策，推進 30 日／1 年／5 年並驗證雙分支重播。
+10. 地圖左下方可連續調整 0°–90° 仰角，或使用俯視／斜視／水平按鈕。拖曳旋轉、右鍵平移、滾輪縮放；觸控可雙指操作。選取實體後可「靠近選取」，返回城市會恢復相機位置。「全螢幕」可用退出按鈕或 Esc 離開。聚焦地圖後，方向鍵控制角度，＋／－縮放，R 重設。
 
 新版存檔包含每日／月度／年度觀測及政策分支。舊 v1 存檔可以載入，詳細數值歷史從載入日開始；先前未記錄的數值不會被補造。
 
@@ -46,10 +47,10 @@ pnpm qa:scene
 pnpm qa:observatory
 pnpm benchmark:observatory
 pnpm exec tsx scripts/observatory-longrun.ts
-pwsh -NoProfile -File scripts/native-close-qa.ps1 -AppVersion 0.2.0 -CasePrefix observatory-acceptance -ReportName observatory-native-close-qa.json
+pwsh -NoProfile -File scripts/native-close-qa.ps1 -AppVersion 0.2.1 -CasePrefix spatial-confirmation -ReportName scene-3d-native-close-qa.json
 ```
 
-基準與種子掃描寫入 `artifacts/`，實際桌面 QA 與螢幕圖寫入 `artifacts/qa/`。請見 [Phase 1.1 驗收報告](docs/PHASE1_1_REPORT.md)、[Phase 1A 場景報告](docs/SCENE_REMASTER_REPORT.md) 與 [Phase 1 報告](docs/PHASE1_REPORT.md)。地圖圖層可切換居民、住宅及企業；點位表示真實住所，地標與比例尺是空間示意。
+基準與種子掃描寫入 `artifacts/`，實際桌面 QA 與螢幕圖寫入 `artifacts/qa/`。請見 [Phase 1.1 與 3D 更新驗收報告](docs/PHASE1_1_REPORT.md)、[Phase 1A 場景報告](docs/SCENE_REMASTER_REPORT.md) 與 [Phase 1 報告](docs/PHASE1_REPORT.md)。3D 地圖圖層可切換居民、住宅及企業；點位表示真實住所，建築高度、地標與街景外觀是視覺示意，並非新增樓層或交通模擬資料。
 
 ## 原則
 

@@ -1,6 +1,6 @@
 {
   "passed": true,
-  "appVersion": "0.2.0",
+  "appVersion": "0.2.1",
   "checks": [
     "Native city advances 5 years; v2 save contains real observed metric/entity history",
     "Unemployment detail shows actual trend, deltas, recorded job losses and contribution/association distinction",
@@ -19,12 +19,12 @@
   "timings": [
     {
       "phase": "250-person retained scene + recorded causal affected overlay, 20 updates",
-      "meanMs": 7.014999999999999,
+      "meanMs": 2.715,
       "refs": 3
     }
   ],
   "saveTruthHash": "03252a21de5d74f48a3cbe9d053b6b9a65927d14a42a0ba7c4e82e3bf71a3666",
   "containerIntegrityHash": "619978ca03dd1f85f9c468b55cb8974c6f67bb46f7180061940113811b7cf0b8",
   "screenshots": "artifacts/qa/phase1-1",
-  "testedAt": "2026-10-03T15:09:15.988Z"
+  "testedAt": "2026-10-03T16:03:31.421Z"
 }

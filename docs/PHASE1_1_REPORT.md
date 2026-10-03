@@ -143,3 +143,34 @@ Daily detail older than 400 days is represented by monthly/annual observations; 
 | Compare two deterministic policy histories? | Shared checkpoint → B minimum wage → 30/365/1825-day runs → both replay → normal close/reload/replay |
 
 All six journeys are verified: **PHASE 1.1 COMPLETE**.
+
+## Post Phase 1.1: 3D city presentation, local 0.2.1
+
+The requested ground-parallel to perpendicular camera is implemented in the existing desktop application. Three.js 0.186.1 replaces the active flat renderer with a perspective WebGL scene: actual parcel buildings have deterministic body heights, pitched roofs, facade windows and foundations; bridges have raised decks, rails and piers; roads, river, trees, shadows and district landmarks provide depth. The supplied city illustration guides the palette and district identity. This is procedural city massing, with the existing street layout and actual population density; it does not yet reproduce the illustration's organic streets or landmark art quality.
+
+Camera elevation is continuous **0°–90°** with three preset buttons, full azimuth rotation, zoom, pan, selection focus and reset. Drag rotates, right drag pans and wheel zooms; touch uses OrbitControls gestures. Focused canvas supports arrows, +/− and R. Fullscreen has an explicit exit button and Escape handler. Back restores the target and camera alongside the investigation context. Raycasting opens actual resident/company IDs; hidden layers do not leave their facade decorations visible.
+
+Building heights, trees and landmarks are presentation only. Resident markers identify current recorded addresses, not pedestrians. No simulation/domain/application/shared rule or original parcel-layout source changed. Camera actions, selection, layers and fullscreen preserve a native saved canonical city hash. No building floor counts, traffic, GIS, past addresses or new simulation actors are inferred from this view.
+
+The renderer uses instanced buildings/resident markers and merged static geometry. Rendering is demand-driven with a coalesced animation-frame request; orbit damping is disabled. Unmount cancels the frame, disconnects resize observation, removes listeners, disposes controls/geometries/materials/textures/shadows and the WebGL renderer. Visual randomization does not use simulation RNG. The two new endpoint/massing tests exercise full camera orbits and canonical state isolation.
+
+| Validation on the final 0.2.1 package | Result |
+|---|---|
+| Typecheck / lint / unit and integration tests | Passed; **91 tests** |
+| Native 3D scene and responsive QA | **9 checks passed**, zero console errors; actual 90°/45°/0° screenshots, raycast selection and saved-truth isolation |
+| Existing desktop journeys | **13 passed**, including save, continuation and replay |
+| Observatory journeys | **12 passed**, including life/history/causality/affected map and A/B scenarios |
+| Fresh packed payload | **6 files** byte-match final renderer/main/preload build |
+| Retained canonical baseline artifacts | All four ten-year hashes and 100 seed hashes still match; the simulation source is unchanged. The long-run benchmark/stability sweep was not rerun for this visual-only change |
+| Native 1000-person scene, 20 days | Mean CPU data/instance/overlay update **6.12 ms**, **22 draw calls**; excludes GPU time and is not an FPS measurement |
+| Strict native WM_CLOSE gate | **Not passed**; see the exit evidence below |
+
+Browser plugin was unavailable; testing used the project's native Playwright Electron harness plus Edge responsive checks. Evidence: [3D QA](../artifacts/scene-3d-qa.json), [desktop QA](../artifacts/desktop-qa.json), [observatory QA](../artifacts/observatory-qa.json), [payload/baseline comparison](../artifacts/scene-3d-regression.json). The older 0.2.0 evidence is preserved at `v0.2.0`.
+
+Two intermediate UI failures remain recorded: an early hover test used projected coordinates before the demanded frame rendered; the harness now waits for a new frame and chooses a canvas target unobscured by controls. Fullscreen Escape initially did not exit in packaged Electron; the explicit application handler fixed it and the final complete scene QA passed. [Initial selection evidence](../artifacts/scene-3d-qa-initial.json), [fullscreen evidence](../artifacts/scene-3d-qa-fullscreen.json).
+
+The native close investigation must **not** be reported as 6/6 accepted. In the [first six-run gate](../artifacts/scene-3d-native-close-qa-initial.json), all processes exited voluntarily, but one portable final identity-absence check completed at **11,117 ms**, outside the strict ten-second gate (kernel exit at 9,077 ms). A [confirmation run](../artifacts/scene-3d-native-close-qa.json) passed all three unpacked cases and two of three portable cases; portable case 2 still had its wrapper, main and GPU process observed at timeout and required separate test-owned cleanup. That case is a failure and cleanup is not counted as success. No deadline was relaxed, and no lifecycle workaround was added. This confirms the previously documented sporadic portable latency remains unresolved; it does not establish a Three.js root cause. The unpacked executable is the recommended entry for this local delivery. Raw observations are retained in `artifacts/qa/exit-spatial-acceptance-*` and `exit-spatial-confirmation-*` locally.
+
+Verified screenshots: [90° top](design/scene-3d-top.png), [45° oblique](design/scene-3d-oblique.png), [0° horizontal](design/scene-3d-horizontal.png), [1000 residents](design/scene-3d-city-1000.png), [fullscreen](design/scene-3d-fullscreen.png), [390×844 mobile](design/scene-3d-mobile.png).
+
+Local portable `release/0.2.1/CIVITAS-0.2.1-Windows-portable.exe`: **85,639,586 bytes**, SHA-256 `37b7b33984084eab4b2ea5db508994194229a7dfabe1adf92782e02800d9f5aa`. Unpacked entry `release/0.2.1/win-unpacked/Project CIVITAS.exe` needs its companion folder. Electron 38.8.6 / Chromium 140.0.7339.249 / Node 22.22.0 remain unchanged. The 0.2.0 portable still has SHA-256 `f8d4974482ff0ee77bccc206e2ce452cadd6ced34009681c42739ed84552f697`. No new remote release or push is claimed. The local 3D delivery is tracked by `v0.2.1`; its stricter portable exit limitation is recorded above.

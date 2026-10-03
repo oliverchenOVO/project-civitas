@@ -1,0 +1,99 @@
+{
+  "appVersion": "0.2.1",
+  "productionPayloadMatchesFreshBuild": true,
+  "files": [
+    {
+      "name": "apps/desktop/electron/main.cjs",
+      "packedHash": "ce8fc48a8882667a03171290ee8493f3ef649d366a17a46c0a602676a6b446f4",
+      "sourceHash": "ce8fc48a8882667a03171290ee8493f3ef649d366a17a46c0a602676a6b446f4",
+      "matches": true
+    },
+    {
+      "name": "apps/desktop/electron/preload.cjs",
+      "packedHash": "b6bcca3315fdff569cda56511fd6b3ea03aecf934babb7b1abfc46db398afe05",
+      "sourceHash": "b6bcca3315fdff569cda56511fd6b3ea03aecf934babb7b1abfc46db398afe05",
+      "matches": true
+    },
+    {
+      "name": "dist/assets/index-DsUH97Ix.js",
+      "packedHash": "017742bf80ec2b9451bf9c2aec8afb921130ce23fa14852d33c6a9f45ff95e9a",
+      "sourceHash": "017742bf80ec2b9451bf9c2aec8afb921130ce23fa14852d33c6a9f45ff95e9a",
+      "matches": true
+    },
+    {
+      "name": "dist/assets/index-X_AX6jHT.css",
+      "packedHash": "ded111f2a4e5352f5659a45fbb9d4e6b67cb811326600ced67d492867701799b",
+      "sourceHash": "ded111f2a4e5352f5659a45fbb9d4e6b67cb811326600ced67d492867701799b",
+      "matches": true
+    },
+    {
+      "name": "dist/assets/index-bqOzO5nq.js",
+      "packedHash": "3d62fbace8fe3d44990d66fea5014f20c74d325d3dfa1db2e5d9d495ff807e0e",
+      "sourceHash": "3d62fbace8fe3d44990d66fea5014f20c74d325d3dfa1db2e5d9d495ff807e0e",
+      "matches": true
+    },
+    {
+      "name": "dist/index.html",
+      "packedHash": "9d318e2cfeb55bbd79473ac28a4e8844a9acbcbd1b70b3ecff7f4e982e58029c",
+      "sourceHash": "9d318e2cfeb55bbd79473ac28a4e8844a9acbcbd1b70b3ecff7f4e982e58029c",
+      "matches": true
+    }
+  ],
+  "benchmarkHashesUnchanged": true,
+  "stabilityHashesUnchanged": true,
+  "benchmark": [
+    {
+      "initialPopulation": 100,
+      "years": 10,
+      "day": 3650,
+      "runtimeMs": 271,
+      "daysPerSecond": 13490,
+      "eventCount": 4952,
+      "finalPopulation": 113,
+      "activeCompanies": 7,
+      "finalHash": "0e21ceef932e7a465b235cd1155562a87bf2054ce7b1ae51df6c83025913ae51",
+      "invariantViolations": 0,
+      "memoryMiB": 17
+    },
+    {
+      "initialPopulation": 250,
+      "years": 10,
+      "day": 3650,
+      "runtimeMs": 455,
+      "daysPerSecond": 8019,
+      "eventCount": 11656,
+      "finalPopulation": 275,
+      "activeCompanies": 11,
+      "finalHash": "1997a1eb7452025de74d2a5b63e8167ec952e63b0e2617c24a29cbeebbece1cd",
+      "invariantViolations": 0,
+      "memoryMiB": 48
+    },
+    {
+      "initialPopulation": 500,
+      "years": 10,
+      "day": 3650,
+      "runtimeMs": 973,
+      "daysPerSecond": 3753,
+      "eventCount": 20035,
+      "finalPopulation": 530,
+      "activeCompanies": 22,
+      "finalHash": "13fea6a3e754d0c3c362a76338663a5f10aa91934d552ca8d007a2b14d95ffb7",
+      "invariantViolations": 0,
+      "memoryMiB": 86
+    },
+    {
+      "initialPopulation": 1000,
+      "years": 10,
+      "day": 3650,
+      "runtimeMs": 3142,
+      "daysPerSecond": 1162,
+      "eventCount": 35918,
+      "finalPopulation": 1054,
+      "activeCompanies": 42,
+      "finalHash": "c28b6aaa82ee4f927b07a0a09a32ee1ad8cffbd8c6c228beb4452717607a1ee8",
+      "invariantViolations": 0,
+      "memoryMiB": 160
+    }
+  ],
+  "seedCount": 100
+}
