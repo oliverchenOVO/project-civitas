@@ -20,8 +20,15 @@ export interface HistoryFilters {
   entityType: string;
   limit: number;
 }
+export interface MapCamera {
+  elevation: number;
+  azimuth: number;
+  distance: number;
+  target: [number, number, number];
+}
 interface Context {
   page: Page;
+  mapCamera?: MapCamera;
   selected?: Selection;
   overlay?: AffectedOverlay;
   historyFilters?: HistoryFilters;
@@ -30,6 +37,7 @@ interface Context {
 function context(s: Presentation): Context {
   return {
     page: s.page,
+    mapCamera: s.mapCamera,
     selected: s.selected,
     overlay: s.overlay,
     historyFilters: s.historyFilters,
@@ -49,6 +57,7 @@ function context(s: Presentation): Context {
 interface Presentation {
   citizenFilter: string;
   page: Page;
+  mapCamera?: MapCamera;
   selected?: Selection;
   overlay?: AffectedOverlay;
   historyFilters?: HistoryFilters;

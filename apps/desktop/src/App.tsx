@@ -210,6 +210,7 @@ function NewCityDialog({ close }: { close: () => void }) {
               stack: [],
               overlay: undefined,
               historyFilters: undefined,
+              mapCamera: undefined,
             });
             close();
           } catch (e) {
@@ -336,6 +337,7 @@ function Observatory() {
             stack: [],
             overlay: undefined,
             historyFilters: undefined,
+            mapCamera: undefined,
           });
           notify('城市已載入，可從相同狀態繼續。');
         }
@@ -513,6 +515,7 @@ function Observatory() {
                 stack: [],
                 overlay: undefined,
                 historyFilters: undefined,
+                mapCamera: undefined,
               });
               notify('城市已載入。');
             });

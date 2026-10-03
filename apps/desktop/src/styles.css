@@ -1550,3 +1550,86 @@ tbody tr:hover {
     grid-template-columns: 1fr;
   }
 }
+.map-host[data-renderer='three-webgl'] {
+  min-height: 560px;
+}
+.map-host[data-renderer='three-webgl'] canvas {
+  touch-action: none;
+}
+.map-camera {
+  position: absolute;
+  left: 14px;
+  bottom: 49px;
+  max-width: calc(100% - 28px);
+  padding: 10px 12px;
+  background: #0c1d27e8;
+  border: 1px solid #425b63;
+  border-radius: 5px;
+  color: #bbd4d6;
+}
+.map-camera label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+.map-camera output {
+  color: #a6e6d1;
+  min-width: 32px;
+}
+.map-camera input {
+  width: 180px;
+  accent-color: #91ceb9;
+}
+.map-camera > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 7px;
+}
+.map-camera button {
+  padding: 5px 7px;
+  font-size: 10px;
+  background: #152c35;
+  border: 1px solid #38515b;
+  color: #cee3e5;
+  border-radius: 3px;
+}
+.map-camera small {
+  display: block;
+  font-size: 9px;
+  margin-top: 6px;
+  color: #8ea9b1;
+}
+.map-host[data-renderer='three-webgl'] .map-scale {
+  display: none;
+}
+.map-host[data-renderer='three-webgl'] .map-hover {
+  bottom: 178px;
+  left: 20px;
+}
+.map-host:fullscreen {
+  width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
+  max-height: none;
+  aspect-ratio: auto;
+}
+@media (max-width: 700px) {
+  .map-host[data-renderer='three-webgl'] {
+    min-height: 460px;
+  }
+  .map-camera {
+    left: 8px;
+    right: 8px;
+    bottom: 39px;
+    padding: 7px;
+  }
+  .map-camera input {
+    flex: 1;
+    min-width: 80px;
+  }
+  .map-camera small {
+    font-size: 8px;
+  }
+}
