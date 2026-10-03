@@ -206,8 +206,8 @@ export function CitizenDevelopment({ state, citizen }: { state: CityState; citiz
             {hc.origin.childhoodObserved ? '曾觀測童年背景' : '成年加入，童年背景不可用'}
           </p>
           <p>
-            目前家庭 <strong>{classLabels[household.mobility.class]}</strong> · 最近月度實收收入換算{' '}
-            {money(household.mobility.monthlyIncome)}
+            目前家庭 <strong>{classLabels[household.mobility.class]}</strong> ·
+            最近月度薪資／福利收入換算 {money(household.mobility.monthlyIncome)}
           </p>
           <p className="muted">
             階層由家庭收入、淨財富與房租負擔推導；跨階層事件每年比較一次，不評價個人能力或道德。
