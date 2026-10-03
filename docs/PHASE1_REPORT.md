@@ -1,6 +1,6 @@
 # Project CIVITAS — Phase 1 驗收報告
 
-驗證日期：2026-10-03，Windows x64。本報告描述已實作的 v0.1.0 候選版本，不包含 Phase 2。**Phase 1 尚未全部驗收完成：正常程序退出在本機 Windows / Electron 執行環境受阻；其餘 build、simulation、replay 與功能操作項目已通過。**
+驗證日期：2026-10-03，Windows x64。本報告描述 v0.1.0 正式交付，不包含 Phase 2。**PHASE 1 COMPLETE：本輪目錄版與 portable 各三次原生關閉，所有自有程序均於 10 秒內自行退出，無強殺。歷史退出失敗未重現，根因仍未確認。**
 
 ## 交付與範圍
 
@@ -37,12 +37,12 @@ JSON 存檔保存完整狀態：實體、政策、RNG streams、ID 計數器、�
 | Tests | Vitest：2 files、36 tests；27 模擬整合與 9 架構邊界測試 | 通過 |
 | Simulation | 四人口配置 × 3650 日；100 seeds × 1825 日；預設 250 人十年可存檔／重播 | 通過 |
 | Replay | 同 seed/config/Command 完整 hash；存讀檔續跑；day 0 / 同日多指令 | 通過 |
-| Desktop | 真實 packaged Windows renderer，原生 IPC 存讀檔與重新啟動 | 操作流程通過；正常退出仍 blocked |
+| Desktop | 真實 packaged renderer、原生存讀檔、正常重新啟動；兩種成品各三次原生退出 | 通過 |
 | UX / visual | 五主頁、選取檔案、1000 人、兩桌面尺寸與手機尺寸 | 通過 |
 
 36 項測試涵蓋 RNG 隔離與續跑、稅及日薪整數分配、家庭／薪資支付、招聘、虧損裁員、破產員工清理、住宅搬遷與建造、政策後果、事件因果、唯讀敘事、指令失敗原子性、損壞存檔、未知版本、雜湊正確但引用損壞的存檔、確定性、重播、存檔續跑與十年長跑。數值、ID、引用、家庭／就業／住宅一致性、父母年齡及整體現金守恆都有檢查。
 
-長跑測試對預設 250 人城市執行 3650 日，每年驗證不變量，完成後 save → load → full replay 的完整 SHA-256 一致；沒有 crash、NaN 或損壞引用。測試在最後一次執行中耗時約 4.88 秒（包含 save/load/replay，非純 tick 基準）。
+長跑測試對預設 250 人城市執行 3650 日，每年驗證不變量，完成後 save → load → full replay 的完整 SHA-256 一致；沒有 crash、NaN 或損壞引用。測試在最後一次執行中耗時約 1.658 秒（包含 save/load/replay，非純 tick 基準）。
 
 ## 實測效能
 
@@ -50,10 +50,10 @@ JSON 存檔保存完整狀態：實體、政策、RNG streams、ID 計數器、�
 
 | 初始人口 | 年數 | ms | days/sec | 事件 | 最終人口 | 活躍企業 | 不變量錯誤 | Heap MiB |
 |---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| 100 | 10 | 296 | 12334 | 4952 | 113 | 7 | 0 | 31 |
-| 250 | 10 | 503 | 7256 | 11656 | 275 | 11 | 0 | 59 |
-| 500 | 10 | 1038 | 3517 | 20035 | 530 | 22 | 0 | 22 |
-| 1000 | 10 | 3999 | 913 | 35918 | 1054 | 42 | 0 | 85 |
+| 100 | 10 | 507 | 7202 | 4952 | 113 | 7 | 0 | 30 |
+| 250 | 10 | 618 | 5908 | 11656 | 275 | 11 | 0 | 40 |
+| 500 | 10 | 1380 | 2646 | 20035 | 530 | 22 | 0 | 77 |
+| 1000 | 10 | 3581 | 1019 | 35918 | 1054 | 42 | 0 | 32 |
 
 完整 hash 與原始數值見 [`artifacts/benchmark.json`](../artifacts/benchmark.json)，表格見 [`artifacts/benchmark.md`](../artifacts/benchmark.md)。250 人十年終態：`1997a1eb7452025de74d2a5b63e8167ec952e63b0e2617c24a29cbeebbece1cd`。
 
@@ -67,15 +67,15 @@ JSON 存檔保存完整狀態：實體、政策、RNG streams、ID 計數器、�
 
 操作路徑：建立 250 人種子城 → 20x 到至少 60 日 → 暫停 → 搜尋 Anna 並篩在職 → 選居民及雇主企業 → 改所得稅 → 支付 $40,000 建五戶 → 檢查真實政策新聞 → 存檔 → 關閉測試程序 → 重新啟動 → 讀檔完整 hash 相同 → 步進一天 → 再存檔，比較不中斷模擬與完整重播 → UI 重播驗證 → 1000 人城市 → 1x / 5x / Max。
 
-在此主機的 `ElectronApplication.close()` 會等待程序退出，故 harness 精確終止自己啟動的 process tree；不把它宣稱為正常退出驗證。另以 `scripts/native-close-qa.ps1` 不掛 inspector、透過 Windows 原生 `WM_CLOSE` 獨立檢查目錄版與可攜版。為遵守背景啟動規則，使用 hidden startup，枚舉真正的 `Chrome_WidgetWin_1` 視窗，而非依賴只列可見視窗的 MainWindowHandle。這項结果與 portable launch 另存 [`native-close-qa.json`](../artifacts/native-close-qa.json)。
+本輪桌面 QA 使用正常 `ElectronApplication.close()`，驗證其程序 exit code 0，移除強殺結尾。另由 `scripts/native-close-qa.ps1` 不掛 inspector，對真正原生視窗送 WM_CLOSE，精確追蹤 main、renderer、GPU、utility 與 portable wrapper，驗證全部自行退出。hidden startup 的視窗由 Win32 枚舉識別。
 
-**退出 blocker：**目錄版的原生視窗關閉後，主程序未在 60 秒內結束。獨立最小 Electron probe（沒有 CIVITAS、Pixi、IPC 或模擬）也重現；事件紀錄為 `close → closed → window-all-closed`，`app.exit(0)` 亦未於短時間內完成程序退出。CIVITAS 的標準 `window-all-closed → app.quit()` 處理保留，沒有把強殺程序偽裝成修復。底層原因尚未確認，不能斷言是 GPU、驅動或 Electron 已知 bug；未更動使用者的系统權限、驅動或其他應用程式。必須在此主機排除 runtime 問題，或在另一台 Windows 上通過正常退出驗證，才能宣告完整 Phase 1 gate 通過。
+**Exit blocker resolved：**真實目錄版與 portable 各三次，6/6 啟動、原生視窗關閉與全程序退出通過；無 force kill。kernel 退出確認上界：目錄版 1228 / 720 / 643 ms，portable 4291 / 2085 / 5870 ms；釋放診斷 handles 後 CIM 完全消失確認：2171 / 1589 / 1350、5530 / 3260 / 7150 ms，均在 10 秒內。這些是包含輪詢／查詢的確認上界，並非精準退出瞬間。結果見 [native-close-qa.json](../artifacts/native-close-qa.json)。
 
-重現：`pwsh -NoProfile -File scripts/native-close-qa.ps1 -Dev -DevEntry scripts/repro-electron-quit.cjs`。Probe 將事件時間記錄在 `artifacts/qa/repro-quit.log`；script 非正常退出時回傳失敗並只清理自己啟動的程序。測試中 `app.exit(0)` 未解決問題，故未將此變更留在正式程式。
+本輪共 22/22 受控退出測試通過。Electron 38.8.6 已是同 major 最新 patch；相鄰 39.8.10 也通過。normal / GPU off、console / detached / Playwright launcher、raw / packaged minimal 與 app.exit 對照均通過。正式 Electron 版本、GPU、安全設定與產品程式完全未改，保留 window-all-closed → app.quit()。歷史 60 秒失敗未重現，根因仍未知；CIM 可保留已退出程序物件的觀察不足以解釋歷史 WaitForExit 逾時。完整方法、lifecycle、active handles 與根因界線見 [EXIT_GATE_INVESTIGATION.md](EXIT_GATE_INVESTIGATION.md) 和 [固定摘要](../artifacts/exit-investigation-summary.json)。歷史失敗 [quit-probe.json](../artifacts/quit-probe.json) 及原 rc tag 保留。
 
-最終不掛 inspector 檢查：目錄版與 portable **2/2 啟動、2/2 原生視窗關閉、0/2 在 60 秒內完全退出**；等待分別為 60032 ms 與 60037 ms。最小 probe 的原始 `artifacts/qa/minimal.cjs` 已整理成 `scripts/repro-electron-quit.cjs`，隔離紀錄見 [`quit-probe.json`](../artifacts/quit-probe.json)。此項的失敗 JSON 與回傳碼都保留，沒有改成通過。
+發布沿用本輪實際驗收的同一 portable 檔案；fresh build 的全部 50 個 production payload 檔案與成品 app.asar 逐 byte 相同。四組 benchmark 及全部 100 seed 的 canonical hash 未改。候選時已通過 package:win，本輪無 production/runtime 改動，沒有重新封裝換成未驗收檔案。
 
-最終桌面／responsive QA：**13 項操作檢查通過、0 console errors**；結果見 [`desktop-qa.json`](../artifacts/desktop-qa.json)。手機檢查使用 Edge headless 開啟 **built production preview** `http://127.0.0.1:4173/`。早期 dev server 的 load 等待逾時與缺少 favicon 的 404 均已修正；失敗測試不計入通過結果。Edge test browser 同樣由 harness 精確清理自己的 process tree。另曾用 Codex Browser/IAB 操作真實搜尋、居民檔案、步進及政策；原生驗收依使用者要求採 Playwright Electron。
+最終桌面／responsive QA：**13 項操作檢查通過、0 console errors**；結果見 [`desktop-qa.json`](../artifacts/desktop-qa.json)。手機檢查使用 Edge headless 開啟 **built production preview** `http://127.0.0.1:4173/`。早期 dev server 的 load 等待逾時與缺少 favicon 的 404 均已修正；失敗測試不計入通過結果。Edge test browser 亦透過正常 browser.close / browserServer.close 結束。另曾用 Codex Browser/IAB 操作真實搜尋、居民檔案、步進及政策；原生驗收依使用者要求採 Playwright Electron。
 
 實際 logical viewport：1536×1024、1280×800，額外 390×844 responsive。Windows 顯示縮放 125%，原生截圖像素分別為 1920×1280 與 1600×1000。已用 `view_image` 檢查設計概念及同一輪最新實作截圖：城市、居民選取、企業選取、企業表、政策、新聞、1000 人與手機城市／政府。主區域與右欄分別捲動，表格在自己的容器中捲動；沒有 body 水平溢出、主要按鈕遮擋、空白 renderer 或假統計。
 
@@ -101,9 +101,9 @@ JSON 存檔保存完整狀態：實體、政策、RNG streams、ID 計數器、�
 
 ## Git 與重現
 
-實作驗證 revision：`b505b8766548a88de421fbaf0cc616c340751cbd`。最終 QA revision：`1cd3f8a6d5d992fc21312a39e9497668230479bb`。分支 `main`，私人 repository；交付工作樹清潔，原始碼、報告與機器 QA 產物均已提交及推送。候選標記為 `v0.1.0-rc.1`，不是已完成驗收的正式 release。最新交付 commit 為 [該候選 tag 指向的 report commit](https://github.com/oliverchenOVO/project-civitas/commit/v0.1.0-rc.1)，可用 `git rev-parse v0.1.0-rc.1^{commit}` 取得其完整 SHA（報告無法將自己的 commit hash 寫入自身內容）。
+私人 repository 分支 `main`，正式 tag `v0.1.0` 指向本次最終交付 commit；用 `git rev-parse v0.1.0^{commit}` 取得完整 SHA。原候選 `v0.1.0-rc.1` 仍指向 `ff4775cd89e2a53cd0f3e099c0693356249b721e`，沒有移動或覆寫。正式 [GitHub Release](https://github.com/oliverchenOVO/project-civitas/releases/tag/v0.1.0) 提供通過退出驗收的 portable artifact；下載後 SHA-256 須與本報告交付指紋一致。
 
-已有逐步 Conventional Commits：workspace/domain → economy/save/replay → UI/native persistence → invariants/runtime staging → Windows packaging/QA。Windows GitHub Actions 執行 compile、lint、36 tests、benchmark、100 seed suite、portable package 並上傳 build artifact。實作 revision 的 [Windows CI run 37107047840](https://github.com/oliverchenOVO/project-civitas/actions/runs/37107047840) 全部成功。CI 不包含本機 GUI／正常退出檢查，不能替代此項 blocked gate。
+本輪採小 commits 記錄 topology / minimal diagnostics、正常退出 QA 與固定 evidence、最後報告。Windows GitHub Actions 執行 compile、lint、36 tests、benchmark、100 seed suite、portable package 並上傳 build artifact。既有 [Windows CI run 37107047840](https://github.com/oliverchenOVO/project-civitas/actions/runs/37107047840) 成功；CI build 與本機 GUI 原生退出是分開的驗證，本輪 GUI gate 由上述六次真實成品實測通過。
 
 ```powershell
 pnpm install --frozen-lockfile
@@ -126,7 +126,7 @@ pwsh -NoProfile -File scripts/native-close-qa.ps1
 - 事件帳本保留完整歷史，JSON 存檔上限 100 MB；尚無自動存檔、壓縮、歷史分段或大型城市 worker。完整重播同步執行，長歷史可能短暫占用 renderer。
 - 可攜版未配置使用者程式簽章憑證；Windows app 使用 Electron 預設應用程式圖示，瀏覽器已有 CIVITAS favicon。尚無安裝器、自動更新或商業分發簽章。
 - GUI／可攜版驗證為本機 Windows x64，未宣稱跨平台 GUI 或多台硬體驗證。高人口點位密集，人物列表是主要精準查詢方式。
-- 本機正常程序退出受阻（詳見上面的最小重現）；視窗關閉與整個 process tree 完全消失是不同項目。操作與存檔可正常使用，但目前不能宣稱完整桌面生命周期驗收通過。
+- 歷史退出失敗根因未確認；本輪在同主機完整原生退出通過。尚未做第二台硬體／OS 的 GUI 驗證，不把有界成功推論成所有環境永遠沒有退出問題。
 - 36 測試與 100 seeds 有界驗證；尚無 property-based 大規模任意政策 fuzzing、長期遷移版本相容性或真實世界人口／經濟校準。
 
 ## Phase 2 建議（尚未開始）
