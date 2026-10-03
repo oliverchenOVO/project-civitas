@@ -7,7 +7,7 @@ import {
 import { mkdirSync, writeFileSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import assert from 'node:assert/strict';
-import { execFileSync } from 'node:child_process';
+import type { ChildProcess } from 'node:child_process';
 import { loadCity, replayCity } from '../packages/simulation/src/persistence';
 import { advance } from '../packages/simulation/src/index';
 import { stateHash } from '../packages/shared/src/canonical';
@@ -17,6 +17,7 @@ const savePath = path.join(out, 'qa-city.civitas');
 const executable = path.resolve('release/0.1.0/win-unpacked/Project CIVITAS.exe');
 const errors: string[] = [];
 const steps: string[] = [];
+const appProcesses = new WeakMap<ElectronApplication, ChildProcess>();
 function mark(message: string) {
   steps.push(message);
   console.log('PASS:', message);
@@ -34,6 +35,7 @@ function watch(page: BrowserPage) {
 }
 async function launch() {
   const app = await _electron.launch({ executablePath: executable, env, timeout: 60000 });
+  appProcesses.set(app, app.process());
   const page = await app.firstWindow();
   watch(page);
   await page.getByRole('heading', { name: '城市觀察', exact: true }).waitFor();
@@ -57,14 +59,11 @@ async function contentSize(app: ElectronApplication, width: number, height: numb
   );
 }
 async function closeTestApp(app: ElectronApplication) {
-  // Release CDP first: packaged Electron on this Windows host waits for its
-  // debugger on quit. Test-owned process teardown is explicit and bounded.
-  const child = app.process();
-  if (child.exitCode === null) {
-    const exited = new Promise<void>((resolve) => child.once('exit', () => resolve()));
-    execFileSync('taskkill', ['/PID', String(child.pid), '/T', '/F'], { stdio: 'ignore' });
-    await Promise.race([exited, new Promise<void>((resolve) => setTimeout(resolve, 3000))]);
-  }
+  // Playwright destroys its dispatcher after close; retain the actual child
+  // before shutdown rather than asking app.process() after disposal.
+  const child = appProcesses.get(app)!;
+  if (child.exitCode === null) await app.close();
+  assert.equal(child.exitCode, 0);
 }
 async function day(page: BrowserPage) {
   const text = await page.locator('.clock small').innerText();
@@ -117,7 +116,10 @@ try {
     .getByRole('button', { name: '套用政策' })
     .click();
   await page.getByRole('status').filter({ hasText: '所得稅率已生效' }).waitFor();
-  await page.getByRole('button', { name: '興建住宅 · $40,000', exact: true }).click();
+  const construct = page.getByRole('button', { name: '興建住宅 · $40,000', exact: true });
+  assert.equal(await construct.isEnabled(), true);
+  await construct.focus();
+  await construct.press('Enter');
   await page.getByRole('status').filter({ hasText: '已新增 5 戶住宅' }).waitFor();
   await screenshot(page, 'government-1536');
   mark('Tax policy command and funded construction modify simulation');
@@ -206,9 +208,8 @@ try {
     await screenshot(mobile, 'government-mobile');
     mark('390×844 responsive browser layout and policy controls render without body overflow');
   } finally {
-    execFileSync('taskkill', ['/PID', String(browserServer.process().pid), '/T', '/F'], {
-      stdio: 'ignore',
-    });
+    await browser.close();
+    await browserServer.close();
   }
   assert.deepEqual(errors, []);
   writeFileSync(
@@ -221,7 +222,7 @@ try {
         steps,
         consoleErrors: errors,
         dialogAutomation:
-          'Native dialog result paths controlled by test harness; actual packaged IPC/filesystem/save validation exercised. Test-owned packaged process trees are terminated to avoid the Windows CDP quit hang; normal window-close behavior is not asserted by this harness.',
+          'Native dialog result paths controlled by test harness; actual packaged IPC/filesystem/save validation exercised. Electron app.close() exits normally with code 0; no force kill. Separate WM_CLOSE acceptance verifies all owned processes for both Windows variants.',
         saveHash: savedHash,
       },
       null,
@@ -229,7 +230,6 @@ try {
     ),
   );
   console.log(`PASS: ${steps.length} desktop/responsive checks, no console errors.`);
-  process.exit(0);
 } catch (e) {
   writeFileSync(
     'artifacts/desktop-qa.json',

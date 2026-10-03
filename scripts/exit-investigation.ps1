@@ -6,9 +6,11 @@ param(
     [switch]$GpuOff,
     [ValidateSet('quit','exit')][string]$ExitMode = 'quit',
     [int]$TimeoutSeconds = 60,
-    [int]$Repetitions = 1
+    [int]$Repetitions = 1,
+    [switch]$StopWhenExited
 )
 $ErrorActionPreference = 'Stop'
+if($Case -notmatch '^[a-z0-9-]+$'){throw 'Case must be a lowercase artifact directory label'}
 $taskRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 $taskOutput = Join-Path $taskRoot ('artifacts/qa/exit-' + $Case)
 New-Item -ItemType Directory -Force -Path $taskOutput | Out-Null
@@ -50,6 +52,7 @@ function Role($row, $rootId) {
 $runs = @()
 for ($iteration=1; $iteration -le $Repetitions; $iteration++) {
     $taskLog = Join-Path $taskOutput ("lifecycle-$iteration.jsonl")
+    if(Test-Path -LiteralPath $taskLog){Remove-Item -LiteralPath $taskLog -Force}
     $previousEnv = @{}
     foreach ($name in @('CIVITAS_EXIT_LOG','CIVITAS_EXIT_GPU_OFF','CIVITAS_EXIT_MODE','ELECTRON_RUN_AS_NODE','CIVITAS_DEV_URL')) {
         $previousEnv[$name] = [Environment]::GetEnvironmentVariable($name)
@@ -144,6 +147,7 @@ for ($iteration=1; $iteration -le $Repetitions; $iteration++) {
         if($sleep -gt 0){Start-Sleep -Milliseconds $sleep}
         $final=Snapshot "close+$($seconds)s" $clock.Elapsed.TotalMilliseconds
         Write-Host "$Case #$iteration t+$($seconds)s remaining: $(@($final.processes | Where-Object alive | ForEach-Object { "$($_.pid):$($_.role)" }) -join ', ')"
+        if($StopWhenExited -and @($final.processes | Where-Object alive).Count -eq 0){break}
     }
     $lifecycle=@()
     if(Test-Path -LiteralPath $taskLog){$lifecycle=@(Get-Content -LiteralPath $taskLog | ForEach-Object { $_ | ConvertFrom-Json })}
@@ -151,7 +155,7 @@ for ($iteration=1; $iteration -le $Repetitions; $iteration++) {
     $firstGone=$samples | Where-Object { $_.label -like 'close+*' -and @($_.processes | Where-Object alive).Count -eq 0 } | Select-Object -First 1
     $legacyWindowWait=$legacyWindowProcess.WaitForExit(0)
     $legacyRootWait=$rootProcess.WaitForExit(0)
-    $run=[pscustomobject]@{ case=$Case; target=$Target; launcher=$Launcher; gpuOff=[bool]$GpuOff; exitMode=$ExitMode; iteration=$iteration; rootPid=$rootId; mainPid=$mainId; executable=$executable; launched=$true; windowClosed=([CivitasExitNative]::Find($mainId) -eq [IntPtr]::Zero); mainExited=(@($remaining | Where-Object pid -eq $mainId).Count -eq 0); allChildrenExited=(@($remaining | Where-Object pid -ne $mainId).Count -eq 0); exitLatencyUpperBoundMs=$(if($firstGone){$firstGone.elapsedMs}else{$null}); passed=($remaining.Count -eq 0 -and $firstGone.elapsedMs -le 10000); legacyWindowWaitForExit=$legacyWindowWait; legacyRootWaitForExit=$legacyRootWait; remainingProcesses=$remaining; lifecycleEvents=$lifecycle; samples=$samples.ToArray(); measuredBeforeCleanup=$true }
+    $run=[pscustomobject]@{ case=$Case; target=$Target; launcher=$Launcher; gpuOff=[bool]$GpuOff; exitMode=$ExitMode; iteration=$iteration; rootPid=$rootId; mainPid=$mainId; executable=$executable; launched=$true; windowClosed=([CivitasExitNative]::Find($mainId) -eq [IntPtr]::Zero); mainExited=(@($remaining | Where-Object pid -eq $mainId).Count -eq 0); allChildrenExited=(@($remaining | Where-Object pid -ne $mainId).Count -eq 0); exitLatencyUpperBoundMs=$(if($firstGone){$firstGone.elapsedMs}else{$null}); passed=($remaining.Count -eq 0 -and $firstGone.elapsedMs -le 10000); legacyWindowWaitForExit=$legacyWindowWait; legacyRootWaitForExit=$legacyRootWait; remainingProcesses=$remaining; lifecycleEvents=$lifecycle; samples=$samples.ToArray(); measuredBeforeCleanup=$true; forceCleanupPerformed=($remaining.Count -gt 0) }
     # Cleanup is separate from results; only test-owned, still-live identities.
     foreach($entry in $known.Values){if($entry.handle -ne [IntPtr]::Zero){[void][CivitasExitNative]::CloseHandle($entry.handle)}}
     if($remaining.Count) {
@@ -168,6 +172,8 @@ for ($iteration=1; $iteration -le $Repetitions; $iteration++) {
         Start-Sleep -Milliseconds 100
         $left=@(Get-CimInstance Win32_Process | Where-Object { $known.ContainsKey([int]$_.ProcessId) -and $_.CreationDate -eq $known[[int]$_.ProcessId].metadata.CreationDate })
         $run | Add-Member -NotePropertyName cimRowsAfterHandleRelease -NotePropertyValue $left.Count
+        $run | Add-Member -NotePropertyName finalCimAbsenceCheckMs -NotePropertyValue ([math]::Round($clock.Elapsed.TotalMilliseconds))
+        if($left.Count -gt 0){$run.passed=$false}
     }
     $runs += $run
     $runs | ConvertTo-Json -Depth 15 | Set-Content -LiteralPath (Join-Path $taskOutput 'result.json') -Encoding utf8

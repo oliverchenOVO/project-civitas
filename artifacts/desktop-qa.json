@@ -22,6 +22,6 @@
     "390×844 responsive browser layout and policy controls render without body overflow"
   ],
   "consoleErrors": [],
-  "dialogAutomation": "Native dialog result paths controlled by test harness; actual packaged IPC/filesystem/save validation exercised. Test-owned packaged process trees are terminated to avoid the Windows CDP quit hang; normal window-close behavior is not asserted by this harness.",
+  "dialogAutomation": "Native dialog result paths controlled by test harness; actual packaged IPC/filesystem/save validation exercised. Electron app.close() exits normally with code 0; no force kill. Separate WM_CLOSE acceptance verifies all owned processes for both Windows variants.",
   "saveHash": "9a3d773536cffa3ac9c58db25500cb9ecb730bc002fcceef80038267957b5956"
 }
