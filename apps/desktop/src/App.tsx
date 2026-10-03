@@ -29,6 +29,7 @@ import {
   GovernmentPage,
 } from './components/Pages';
 import { Inspector } from './components/Inspector';
+import packageMetadata from '../../../package.json';
 declare global {
   interface Window {
     civitas?: { save: (text: string) => Promise<boolean>; load: () => Promise<string | null> };
@@ -350,7 +351,7 @@ function Observatory() {
               REMEMBER
             </span>
             <small>
-              v{state.simulationVersion}
+              v{packageMetadata.version}
               <br />
               離線自主運作
             </small>

@@ -6,7 +6,8 @@ const { execFileSync } = require('node:child_process');
 const builder = path.dirname(require.resolve('electron-builder/package.json'));
 const library = path.dirname(require.resolve('app-builder-lib/package.json', { paths: [builder] }));
 const asar = require(require.resolve('@electron/asar', { paths: [library] }));
-const archive = 'release/0.1.0/win-unpacked/resources/app.asar';
+const appVersion = JSON.parse(fs.readFileSync('package.json', 'utf8')).version;
+const archive = `release/${appVersion}/win-unpacked/resources/app.asar`;
 const entries = asar
   .listPackage(archive)
   .map((name) => name.replace(/\\/g, '/').replace(/^\//, ''))
@@ -39,6 +40,7 @@ const after = read('artifacts/benchmark.json');
 const oldSeeds = baseline('stability');
 const newSeeds = read('artifacts/stability.json');
 const result = {
+  appVersion,
   productionPayloadMatchesFreshBuild:
     files.length > 0 &&
     files.every((file) => file.matches) &&
