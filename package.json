@@ -12,7 +12,7 @@
     "benchmark": "tsx scripts/benchmark.ts",
     "stability": "tsx scripts/stability.ts",
     "desktop": "electron .",
-    "package:win": "pnpm build && tsx scripts/stage-desktop.ts && electron-builder --win dir portable",
+    "package:win": "pnpm build && pwsh -NoProfile -File scripts/stage-desktop.ps1 && electron-builder --projectDir .desktop-runtime --win dir portable",
     "qa:desktop": "tsx scripts/desktop-qa.ts"
   },
   "main": "apps/desktop/electron/main.cjs",
@@ -45,7 +45,7 @@
     "appId": "studio.civitas.observatory",
     "productName": "Project CIVITAS",
     "directories": {
-      "output": "release",
+      "output": "release/0.1.0",
       "app": ".desktop-runtime"
     },
     "files": [

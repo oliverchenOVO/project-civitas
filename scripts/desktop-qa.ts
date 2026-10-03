@@ -7,15 +7,20 @@ import {
 import { mkdirSync, writeFileSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import assert from 'node:assert/strict';
+import { execFileSync } from 'node:child_process';
 import { loadCity, replayCity } from '../packages/simulation/src/persistence';
 import { advance } from '../packages/simulation/src/index';
 import { stateHash } from '../packages/shared/src/canonical';
 const out = path.resolve('artifacts/qa');
 mkdirSync(out, { recursive: true });
 const savePath = path.join(out, 'qa-city.civitas');
-const executable = path.resolve('release/win-unpacked/Project CIVITAS.exe');
+const executable = path.resolve('release/0.1.0/win-unpacked/Project CIVITAS.exe');
 const errors: string[] = [];
 const steps: string[] = [];
+function mark(message: string) {
+  steps.push(message);
+  console.log('PASS:', message);
+}
 const env = Object.fromEntries(
   Object.entries(process.env).filter(
     ([k, v]) => k !== 'ELECTRON_RUN_AS_NODE' && k !== 'CIVITAS_DEV_URL' && v !== undefined,
@@ -51,6 +56,16 @@ async function contentSize(app: ElectronApplication, width: number, height: numb
     { width, height },
   );
 }
+async function closeTestApp(app: ElectronApplication) {
+  // Release CDP first: packaged Electron on this Windows host waits for its
+  // debugger on quit. Test-owned process teardown is explicit and bounded.
+  const child = app.process();
+  if (child.exitCode === null) {
+    const exited = new Promise<void>((resolve) => child.once('exit', () => resolve()));
+    execFileSync('taskkill', ['/PID', String(child.pid), '/T', '/F'], { stdio: 'ignore' });
+    await Promise.race([exited, new Promise<void>((resolve) => setTimeout(resolve, 3000))]);
+  }
+}
 async function day(page: BrowserPage) {
   const text = await page.locator('.clock small').innerText();
   return Number(text.match(/第\s*(\d+)/)?.[1]);
@@ -66,7 +81,7 @@ try {
   await page.getByLabel('初始人口', { exact: true }).selectOption('250');
   await page.getByRole('button', { name: '開始觀察', exact: true }).click();
   assert.equal(await day(page), 0);
-  steps.push('Packaged app launches and creates seeded 250-person city');
+  mark('Packaged app launches and creates seeded 250-person city');
   await screenshot(page, 'city-1536');
   await page.getByRole('button', { name: '20x', exact: true }).click();
   await page.waitForFunction(() => {
@@ -76,7 +91,7 @@ try {
   await page.getByRole('button', { name: '暫停', exact: true }).click();
   const paused = await day(page);
   assert.ok(paused >= 60);
-  steps.push('20x advances and Pause stops simulation');
+  mark('20x advances and Pause stops simulation');
   await page.getByRole('button', { name: '居民 People & households', exact: true }).click();
   await page.getByLabel('搜尋居民', { exact: true }).fill('Anna');
   assert.ok((await page.locator('tbody tr').count()) > 0);
@@ -84,11 +99,11 @@ try {
   await page.locator('tbody .name-button').first().click();
   await page.locator('.inspector').getByText('真實人生履歷', { exact: false }).waitFor();
   await screenshot(page, 'citizen-1536');
-  steps.push('Citizen search, employment filter, inspector and real life history');
+  mark('Citizen search, employment filter, inspector and real life history');
   await page.locator('.inspector .field').filter({ hasText: '雇主' }).getByRole('button').click();
   await page.getByRole('heading', { name: '企業檔案', exact: true }).waitFor();
   await screenshot(page, 'company-inspector-1536');
-  steps.push('Citizen employer link opens actual company finances and history');
+  mark('Citizen employer link opens actual company finances and history');
   await page.getByRole('button', { name: '企業 Firms & economy', exact: true }).click();
   await screenshot(page, 'companies-1536');
   assert.ok((await page.locator('tbody tr').count()) > 0);
@@ -105,20 +120,20 @@ try {
   await page.getByRole('button', { name: '興建住宅 · $40,000', exact: true }).click();
   await page.getByRole('status').filter({ hasText: '已新增 5 戶住宅' }).waitFor();
   await screenshot(page, 'government-1536');
-  steps.push('Tax policy command and funded construction modify simulation');
+  mark('Tax policy command and funded construction modify simulation');
   await page.getByRole('button', { name: '事件 History & evidence', exact: true }).click();
   await page.getByRole('button', { name: '政策', exact: true }).click();
   assert.ok((await page.locator('.main-view').innerText()).includes('incomeTax'));
   await screenshot(page, 'events-1536');
-  steps.push('News displays real policy event and related entities');
+  mark('News displays real policy event and related entities');
   await page.getByRole('button', { name: '存檔', exact: true }).click();
   await page.getByRole('status').filter({ hasText: '城市已儲存' }).waitFor();
   const saved = await loadCity(readFileSync(savePath, 'utf8'));
   const savedHash = await stateHash(saved);
   assert.equal(saved.commands.length, 2);
   assert.equal(saved.day, paused);
-  steps.push('Native IPC writes validated versioned save including command ledger');
-  await app.close();
+  mark('Native IPC writes validated versioned save including command ledger');
+  await closeTestApp(app);
   desktop = undefined;
   desktop = await launch();
   app = desktop.app;
@@ -130,7 +145,7 @@ try {
   await page.getByRole('button', { name: '存檔', exact: true }).click();
   await page.getByRole('status').filter({ hasText: '城市已儲存' }).waitFor();
   assert.equal(await stateHash(await loadCity(readFileSync(savePath, 'utf8'))), savedHash);
-  steps.push('Close, relaunch, load restores identical canonical SHA-256');
+  mark('Close, relaunch, load restores identical canonical SHA-256');
   await page.getByRole('button', { name: '前進一天', exact: true }).click();
   assert.equal(await day(page), saved.day + 1);
   await page.getByRole('button', { name: '存檔', exact: true }).click();
@@ -139,13 +154,13 @@ try {
   advance(saved);
   assert.equal(await stateHash(continued), await stateHash(saved));
   assert.equal(await stateHash(continued), await stateHash(replayCity(continued)));
-  steps.push('Continued packaged simulation equals uninterrupted run and full replay');
+  mark('Continued packaged simulation equals uninterrupted run and full replay');
   await page.getByRole('button', { name: '診斷與重播', exact: true }).click();
   await page.getByRole('button', { name: '驗證完整重播', exact: true }).click();
   await page.getByRole('status').filter({ hasText: '重播通過' }).waitFor();
   await screenshot(page, 'replay-verified');
   await page.getByRole('button', { name: '關閉診斷', exact: true }).click();
-  steps.push('UI replay verification reports matching SHA-256');
+  mark('UI replay verification reports matching SHA-256');
   await contentSize(app, 1280, 800);
   await screenshot(page, 'city-1280');
   await page.getByRole('button', { name: '建立城市', exact: true }).click();
@@ -153,18 +168,34 @@ try {
   await page.getByRole('button', { name: '開始觀察', exact: true }).click();
   await page.getByRole('button', { name: '前進一天', exact: true }).click();
   await screenshot(page, 'city-1000-1280');
-  steps.push('1000-person city creates, renders and advances at 1280×800');
+  mark('1000-person city creates, renders and advances at 1280×800');
+  for (const speed of ['1x', '5x', 'Max']) {
+    const before = await day(page);
+    await page.getByRole('button', { name: speed, exact: true }).click();
+    await page.waitForFunction(
+      (previous) =>
+        Number(
+          (document.querySelector('.clock small')?.textContent ?? '').match(/第\s*(\d+)/)?.[1],
+        ) > previous,
+      before,
+    );
+    await page.getByRole('button', { name: '暫停', exact: true }).click();
+  }
+  mark('1x, 5x and bounded Max all advance the actual 1000-citizen city');
   assert.equal(await page.title(), 'Project CIVITAS');
   assert.ok((await page.locator('body').innerText()).includes('CIVITAS'));
   assert.equal(await page.locator('vite-error-overlay').count(), 0);
-  await app.close();
+  await closeTestApp(app);
   desktop = undefined;
   // Browser responsive QA in addition to the real packaged Windows executable.
   const browser = await chromium.launch({ channel: 'msedge', headless: true });
   try {
     const mobile = await browser.newPage({ viewport: { width: 390, height: 844 } });
     watch(mobile);
-    await mobile.goto('http://127.0.0.1:5173/');
+    mobile.setDefaultTimeout(30000);
+    console.log('QA: mobile navigation');
+    await mobile.goto('http://127.0.0.1:4173/', { waitUntil: 'domcontentloaded', timeout: 30000 });
+    console.log('QA: mobile canvas');
     await mobile.locator('canvas').waitFor();
     assert.ok(
       await mobile.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth),
@@ -172,9 +203,7 @@ try {
     await screenshot(mobile, 'city-mobile');
     await mobile.getByRole('button', { name: '政府 Policies & institutions', exact: true }).click();
     await screenshot(mobile, 'government-mobile');
-    steps.push(
-      '390×844 responsive browser layout and policy controls render without body overflow',
-    );
+    mark('390×844 responsive browser layout and policy controls render without body overflow');
   } finally {
     await browser.close();
   }
@@ -189,7 +218,7 @@ try {
         steps,
         consoleErrors: errors,
         dialogAutomation:
-          'Native dialog result paths controlled by test harness; actual packaged IPC/filesystem/save validation exercised.',
+          'Native dialog result paths controlled by test harness; actual packaged IPC/filesystem/save validation exercised. Test-owned packaged process trees are terminated to avoid the Windows CDP quit hang; normal window-close behavior is not asserted by this harness.',
         saveHash: savedHash,
       },
       null,
@@ -204,5 +233,5 @@ try {
   );
   throw e;
 } finally {
-  if (desktop) await desktop.app.close();
+  if (desktop) await closeTestApp(desktop.app);
 }

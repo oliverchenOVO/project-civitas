@@ -306,11 +306,11 @@ function Observatory() {
             </button>
           </div>
           <div className="file-controls">
-            <button onClick={save} disabled={busy}>
+            <button aria-label="存檔" onClick={save} disabled={busy}>
               <Save size={15} />
               <span>存檔</span>
             </button>
-            <button onClick={load} disabled={busy}>
+            <button aria-label="載入" onClick={load} disabled={busy}>
               <FolderOpen size={15} />
               <span>載入</span>
             </button>
@@ -330,6 +330,7 @@ function Observatory() {
           {nav.map(({ page: target, label, description, Icon }) => (
             <button
               key={target}
+              aria-label={`${label} ${description}`}
               className={page === target ? 'active' : ''}
               onClick={() => setPage(target)}
             >

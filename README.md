@@ -4,8 +4,8 @@
 
 ## 使用
 
-Windows 可攜版：`release/CIVITAS-0.1.0-Windows-portable.exe`。
-也可執行 `release/win-unpacked/Project CIVITAS.exe`（必須保留同資料夾其他檔案）。
+Windows 可攜版：`release/0.1.0/CIVITAS-0.1.0-Windows-portable.exe`。
+也可執行 `release/0.1.0/win-unpacked/Project CIVITAS.exe`（必須保留同資料夾其他檔案）。
 
 1. 用右上角「＋」輸入種子，選擇 100／250／500／1000 人。
 2. 透過 1x／5x／20x／Max 推進；「前進一天」可逐日觀察。
@@ -35,7 +35,8 @@ pnpm test
 pnpm benchmark
 pnpm stability
 pnpm package:win
-pnpm qa:desktop # 需先打包，並讓 pnpm dev 保持運作以完成額外手機版檢查
+pnpm exec vite preview --host 127.0.0.1 --port 4173 --strictPort # 另一個終端機
+pnpm qa:desktop # 需先打包，並保持 4173 的 production preview 運作
 ```
 
 基準與種子掃描寫入 `artifacts/`，實際桌面 QA 與螢幕圖寫入 `artifacts/qa/`。請見 `docs/PHASE1_REPORT.md` 的實測結果與限制。
