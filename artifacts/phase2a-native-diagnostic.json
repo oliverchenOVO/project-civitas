@@ -1,0 +1,204 @@
+{
+  "case": "human-minimal-diagnostic",
+  "target": "Minimal",
+  "iteration": 1,
+  "rootPid": 76320,
+  "mainPid": 76320,
+  "launched": true,
+  "windowClosed": true,
+  "mainExited": false,
+  "allChildrenExited": false,
+  "kernelExitUpperBoundMs": null,
+  "exitLatencyUpperBoundMs": null,
+  "finalCimAbsenceCheckMs": null,
+  "cimRowsAfterHandleRelease": null,
+  "forceCleanupPerformed": true,
+  "passed": false,
+  "scope": "Original minimal Electron native window; no CIVITAS simulation, IPC or 3D code.",
+  "lifecycle": [
+    {
+      "timestamp": "2026-10-03T20:08:24.597Z",
+      "pid": 76320,
+      "event": "startup",
+      "versions": {
+        "node": "22.22.0",
+        "acorn": "8.15.0",
+        "ada": "2.9.2",
+        "amaro": "1.1.4",
+        "ares": "1.34.6",
+        "brotli": "1.0.9",
+        "cjs_module_lexer": "2.1.0",
+        "cldr": "44.1",
+        "icu": "74.2",
+        "llhttp": "9.3.0",
+        "modules": "139",
+        "napi": "10",
+        "nbytes": "0.1.1",
+        "ncrypto": "0.0.1",
+        "nghttp2": "1.64.0",
+        "openssl": "0.0.0",
+        "simdjson": "3.13.0",
+        "simdutf": "7.3.3",
+        "sqlite": "3.50.4",
+        "tz": "2025b",
+        "undici": "6.23.0",
+        "unicode": "15.1",
+        "uv": "1.51.0",
+        "uvwasi": "0.0.23",
+        "v8": "14.0.365.10-electron.0",
+        "zlib": "1.3.1",
+        "zstd": "1.5.8",
+        "electron": "38.8.6",
+        "chrome": "140.0.7339.249"
+      },
+      "execPath": "F:\\CodeX\u958b\u767c\u5c0f\u6771\u6771\\AI \u57ce\u5e02\uff1a\u4e00\u5ea7\u6703\u81ea\u5df1\u6d3b\u8457\u7684\u5fae\u578b\u57ce\u5e02\\node_modules\\electron\\dist\\electron.exe",
+      "argv": [
+        "F:\\CodeX\u958b\u767c\u5c0f\u6771\u6771\\AI \u57ce\u5e02\uff1a\u4e00\u5ea7\u6703\u81ea\u5df1\u6d3b\u8457\u7684\u5fae\u578b\u57ce\u5e02\\node_modules\\electron\\dist\\electron.exe",
+        "F:\\CodeX\u958b\u767c\u5c0f\u6771\u6771\\AI \u57ce\u5e02\uff1a\u4e00\u5ea7\u6703\u81ea\u5df1\u6d3b\u8457\u7684\u5fae\u578b\u57ce\u5e02\\scripts\\repro-electron-quit.cjs"
+      ],
+      "isPackaged": false,
+      "gpuDisabled": false,
+      "exitMode": "quit"
+    },
+    {
+      "timestamp": "2026-10-03T20:08:31.084Z",
+      "pid": 76320,
+      "event": "loaded",
+      "resources": [],
+      "handles": [],
+      "requests": []
+    },
+    {
+      "timestamp": "2026-10-03T20:08:32.772Z",
+      "pid": 76320,
+      "event": "close",
+      "resources": [],
+      "handles": [],
+      "requests": []
+    },
+    {
+      "timestamp": "2026-10-03T20:08:32.808Z",
+      "pid": 76320,
+      "event": "closed",
+      "resources": [],
+      "handles": [],
+      "requests": []
+    },
+    {
+      "timestamp": "2026-10-03T20:08:32.826Z",
+      "pid": 76320,
+      "event": "window-all-closed",
+      "resources": [],
+      "handles": [],
+      "requests": []
+    },
+    {
+      "timestamp": "2026-10-03T20:08:32.827Z",
+      "pid": 76320,
+      "event": "before-quit",
+      "resources": [],
+      "handles": [],
+      "requests": []
+    },
+    {
+      "timestamp": "2026-10-03T20:08:32.853Z",
+      "pid": 76320,
+      "event": "will-quit",
+      "resources": [],
+      "handles": [],
+      "requests": []
+    },
+    {
+      "timestamp": "2026-10-03T20:08:32.865Z",
+      "pid": 76320,
+      "event": "node-exit",
+      "code": 0,
+      "resources": [],
+      "handles": [],
+      "requests": []
+    },
+    {
+      "timestamp": "2026-10-03T20:08:32.868Z",
+      "pid": 76320,
+      "event": "quit",
+      "resources": [],
+      "handles": [],
+      "requests": []
+    },
+    {
+      "timestamp": "2026-10-03T20:08:32.881Z",
+      "pid": 76320,
+      "event": "after-quit-call",
+      "resources": [],
+      "handles": [],
+      "requests": []
+    },
+    {
+      "timestamp": "2026-10-03T20:08:32.928Z",
+      "pid": 76320,
+      "event": "post-close-100ms",
+      "resources": [],
+      "handles": [],
+      "requests": []
+    }
+  ],
+  "remainingProcesses": [
+    {
+      "pid": 8748,
+      "ppid": 76320,
+      "role": "renderer",
+      "name": "electron.exe",
+      "executablePath": "F:\\CodeX\u958b\u767c\u5c0f\u6771\u6771\\AI \u57ce\u5e02\uff1a\u4e00\u5ea7\u6703\u81ea\u5df1\u6d3b\u8457\u7684\u5fae\u578b\u57ce\u5e02\\node_modules\\electron\\dist\\electron.exe",
+      "commandLine": "\"F:\\CodeX\u958b\u767c\u5c0f\u6771\u6771\\AI \u57ce\u5e02\uff1a\u4e00\u5ea7\u6703\u81ea\u5df1\u6d3b\u8457\u7684\u5fae\u578b\u57ce\u5e02\\node_modules\\electron\\dist\\electron.exe\" --type=renderer --user-data-dir=\"C:\\Users\\oliver\\AppData\\Roaming\\Electron\" --app-path=\"F:\\CodeX\u958b\u767c\u5c0f\u6771\u6771\\AI \u57ce\u5e02\uff1a\u4e00\u5ea7\u6703\u81ea\u5df1\u6d3b\u8457\u7684\u5fae\u578b\u57ce\u5e02\\scripts\" --enable-sandbox --video-capture-use-gpu-memory-buffer --lang=zh-CN --device-scale-factor=1.25 --num-raster-threads=4 --enable-main-frame-before-activation --renderer-client-id=4 --time-ticks-at-unix-epoch=-1790931723805545 --launch-time-ticks=126384445221 --field-trial-handle=2576,i,12010687811842234297,577398465241258318,262144 --enable-features=EnableTransparentHwndEnlargement,PdfUseShowSaveFilePicker --disable-features=ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation,WinDelaySpellcheckServiceInit --variations-seed-version --mojo-platform-channel-handle=3632 /prefetch:1",
+      "startTime": "2026-10-03T20:08:28.2792430Z",
+      "cimPresent": true,
+      "kernelSignaled": false,
+      "exitCode": 0,
+      "alive": true,
+      "exitObservedAt": null
+    },
+    {
+      "pid": 52060,
+      "ppid": 76320,
+      "role": "gpu-process",
+      "name": "electron.exe",
+      "executablePath": "F:\\CodeX\u958b\u767c\u5c0f\u6771\u6771\\AI \u57ce\u5e02\uff1a\u4e00\u5ea7\u6703\u81ea\u5df1\u6d3b\u8457\u7684\u5fae\u578b\u57ce\u5e02\\node_modules\\electron\\dist\\electron.exe",
+      "commandLine": "\"F:\\CodeX\u958b\u767c\u5c0f\u6771\u6771\\AI \u57ce\u5e02\uff1a\u4e00\u5ea7\u6703\u81ea\u5df1\u6d3b\u8457\u7684\u5fae\u578b\u57ce\u5e02\\node_modules\\electron\\dist\\electron.exe\" --type=gpu-process --user-data-dir=\"C:\\Users\\oliver\\AppData\\Roaming\\Electron\" --gpu-preferences=SAAAAAAAAADgAAAIAAAAAAAAAAAAAGAAAQAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAABAAAAAAAAAACAAAAAAAAAAIAAAAAAAAAA== --field-trial-handle=2576,i,12010687811842234297,577398465241258318,262144 --enable-features=EnableTransparentHwndEnlargement,PdfUseShowSaveFilePicker --disable-features=ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation,WinDelaySpellcheckServiceInit --variations-seed-version --mojo-platform-channel-handle=2432 /prefetch:2",
+      "startTime": "2026-10-03T20:08:25.3699880Z",
+      "cimPresent": true,
+      "kernelSignaled": false,
+      "exitCode": 0,
+      "alive": true,
+      "exitObservedAt": null
+    },
+    {
+      "pid": 64584,
+      "ppid": 76320,
+      "role": "utility",
+      "name": "electron.exe",
+      "executablePath": "F:\\CodeX\u958b\u767c\u5c0f\u6771\u6771\\AI \u57ce\u5e02\uff1a\u4e00\u5ea7\u6703\u81ea\u5df1\u6d3b\u8457\u7684\u5fae\u578b\u57ce\u5e02\\node_modules\\electron\\dist\\electron.exe",
+      "commandLine": "\"F:\\CodeX\u958b\u767c\u5c0f\u6771\u6771\\AI \u57ce\u5e02\uff1a\u4e00\u5ea7\u6703\u81ea\u5df1\u6d3b\u8457\u7684\u5fae\u578b\u57ce\u5e02\\node_modules\\electron\\dist\\electron.exe\" --type=utility --utility-sub-type=network.mojom.NetworkService --lang=zh-CN --service-sandbox-type=none --user-data-dir=\"C:\\Users\\oliver\\AppData\\Roaming\\Electron\" --field-trial-handle=2576,i,12010687811842234297,577398465241258318,262144 --enable-features=EnableTransparentHwndEnlargement,PdfUseShowSaveFilePicker --disable-features=ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation,WinDelaySpellcheckServiceInit --variations-seed-version --mojo-platform-channel-handle=2872 /prefetch:11",
+      "startTime": "2026-10-03T20:08:25.4823360Z",
+      "cimPresent": true,
+      "kernelSignaled": false,
+      "exitCode": 0,
+      "alive": true,
+      "exitObservedAt": null
+    },
+    {
+      "pid": 76320,
+      "ppid": 72956,
+      "role": "browser-main",
+      "name": "electron.exe",
+      "executablePath": "F:\\CodeX\u958b\u767c\u5c0f\u6771\u6771\\AI \u57ce\u5e02\uff1a\u4e00\u5ea7\u6703\u81ea\u5df1\u6d3b\u8457\u7684\u5fae\u578b\u57ce\u5e02\\node_modules\\electron\\dist\\electron.exe",
+      "commandLine": "\"F:\\CodeX\u958b\u767c\u5c0f\u6771\u6771\\AI \u57ce\u5e02\uff1a\u4e00\u5ea7\u6703\u81ea\u5df1\u6d3b\u8457\u7684\u5fae\u578b\u57ce\u5e02\\node_modules\\electron\\dist\\electron.exe\" \"F:\\CodeX\u958b\u767c\u5c0f\u6771\u6771\\AI \u57ce\u5e02\uff1a\u4e00\u5ea7\u6703\u81ea\u5df1\u6d3b\u8457\u7684\u5fae\u578b\u57ce\u5e02\\scripts\\repro-electron-quit.cjs\"",
+      "startTime": "2026-10-03T20:08:21.0973880Z",
+      "cimPresent": true,
+      "kernelSignaled": false,
+      "exitCode": 259,
+      "alive": true,
+      "exitObservedAt": null
+    }
+  ],
+  "interpretation": "Normal quit and node-exit code 0 were observed with no active Node resources, but kernel process termination exceeded the deadline. This reproduces the shutdown failure outside city code; exact Electron/Windows root cause remains unproven."
+}

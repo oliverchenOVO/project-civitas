@@ -1,0 +1,98 @@
+{
+  "appVersion": "0.3.0",
+  "simulationVersion": "0.2.0",
+  "productionPayloadMatchesFreshBuild": true,
+  "files": [
+    {
+      "name": "apps/desktop/electron/main.cjs",
+      "packedHash": "ce8fc48a8882667a03171290ee8493f3ef649d366a17a46c0a602676a6b446f4",
+      "sourceHash": "ce8fc48a8882667a03171290ee8493f3ef649d366a17a46c0a602676a6b446f4",
+      "matches": true
+    },
+    {
+      "name": "apps/desktop/electron/preload.cjs",
+      "packedHash": "b6bcca3315fdff569cda56511fd6b3ea03aecf934babb7b1abfc46db398afe05",
+      "sourceHash": "b6bcca3315fdff569cda56511fd6b3ea03aecf934babb7b1abfc46db398afe05",
+      "matches": true
+    },
+    {
+      "name": "dist/assets/index-BT5XuF0J.css",
+      "packedHash": "74d9df5ac826aa4b684322479314e1a1e713dc362b53cb22ae7c316ac8ac0d4e",
+      "sourceHash": "74d9df5ac826aa4b684322479314e1a1e713dc362b53cb22ae7c316ac8ac0d4e",
+      "matches": true
+    },
+    {
+      "name": "dist/assets/index-DC4gfDx1.js",
+      "packedHash": "ce2a9d8921a32398c19654cdb9bf095f90e282cd8a48b7aa686a2b28694c8aa3",
+      "sourceHash": "ce2a9d8921a32398c19654cdb9bf095f90e282cd8a48b7aa686a2b28694c8aa3",
+      "matches": true
+    },
+    {
+      "name": "dist/index.html",
+      "packedHash": "a8b88a4a4d32aa62fe3faf02eaea87dfa1fe3002e9cf509654b23e9eea0f5040",
+      "sourceHash": "a8b88a4a4d32aa62fe3faf02eaea87dfa1fe3002e9cf509654b23e9eea0f5040",
+      "matches": true
+    }
+  ],
+  "versionedHashChangeIntentional": true,
+  "benchmark": [
+    {
+      "simulationVersion": "0.2.0",
+      "initialPopulation": 100,
+      "years": 10,
+      "day": 3650,
+      "runtimeMs": 9994,
+      "daysPerSecond": 365,
+      "eventCount": 5399,
+      "finalPopulation": 120,
+      "activeCompanies": 8,
+      "finalHash": "c58cf8a013283c3cf7e1f4581e3041fd88ee10d78b27bb95afc0b6eaa73db53b",
+      "invariantViolations": 0,
+      "memoryMiB": 30
+    },
+    {
+      "simulationVersion": "0.2.0",
+      "initialPopulation": 250,
+      "years": 10,
+      "day": 3650,
+      "runtimeMs": 17516,
+      "daysPerSecond": 208,
+      "eventCount": 11494,
+      "finalPopulation": 272,
+      "activeCompanies": 16,
+      "finalHash": "93364b46af9689daeaca9cb841cebe9ec4c7d500cdef7ec04d0483a951cb32c1",
+      "invariantViolations": 0,
+      "memoryMiB": 77
+    },
+    {
+      "simulationVersion": "0.2.0",
+      "initialPopulation": 500,
+      "years": 10,
+      "day": 3650,
+      "runtimeMs": 27647,
+      "daysPerSecond": 132,
+      "eventCount": 12915,
+      "finalPopulation": 527,
+      "activeCompanies": 26,
+      "finalHash": "27d756875cc366ad7601af0fc554ed64e86823968332269b49b24378a22970c4",
+      "invariantViolations": 0,
+      "memoryMiB": 45
+    },
+    {
+      "simulationVersion": "0.2.0",
+      "initialPopulation": 1000,
+      "years": 10,
+      "day": 3650,
+      "runtimeMs": 115102,
+      "daysPerSecond": 32,
+      "eventCount": 33165,
+      "finalPopulation": 1034,
+      "activeCompanies": 55,
+      "finalHash": "6a43bd721d7d3686a07da4ab6fc9130dfd75a136125104f472c693bbe94fd3f8",
+      "invariantViolations": 0,
+      "memoryMiB": 138
+    }
+  ],
+  "seedCount": 100,
+  "stabilityPassed": true
+}

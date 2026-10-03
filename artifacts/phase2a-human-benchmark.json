@@ -1,0 +1,752 @@
+[
+  {
+    "simulationVersion": "0.2.0",
+    "initialPopulation": 250,
+    "years": 30,
+    "runtimeMs": 86455,
+    "events": 29698,
+    "historyBytes": 6655973,
+    "saveBytes": 2188147,
+    "simulationHeapMiB": 91,
+    "verificationHeapMiB": 176,
+    "truth": "e7a39a641818d49d6a382d36709525d348d1ba7554b26bc6ff0180b06265f3f9",
+    "saveReplayContinuationPassed": true,
+    "cohortQuery": {
+      "meanMs": 0.21301799999928334,
+      "p95Ms": 0.1900000000023283
+    },
+    "qualificationIndex": {
+      "meanMs": 0.9001460000014049,
+      "p95Ms": 3.9363000000012107,
+      "candidates": 123,
+      "pairs": 738
+    },
+    "development": {
+      "day": 10950,
+      "population": 225,
+      "adults": 210,
+      "education": {
+        "basic": 49,
+        "secondary": 43,
+        "vocational": 74,
+        "tertiary": 44
+      },
+      "unemployedByEducation": {
+        "basic": 0,
+        "secondary": 0,
+        "vocational": 0,
+        "tertiary": 0
+      },
+      "laborForceByEducation": {
+        "basic": 27,
+        "secondary": 22,
+        "vocational": 46,
+        "tertiary": 26
+      },
+      "incomeByEducation": {
+        "basic": 157165,
+        "secondary": 181441,
+        "vocational": 201059,
+        "tertiary": 207240
+      },
+      "occupations": {
+        "labor": 8,
+        "service": 41,
+        "clerical": 17,
+        "technical": 28,
+        "professional": 7,
+        "management": 20
+      },
+      "classes": {
+        "vulnerable": 31,
+        "working": 4,
+        "middle": 0,
+        "affluent": 81
+      },
+      "upward": 144,
+      "downward": 68,
+      "mobilityHouseholdYears": 3384,
+      "educationSpending": 93350000,
+      "vocationalSpending": 24500000,
+      "subsidySpending": 38950000,
+      "productivity": 11777
+    },
+    "snapshots": [
+      {
+        "year": 1,
+        "population": 252,
+        "education": {
+          "basic": 56,
+          "secondary": 53,
+          "vocational": 56,
+          "tertiary": 36
+        }
+      },
+      {
+        "year": 2,
+        "population": 255,
+        "education": {
+          "basic": 56,
+          "secondary": 53,
+          "vocational": 57,
+          "tertiary": 37
+        }
+      },
+      {
+        "year": 3,
+        "population": 258,
+        "education": {
+          "basic": 57,
+          "secondary": 54,
+          "vocational": 58,
+          "tertiary": 37
+        }
+      },
+      {
+        "year": 4,
+        "population": 260,
+        "education": {
+          "basic": 57,
+          "secondary": 55,
+          "vocational": 58,
+          "tertiary": 37
+        }
+      },
+      {
+        "year": 5,
+        "population": 264,
+        "education": {
+          "basic": 57,
+          "secondary": 59,
+          "vocational": 58,
+          "tertiary": 37
+        }
+      },
+      {
+        "year": 6,
+        "population": 266,
+        "education": {
+          "basic": 57,
+          "secondary": 62,
+          "vocational": 59,
+          "tertiary": 37
+        }
+      },
+      {
+        "year": 7,
+        "population": 266,
+        "education": {
+          "basic": 58,
+          "secondary": 62,
+          "vocational": 60,
+          "tertiary": 38
+        }
+      },
+      {
+        "year": 8,
+        "population": 267,
+        "education": {
+          "basic": 57,
+          "secondary": 64,
+          "vocational": 62,
+          "tertiary": 39
+        }
+      },
+      {
+        "year": 9,
+        "population": 268,
+        "education": {
+          "basic": 58,
+          "secondary": 65,
+          "vocational": 62,
+          "tertiary": 40
+        }
+      },
+      {
+        "year": 10,
+        "population": 269,
+        "education": {
+          "basic": 59,
+          "secondary": 62,
+          "vocational": 64,
+          "tertiary": 42
+        }
+      },
+      {
+        "year": 11,
+        "population": 268,
+        "education": {
+          "basic": 58,
+          "secondary": 60,
+          "vocational": 66,
+          "tertiary": 43
+        }
+      },
+      {
+        "year": 12,
+        "population": 268,
+        "education": {
+          "basic": 56,
+          "secondary": 61,
+          "vocational": 66,
+          "tertiary": 44
+        }
+      },
+      {
+        "year": 13,
+        "population": 270,
+        "education": {
+          "basic": 56,
+          "secondary": 60,
+          "vocational": 66,
+          "tertiary": 44
+        }
+      },
+      {
+        "year": 14,
+        "population": 271,
+        "education": {
+          "basic": 55,
+          "secondary": 62,
+          "vocational": 67,
+          "tertiary": 44
+        }
+      },
+      {
+        "year": 15,
+        "population": 271,
+        "education": {
+          "basic": 55,
+          "secondary": 64,
+          "vocational": 67,
+          "tertiary": 44
+        }
+      },
+      {
+        "year": 16,
+        "population": 271,
+        "education": {
+          "basic": 57,
+          "secondary": 63,
+          "vocational": 68,
+          "tertiary": 44
+        }
+      },
+      {
+        "year": 17,
+        "population": 268,
+        "education": {
+          "basic": 57,
+          "secondary": 63,
+          "vocational": 70,
+          "tertiary": 42
+        }
+      },
+      {
+        "year": 18,
+        "population": 267,
+        "education": {
+          "basic": 59,
+          "secondary": 70,
+          "vocational": 72,
+          "tertiary": 42
+        }
+      },
+      {
+        "year": 19,
+        "population": 265,
+        "education": {
+          "basic": 58,
+          "secondary": 66,
+          "vocational": 73,
+          "tertiary": 43
+        }
+      },
+      {
+        "year": 20,
+        "population": 262,
+        "education": {
+          "basic": 58,
+          "secondary": 61,
+          "vocational": 75,
+          "tertiary": 44
+        }
+      },
+      {
+        "year": 21,
+        "population": 257,
+        "education": {
+          "basic": 57,
+          "secondary": 58,
+          "vocational": 77,
+          "tertiary": 43
+        }
+      },
+      {
+        "year": 22,
+        "population": 250,
+        "education": {
+          "basic": 56,
+          "secondary": 53,
+          "vocational": 77,
+          "tertiary": 44
+        }
+      },
+      {
+        "year": 23,
+        "population": 245,
+        "education": {
+          "basic": 54,
+          "secondary": 51,
+          "vocational": 77,
+          "tertiary": 45
+        }
+      },
+      {
+        "year": 24,
+        "population": 243,
+        "education": {
+          "basic": 53,
+          "secondary": 51,
+          "vocational": 77,
+          "tertiary": 45
+        }
+      },
+      {
+        "year": 25,
+        "population": 239,
+        "education": {
+          "basic": 52,
+          "secondary": 48,
+          "vocational": 77,
+          "tertiary": 45
+        }
+      },
+      {
+        "year": 26,
+        "population": 234,
+        "education": {
+          "basic": 51,
+          "secondary": 46,
+          "vocational": 75,
+          "tertiary": 44
+        }
+      },
+      {
+        "year": 27,
+        "population": 231,
+        "education": {
+          "basic": 50,
+          "secondary": 45,
+          "vocational": 75,
+          "tertiary": 44
+        }
+      },
+      {
+        "year": 28,
+        "population": 230,
+        "education": {
+          "basic": 49,
+          "secondary": 44,
+          "vocational": 75,
+          "tertiary": 45
+        }
+      },
+      {
+        "year": 29,
+        "population": 225,
+        "education": {
+          "basic": 49,
+          "secondary": 41,
+          "vocational": 74,
+          "tertiary": 44
+        }
+      },
+      {
+        "year": 30,
+        "population": 225,
+        "education": {
+          "basic": 49,
+          "secondary": 43,
+          "vocational": 74,
+          "tertiary": 44
+        }
+      }
+    ]
+  },
+  {
+    "simulationVersion": "0.2.0",
+    "initialPopulation": 1000,
+    "years": 30,
+    "runtimeMs": 312442,
+    "events": 111120,
+    "historyBytes": 22778541,
+    "saveBytes": 8271775,
+    "simulationHeapMiB": 344,
+    "verificationHeapMiB": 1138,
+    "truth": "db29f49475a3f789dc041b00044c4a49c1002c0bc1837ce5798a6966890a2aa6",
+    "saveReplayContinuationPassed": true,
+    "cohortQuery": {
+      "meanMs": 0.13278299999888987,
+      "p95Ms": 0.2171000000089407
+    },
+    "qualificationIndex": {
+      "meanMs": 1.8138549999997486,
+      "p95Ms": 2.600399999995716,
+      "candidates": 522,
+      "pairs": 3132
+    },
+    "development": {
+      "day": 10950,
+      "population": 902,
+      "adults": 847,
+      "education": {
+        "basic": 190,
+        "secondary": 183,
+        "vocational": 286,
+        "tertiary": 188
+      },
+      "unemployedByEducation": {
+        "basic": 0,
+        "secondary": 0,
+        "vocational": 0,
+        "tertiary": 0
+      },
+      "laborForceByEducation": {
+        "basic": 99,
+        "secondary": 95,
+        "vocational": 192,
+        "tertiary": 127
+      },
+      "incomeByEducation": {
+        "basic": 152132,
+        "secondary": 186601,
+        "vocational": 215356,
+        "tertiary": 228843
+      },
+      "occupations": {
+        "labor": 6,
+        "service": 185,
+        "clerical": 90,
+        "technical": 111,
+        "professional": 31,
+        "management": 90
+      },
+      "classes": {
+        "vulnerable": 101,
+        "working": 9,
+        "middle": 2,
+        "affluent": 348
+      },
+      "upward": 536,
+      "downward": 266,
+      "mobilityHouseholdYears": 13058,
+      "educationSpending": 348130000,
+      "vocationalSpending": 104670000,
+      "subsidySpending": 165000000,
+      "productivity": 11893
+    },
+    "snapshots": [
+      {
+        "year": 1,
+        "population": 1006,
+        "education": {
+          "basic": 215,
+          "secondary": 223,
+          "vocational": 215,
+          "tertiary": 148
+        }
+      },
+      {
+        "year": 2,
+        "population": 1012,
+        "education": {
+          "basic": 217,
+          "secondary": 226,
+          "vocational": 215,
+          "tertiary": 148
+        }
+      },
+      {
+        "year": 3,
+        "population": 1016,
+        "education": {
+          "basic": 218,
+          "secondary": 233,
+          "vocational": 214,
+          "tertiary": 148
+        }
+      },
+      {
+        "year": 4,
+        "population": 1019,
+        "education": {
+          "basic": 219,
+          "secondary": 233,
+          "vocational": 216,
+          "tertiary": 147
+        }
+      },
+      {
+        "year": 5,
+        "population": 1022,
+        "education": {
+          "basic": 223,
+          "secondary": 228,
+          "vocational": 222,
+          "tertiary": 145
+        }
+      },
+      {
+        "year": 6,
+        "population": 1021,
+        "education": {
+          "basic": 223,
+          "secondary": 231,
+          "vocational": 223,
+          "tertiary": 144
+        }
+      },
+      {
+        "year": 7,
+        "population": 1028,
+        "education": {
+          "basic": 223,
+          "secondary": 238,
+          "vocational": 225,
+          "tertiary": 144
+        }
+      },
+      {
+        "year": 8,
+        "population": 1033,
+        "education": {
+          "basic": 223,
+          "secondary": 247,
+          "vocational": 228,
+          "tertiary": 143
+        }
+      },
+      {
+        "year": 9,
+        "population": 1034,
+        "education": {
+          "basic": 223,
+          "secondary": 248,
+          "vocational": 229,
+          "tertiary": 144
+        }
+      },
+      {
+        "year": 10,
+        "population": 1032,
+        "education": {
+          "basic": 226,
+          "secondary": 249,
+          "vocational": 235,
+          "tertiary": 145
+        }
+      },
+      {
+        "year": 11,
+        "population": 1032,
+        "education": {
+          "basic": 224,
+          "secondary": 254,
+          "vocational": 236,
+          "tertiary": 151
+        }
+      },
+      {
+        "year": 12,
+        "population": 1036,
+        "education": {
+          "basic": 225,
+          "secondary": 249,
+          "vocational": 243,
+          "tertiary": 156
+        }
+      },
+      {
+        "year": 13,
+        "population": 1032,
+        "education": {
+          "basic": 225,
+          "secondary": 243,
+          "vocational": 246,
+          "tertiary": 158
+        }
+      },
+      {
+        "year": 14,
+        "population": 1025,
+        "education": {
+          "basic": 223,
+          "secondary": 244,
+          "vocational": 250,
+          "tertiary": 160
+        }
+      },
+      {
+        "year": 15,
+        "population": 1031,
+        "education": {
+          "basic": 224,
+          "secondary": 250,
+          "vocational": 254,
+          "tertiary": 162
+        }
+      },
+      {
+        "year": 16,
+        "population": 1029,
+        "education": {
+          "basic": 226,
+          "secondary": 254,
+          "vocational": 259,
+          "tertiary": 161
+        }
+      },
+      {
+        "year": 17,
+        "population": 1023,
+        "education": {
+          "basic": 226,
+          "secondary": 260,
+          "vocational": 264,
+          "tertiary": 164
+        }
+      },
+      {
+        "year": 18,
+        "population": 1013,
+        "education": {
+          "basic": 221,
+          "secondary": 278,
+          "vocational": 271,
+          "tertiary": 168
+        }
+      },
+      {
+        "year": 19,
+        "population": 1005,
+        "education": {
+          "basic": 220,
+          "secondary": 263,
+          "vocational": 281,
+          "tertiary": 171
+        }
+      },
+      {
+        "year": 20,
+        "population": 996,
+        "education": {
+          "basic": 216,
+          "secondary": 238,
+          "vocational": 297,
+          "tertiary": 175
+        }
+      },
+      {
+        "year": 21,
+        "population": 987,
+        "education": {
+          "basic": 215,
+          "secondary": 227,
+          "vocational": 298,
+          "tertiary": 180
+        }
+      },
+      {
+        "year": 22,
+        "population": 977,
+        "education": {
+          "basic": 213,
+          "secondary": 217,
+          "vocational": 300,
+          "tertiary": 185
+        }
+      },
+      {
+        "year": 23,
+        "population": 967,
+        "education": {
+          "basic": 211,
+          "secondary": 209,
+          "vocational": 301,
+          "tertiary": 185
+        }
+      },
+      {
+        "year": 24,
+        "population": 961,
+        "education": {
+          "basic": 209,
+          "secondary": 206,
+          "vocational": 298,
+          "tertiary": 185
+        }
+      },
+      {
+        "year": 25,
+        "population": 949,
+        "education": {
+          "basic": 206,
+          "secondary": 199,
+          "vocational": 295,
+          "tertiary": 186
+        }
+      },
+      {
+        "year": 26,
+        "population": 938,
+        "education": {
+          "basic": 201,
+          "secondary": 197,
+          "vocational": 294,
+          "tertiary": 186
+        }
+      },
+      {
+        "year": 27,
+        "population": 934,
+        "education": {
+          "basic": 199,
+          "secondary": 196,
+          "vocational": 293,
+          "tertiary": 187
+        }
+      },
+      {
+        "year": 28,
+        "population": 927,
+        "education": {
+          "basic": 197,
+          "secondary": 190,
+          "vocational": 295,
+          "tertiary": 185
+        }
+      },
+      {
+        "year": 29,
+        "population": 908,
+        "education": {
+          "basic": 192,
+          "secondary": 184,
+          "vocational": 284,
+          "tertiary": 187
+        }
+      },
+      {
+        "year": 30,
+        "population": 902,
+        "education": {
+          "basic": 190,
+          "secondary": 183,
+          "vocational": 286,
+          "tertiary": 188
+        }
+      }
+    ]
+  }
+]

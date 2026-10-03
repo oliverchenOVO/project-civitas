@@ -1,6 +1,5 @@
 {
-  "passed": true,
-  "appVersion": "0.2.1",
+  "passed": false,
   "checks": [
     "Native Three WebGL scene renders 136 real buildings and 250 real address markers",
     "90° top, 45° oblique and 0° ground-parallel camera endpoints verified",
@@ -8,15 +7,8 @@
     "Raycast hover/click opens actual citizen and company, and focus moves to the selected real residence",
     "Real layer toggles and fullscreen/exit controls work",
     "Camera, picking, layers and fullscreen leave the native simulation truth hash unchanged",
-    "1000-person scene advances 20 days without overflow or runtime errors",
-    "Packaged native window closes normally with exit code 0",
-    "390×844 responsive 3D controls and horizontal view work without body overflow"
+    "1000-person scene advances 20 days without overflow or runtime errors"
   ],
-  "consoleErrors": [],
-  "cpuUpdateMeanMs": 6.12,
-  "drawCalls": 22,
-  "measurement": "CPU simulation data/instance/overlay updates; not GPU timing or FPS",
-  "screenshots": "artifacts/qa/3d",
-  "validation": "Browser plugin not available; native Playwright Electron plus existing Edge responsive harness",
-  "testedAt": "2026-10-03T16:01:42.992Z"
+  "errors": [],
+  "error": "Error: Normal native close exceeded 10 seconds; QA failed; no force kill"
 }

@@ -1,0 +1,11 @@
+{
+  "passed": false,
+  "appVersion": "0.3.0",
+  "functionalPassed": true,
+  "closePassed": true,
+  "errors": [],
+  "failure": "Error: Normal browser close exceeded 10 seconds; QA failed; no force kill",
+  "citizen": "citizen-78",
+  "fixture": "F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\tests\\fixtures\\phase1-save-v2.json",
+  "testedAt": "2026-10-03T20:21:25.578Z"
+}
