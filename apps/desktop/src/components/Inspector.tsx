@@ -14,6 +14,62 @@ function Field({ label, value }: { label: string; value: React.ReactNode }) {
 export function Inspector({ state }: { state: CityState }) {
   const selected = usePresentation((s) => s.selected);
   const select = usePresentation((s) => s.select);
+  if (selected?.kind === 'district') {
+    const district = state.districts.find((d) => d.id === selected.id);
+    if (!district) return <aside className="inspector">找不到行政區。</aside>;
+    const units = state.units.filter((u) => u.districtId === district.id);
+    const unitIds = new Set(units.map((u) => u.id));
+    const citizens = state.citizens.filter(
+      (c) => c.lifecycleStatus === 'alive' && c.residenceId && unitIds.has(c.residenceId),
+    );
+    const companies = state.companies.filter(
+      (c) => c.districtId === district.id && c.status === 'active',
+    );
+    return (
+      <aside className="inspector">
+        <div className="section-heading">
+          <h2>行政區檔案</h2>
+          <button
+            className="icon-button"
+            aria-label="關閉檔案"
+            onClick={() => usePresentation.setState({ selected: undefined })}
+          >
+            <X size={17} />
+          </button>
+        </div>
+        <div className="identity">
+          <div className="avatar">{district.name.slice(0, 1)}</div>
+          <div>
+            <h3>{district.name}</h3>
+            <small>{district.id}</small>
+          </div>
+        </div>
+        <Field label="現居人口" value={citizens.length} />
+        <Field
+          label="入住 / 住宅"
+          value={`${units.filter((u) => u.occupantHouseholdId).length} / ${units.length}`}
+        />
+        <Field label="活躍企業" value={companies.length} />
+        <h4>區內企業</h4>
+        <div className="relationship-list">
+          {companies.map((company) => (
+            <button key={company.id} onClick={() => select('company', company.id)}>
+              {company.name} ↗
+            </button>
+          ))}
+        </div>
+        <h4>區內居民</h4>
+        <div className="relationship-list">
+          {citizens.slice(0, 12).map((citizen) => (
+            <button key={citizen.id} onClick={() => select('citizen', citizen.id)}>
+              {citizen.name} ↗
+            </button>
+          ))}
+        </div>
+        <p className="muted">地形、道路與地標為視覺示意；上列實體來自城市狀態。</p>
+      </aside>
+    );
+  }
   if (!selected)
     return (
       <aside className="inspector">

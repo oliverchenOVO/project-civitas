@@ -1141,3 +1141,184 @@ tbody tr:hover {
   color: var(--mint);
   background: none;
 }
+/* Phase 1A: map chrome remains DOM-native; world geometry stays in Pixi. */
+.map-host {
+  background: #101e28;
+}
+.map-layers {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  gap: 5px;
+}
+.map-layers button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 9px;
+  font:
+    11px 'Segoe UI',
+    'Microsoft JhengHei',
+    sans-serif;
+  color: var(--muted);
+  border: 1px solid #30434c;
+  border-radius: 4px;
+  background: #10212be8;
+}
+.map-layers button[aria-pressed='true'] {
+  color: #b4e2d3;
+  border-color: #567a73;
+}
+.map-layers button:focus-visible,
+.district-label:focus-visible {
+  outline: 2px solid var(--mint);
+  outline-offset: 3px;
+}
+.map-compass {
+  position: absolute;
+  top: 15px;
+  left: 17px;
+  color: #bed0c8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  font-size: 9px;
+}
+.map-compass svg {
+  transform: rotate(-45deg);
+}
+.map-district-labels {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.district-label {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: grid;
+  gap: 3px;
+  padding: 8px 11px;
+  text-align: left;
+  background: #0c1c25eb;
+  border: 1px solid #49615c80;
+  border-left: 2px solid var(--district-color);
+  border-radius: 3px;
+  color: var(--district-color);
+  box-shadow: 0 3px 12px #07141b80;
+  pointer-events: auto;
+  white-space: nowrap;
+}
+.district-label strong {
+  font-family: Georgia, 'Segoe UI', serif;
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+}
+.district-label small {
+  font:
+    8px 'Segoe UI',
+    sans-serif;
+  letter-spacing: 0.6px;
+  color: #bac9c5;
+}
+.district-label > span {
+  font-size: 9px;
+  color: #92a8b0;
+}
+.district-label.chosen {
+  border-color: var(--district-color);
+  background: #182c34f5;
+}
+.map-scale {
+  position: absolute;
+  left: 18px;
+  bottom: 65px;
+  color: #98adb3;
+  display: grid;
+  gap: 5px;
+  font-size: 9px;
+}
+.map-scale i {
+  display: block;
+  width: 72px;
+  height: 5px;
+  border: 1px solid #98adb3;
+  border-top: 0;
+  background: repeating-linear-gradient(90deg, transparent 0 17px, #98adb3 17px 18px);
+}
+.map-hover {
+  position: absolute;
+  left: 112px;
+  right: 16px;
+  bottom: 65px;
+  color: #d4e3dc;
+  font-size: 10px;
+  text-align: right;
+  text-shadow: 0 1px 5px #07121b;
+  pointer-events: none;
+}
+.map-legend {
+  gap: 13px;
+  padding: 8px 10px;
+  justify-content: flex-end;
+  background: #0c1d27ed;
+}
+.legend-vacant,
+.legend-stressed {
+  width: 9px;
+  height: 7px;
+  border: 1px solid #879b9e;
+  background: #25343d;
+}
+.legend-stressed {
+  border-color: #d4a578;
+}
+.map-truth-note {
+  margin-left: 7px;
+  color: #839da8;
+}
+@media (max-width: 700px) {
+  .map-layers {
+    top: 9px;
+    right: 8px;
+  }
+  .map-layers button {
+    padding: 6px;
+    font-size: 10px;
+  }
+  .district-label {
+    padding: 6px 7px;
+    gap: 2px;
+  }
+  .district-label strong {
+    font-size: 12px;
+  }
+  .district-label small {
+    font-size: 7px;
+    letter-spacing: 0.15px;
+  }
+  .district-label > span {
+    font-size: 8px;
+  }
+  .map-legend {
+    flex-wrap: wrap;
+    gap: 7px 10px;
+    justify-content: center;
+  }
+  .map-legend .map-truth-note {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin: 0;
+  }
+  .map-scale {
+    left: 10px;
+    bottom: 66px;
+  }
+  .map-hover {
+    bottom: 66px;
+    font-size: 9px;
+  }
+}

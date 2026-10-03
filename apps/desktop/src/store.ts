@@ -3,10 +3,10 @@ export type Page = 'City' | 'Citizens' | 'Companies' | 'Events' | 'Government';
 interface Presentation {
   citizenFilter: string;
   page: Page;
-  selected?: { kind: 'citizen' | 'company' | 'household'; id: string };
+  selected?: { kind: 'citizen' | 'company' | 'household' | 'district'; id: string };
   notice: string;
   setPage: (page: Page) => void;
-  select: (kind: 'citizen' | 'company' | 'household', id: string) => void;
+  select: (kind: 'citizen' | 'company' | 'household' | 'district', id: string) => void;
   notify: (message: string) => void;
 }
 export const usePresentation = create<Presentation>((set) => ({
