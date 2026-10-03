@@ -44,7 +44,7 @@ export function CityPage({ state, revision }: { state: CityState; revision: numb
                   }}
                 />
                 <Area
-                  type="monotone"
+                  type="linear"
                   dataKey="employed"
                   name="在職人口"
                   stroke="#91d8bd"
@@ -52,7 +52,7 @@ export function CityPage({ state, revision }: { state: CityState; revision: numb
                   fillOpacity={0.15}
                 />
                 <Area
-                  type="monotone"
+                  type="linear"
                   dataKey="unemployed"
                   name="求職人口"
                   stroke="#d4b778"
@@ -67,13 +67,7 @@ export function CityPage({ state, revision }: { state: CityState; revision: numb
         </section>
         <section>
           <h2>最近發生</h2>
-          <EventFeed
-            state={state}
-            events={state.events.filter(
-              (e) => e.severity === 'major' || e.type === 'COMPANY_CREATED',
-            )}
-            limit={3}
-          />
+          <EventFeed state={state} events={controller.events.category('major')} limit={3} />
         </section>
       </div>
     </section>
@@ -276,12 +270,7 @@ export function CompaniesPage({ state }: { state: CityState }) {
 export function EventsPage({ state }: { state: CityState }) {
   const [category, setCategory] = useState('major'),
     [limit, setLimit] = useState(60);
-  const events = state.events.filter(
-    (e) =>
-      category === 'all' ||
-      (category === 'major' && e.severity === 'major') ||
-      e.category === category,
-  );
+  const events = controller.events.category(category);
   return (
     <section>
       <div className="section-heading">

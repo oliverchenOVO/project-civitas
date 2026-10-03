@@ -2,7 +2,8 @@ import { UserRound, ArrowUpRight, X } from 'lucide-react';
 import { age, type CityState } from '../../../../packages/domain/src/index';
 import { usePresentation } from '../store';
 import { money, employmentLabels, date } from '../format';
-import { EventFeed } from './EventFeed';
+import { controller } from '../../../../packages/application/src/controller';
+import { EntityHistory, EntityLinks } from './Investigation';
 function Field({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <div className="field">
@@ -14,6 +15,17 @@ function Field({ label, value }: { label: string; value: React.ReactNode }) {
 export function Inspector({ state }: { state: CityState }) {
   const selected = usePresentation((s) => s.selected);
   const select = usePresentation((s) => s.select);
+  if (selected?.kind === 'event' || selected?.kind === 'metric') {
+    const event = selected.kind === 'event' ? controller.events.byId.get(selected.id) : undefined;
+    return (
+      <aside className="inspector">
+        <h2>調查脈絡</h2>
+        <p>{event?.type ?? selected.id}</p>
+        {event && <EntityLinks refs={event.entityRefs} state={state} />}
+        <p className="muted">Exact causation 只來自 causeEventIds；指標相關事件不代表因果。</p>
+      </aside>
+    );
+  }
   if (selected?.kind === 'district') {
     const district = state.districts.find((d) => d.id === selected.id);
     if (!district) return <aside className="inspector">找不到行政區。</aside>;
@@ -98,7 +110,7 @@ export function Inspector({ state }: { state: CityState }) {
         <p>此城市中找不到選取的實體。</p>
       </aside>
     );
-  const history = state.events.filter((e) => e.entityRefs.some((r) => r.id === selected.id));
+  const history = controller.events.entity(selected.kind, selected.id);
   return (
     <aside className="inspector">
       <div className="section-heading">
@@ -120,6 +132,9 @@ export function Inspector({ state }: { state: CityState }) {
           </small>
         </div>
       </div>
+      <button className="text-button" onClick={() => usePresentation.getState().focusMap()}>
+        Focus on Map · 真實目前位置
+      </button>
       {citizen && (
         <>
           <Field
@@ -187,6 +202,24 @@ export function Inspector({ state }: { state: CityState }) {
           <Field label="每月房租" value={money(household.housingCost)} />
           <Field label="財務狀況" value={household.socioeconomicStatus} />
           {!citizen && (
+            <>
+              <Field label="目前住所" value={household.residenceId ?? '無住所'} />
+              <Field
+                label="成員月薪合計（目前）"
+                value={money(
+                  household.memberIds.reduce(
+                    (n, id) => n + (state.citizens.find((c) => c.id === id)?.salary ?? 0),
+                    0,
+                  ),
+                )}
+              />
+              <Field
+                label="在職 / 求職成員"
+                value={`${household.memberIds.filter((id) => state.citizens.find((c) => c.id === id)?.employmentStatus === 'employed').length} / ${household.memberIds.filter((id) => state.citizens.find((c) => c.id === id)?.employmentStatus === 'unemployed').length}`}
+              />
+            </>
+          )}
+          {!citizen && (
             <div className="relationship-list">
               {household.memberIds.map((cid) => (
                 <button key={cid} onClick={() => select('citizen', cid)}>
@@ -228,7 +261,11 @@ export function Inspector({ state }: { state: CityState }) {
         {citizen ? '真實人生履歷' : firm ? '企業歷史' : '家庭歷史'}{' '}
         <small>{history.length} 筆事件</small>
       </h4>
-      <EventFeed state={state} events={history} limit={30} />
+      <EntityHistory
+        state={state}
+        kind={citizen ? 'citizen' : firm ? 'company' : 'household'}
+        id={selected.id}
+      />
     </aside>
   );
 }

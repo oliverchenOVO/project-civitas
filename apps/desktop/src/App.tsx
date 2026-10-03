@@ -1,4 +1,11 @@
-import { Component, useEffect, useState, useSyncExternalStore, type ReactNode } from 'react';
+import {
+  Component,
+  useEffect,
+  useLayoutEffect,
+  useState,
+  useSyncExternalStore,
+  type ReactNode,
+} from 'react';
 import {
   Map,
   Users,
@@ -30,6 +37,12 @@ import {
 } from './components/Pages';
 import { Inspector } from './components/Inspector';
 import packageMetadata from '../../../package.json';
+import {
+  CityHistoryPage,
+  GlobalSearch,
+  InvestigationPage,
+  ScenarioPage,
+} from './components/Investigation';
 declare global {
   interface Window {
     civitas?: { save: (text: string) => Promise<boolean>; load: () => Promise<string | null> };
@@ -40,6 +53,13 @@ const nav = [
   { page: 'Citizens' as Page, label: '居民', description: 'People & households', Icon: Users },
   { page: 'Companies' as Page, label: '企業', description: 'Firms & economy', Icon: Building2 },
   { page: 'Events' as Page, label: '事件', description: 'History & evidence', Icon: Newspaper },
+  { page: 'History' as Page, label: '城市歷史', description: 'Year in Review', Icon: Newspaper },
+  {
+    page: 'Scenarios' as Page,
+    label: '情境比較',
+    description: 'Simulation comparison',
+    Icon: Landmark,
+  },
   {
     page: 'Government' as Page,
     label: '政府',
@@ -60,7 +80,7 @@ function Pulse({ state }: { state: CityState }) {
         <strong>
           <button
             className="metric-link"
-            onClick={() => usePresentation.setState({ page: 'Citizens', citizenFilter: 'alive' })}
+            onClick={() => usePresentation.getState().select('metric', 'population')}
           >
             {m.population.toLocaleString()}
           </button>
@@ -96,26 +116,57 @@ function Pulse({ state }: { state: CityState }) {
         </strong>
         <div>
           <span>勞動人口失業率</span>
-          <span>{(m.unemploymentRate / 100).toFixed(1)}%</span>
+          <button
+            className="text-button"
+            aria-label="解釋失業率"
+            onClick={() => usePresentation.getState().select('metric', 'unemploymentRate')}
+          >
+            {(m.unemploymentRate / 100).toFixed(1)}%
+          </button>
         </div>
       </div>
       <div className="pulse-stat">
         <span>家庭平均淨財富</span>
-        <strong>{money(m.householdWealth)}</strong>
+        <strong>
+          <button
+            className="metric-link"
+            aria-label="解釋家庭淨財富"
+            onClick={() => usePresentation.getState().select('metric', 'householdWealth')}
+          >
+            {money(m.householdWealth)}
+          </button>
+        </strong>
         <div>
           <span>平均月薪（全人口）</span>
-          <span>{money(m.averageIncome)}</span>
+          <button
+            className="text-button"
+            onClick={() => usePresentation.getState().select('metric', 'averageIncome')}
+          >
+            {money(m.averageIncome)}
+          </button>
         </div>
       </div>
       <div className="pulse-stat">
         <span>住宅入住率</span>
         <strong>
-          {m.units ? Math.round((m.occupied / m.units) * 100) : 0}
+          <button
+            className="metric-link"
+            aria-label="解釋住宅入住率"
+            onClick={() => usePresentation.getState().select('metric', 'occupancyRate')}
+          >
+            {m.units ? Math.round((m.occupied / m.units) * 100) : 0}
+          </button>
           <small>%</small>
         </strong>
         <div>
           <span>{m.vacancy} 戶空置</span>
-          <span>平均月租 {money(m.averageRent)}</span>
+          <button
+            className="text-button"
+            aria-label="解釋平均月租"
+            onClick={() => usePresentation.getState().select('metric', 'averageRent')}
+          >
+            平均月租 {money(m.averageRent)}
+          </button>
         </div>
         <div className="meter">
           <i style={{ width: `${m.units ? (m.occupied / m.units) * 100 : 0}%` }} />
@@ -124,7 +175,13 @@ function Pulse({ state }: { state: CityState }) {
       <div className="pulse-stat">
         <span>居民平均幸福</span>
         <strong>
-          {m.happiness}
+          <button
+            className="metric-link"
+            aria-label="解釋居民幸福"
+            onClick={() => usePresentation.getState().select('metric', 'happiness')}
+          >
+            {m.happiness}
+          </button>
           <small> / 100</small>
         </strong>
         <div>
@@ -147,7 +204,12 @@ function NewCityDialog({ close }: { close: () => void }) {
           e.preventDefault();
           try {
             controller.newCity({ seed, population });
-            usePresentation.setState({ selected: undefined, page: 'City' });
+            usePresentation.setState({
+              selected: undefined,
+              page: 'City',
+              stack: [],
+              overlay: undefined,
+            });
             close();
           } catch (e) {
             setError(String(e));
@@ -201,6 +263,14 @@ function Observatory() {
     setPage = usePresentation((s) => s.setPage),
     notice = usePresentation((s) => s.notice),
     notify = usePresentation((s) => s.notify);
+  const stackLength = usePresentation((s) => s.stack.length);
+  const navigationRevision = usePresentation((s) => s.navigationRevision);
+  useLayoutEffect(() => {
+    const scroll = usePresentation.getState().scroll;
+    const main = document.querySelector('.main-view');
+    if (main) main.scrollTop = scroll.main;
+    window.scrollTo(0, scroll.window);
+  }, [navigationRevision]);
   const [newCity, setNewCity] = useState(false),
     [busy, setBusy] = useState(false),
     [diagnostics, setDiagnostics] = useState(false),
@@ -258,7 +328,7 @@ function Observatory() {
         const text = await window.civitas.load();
         if (text !== null) {
           await controller.load(text);
-          usePresentation.setState({ selected: undefined });
+          usePresentation.setState({ selected: undefined, stack: [], overlay: undefined });
           notify('城市已載入，可從相同狀態繼續。');
         }
       } else {
@@ -361,6 +431,16 @@ function Observatory() {
           </div>
         </nav>
         <main className="main-view">
+          <div className="investigation-nav">
+            <button
+              aria-label="返回調查脈絡"
+              disabled={!stackLength}
+              onClick={() => usePresentation.getState().back()}
+            >
+              ← Back
+            </button>
+            <GlobalSearch state={state} />
+          </div>
           {page === 'City' ? (
             <CityPage state={state} revision={revision} />
           ) : page === 'Citizens' ? (
@@ -369,6 +449,12 @@ function Observatory() {
             <CompaniesPage state={state} />
           ) : page === 'Events' ? (
             <EventsPage state={state} />
+          ) : page === 'History' ? (
+            <CityHistoryPage state={state} />
+          ) : page === 'Metrics' ? (
+            <InvestigationPage state={state} />
+          ) : page === 'Scenarios' ? (
+            <ScenarioPage />
           ) : (
             <GovernmentPage state={state} />
           )}
@@ -414,7 +500,7 @@ function Observatory() {
           if (f)
             void task(async () => {
               await controller.load(await f.text());
-              usePresentation.setState({ selected: undefined });
+              usePresentation.setState({ selected: undefined, stack: [], overlay: undefined });
               notify('城市已載入。');
             });
           e.target.value = '';
