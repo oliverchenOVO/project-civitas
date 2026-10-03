@@ -211,10 +211,17 @@ export function createCity(
     });
   for (let i = 0; i < config.population; i++) {
     const h = s.households[i % householdCount];
+    const parentAges = h.memberIds.map((cid) =>
+      age(
+        s,
+        s.citizens.find((c) => c.id === cid)!,
+      ),
+    );
+    const oldestChildDays = Math.max(0, Math.min(17, Math.min(...parentAges) - 18)) * 365;
     const c = createCitizen(
       s,
       h.id,
-      i >= householdCount * 2 ? -roll(s, 'population', 0, 17 * 365) : undefined,
+      i >= householdCount * 2 ? -roll(s, 'population', 0, oldestChildDays) : undefined,
     );
     h.memberIds.push(c.id);
     emit(

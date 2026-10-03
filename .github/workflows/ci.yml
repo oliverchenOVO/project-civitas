@@ -17,8 +17,8 @@ jobs:
       - run: pnpm lint
       - run: pnpm test
       - run: pnpm benchmark
-      - run: pnpm build
-      - run: pnpm exec electron-builder --win dir portable
+      - run: pnpm stability
+      - run: pnpm package:win
       - uses: actions/upload-artifact@v4
         with:
           name: CIVITAS-Windows

@@ -12,7 +12,7 @@
     "benchmark": "tsx scripts/benchmark.ts",
     "stability": "tsx scripts/stability.ts",
     "desktop": "electron .",
-    "package:win": "pnpm build && electron-builder --win dir portable",
+    "package:win": "pnpm build && tsx scripts/stage-desktop.ts && electron-builder --win dir portable",
     "qa:desktop": "tsx scripts/desktop-qa.ts"
   },
   "main": "apps/desktop/electron/main.cjs",
@@ -45,7 +45,8 @@
     "appId": "studio.civitas.observatory",
     "productName": "Project CIVITAS",
     "directories": {
-      "output": "release"
+      "output": "release",
+      "app": ".desktop-runtime"
     },
     "files": [
       "dist/**/*",
@@ -63,7 +64,8 @@
     "portable": {
       "artifactName": "CIVITAS-${version}-Windows-portable.exe"
     },
-    "electronDist": "node_modules/electron/dist"
+    "electronDist": "node_modules/electron/dist",
+    "npmRebuild": false
   },
   "description": "A deterministic, verifiable living city observatory",
   "author": "CIVITAS"

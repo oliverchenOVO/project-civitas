@@ -50,8 +50,11 @@ export function checkInvariants(s: CityState): string[] {
         `Impossible employment ${c.id}`,
       );
     } else fail(!c.employerId, `Nonworker employer ${c.id}`);
-    for (const pid of c.parents)
+    for (const pid of c.parents) {
       fail(citizens.get(pid)?.children.includes(c.id), `Parent link ${c.id}`);
+      const parent = citizens.get(pid);
+      fail(parent && c.birthDay - parent.birthDay >= 18 * 365, `Invalid parent age ${c.id}`);
+    }
     for (const cid of c.children)
       fail(citizens.get(cid)?.parents.includes(c.id), `Child link ${c.id}`);
     if (c.spouseId) fail(citizens.get(c.spouseId)?.spouseId === c.id, `Spouse link ${c.id}`);
