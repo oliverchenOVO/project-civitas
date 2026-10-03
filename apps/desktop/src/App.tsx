@@ -209,6 +209,7 @@ function NewCityDialog({ close }: { close: () => void }) {
               page: 'City',
               stack: [],
               overlay: undefined,
+              historyFilters: undefined,
             });
             close();
           } catch (e) {
@@ -269,6 +270,8 @@ function Observatory() {
     const scroll = usePresentation.getState().scroll;
     const main = document.querySelector('.main-view');
     if (main) main.scrollTop = scroll.main;
+    const inspector = document.querySelector('.inspector');
+    if (inspector) inspector.scrollTop = scroll.inspector;
     window.scrollTo(0, scroll.window);
   }, [navigationRevision]);
   const [newCity, setNewCity] = useState(false),
@@ -328,7 +331,12 @@ function Observatory() {
         const text = await window.civitas.load();
         if (text !== null) {
           await controller.load(text);
-          usePresentation.setState({ selected: undefined, stack: [], overlay: undefined });
+          usePresentation.setState({
+            selected: undefined,
+            stack: [],
+            overlay: undefined,
+            historyFilters: undefined,
+          });
           notify('城市已載入，可從相同狀態繼續。');
         }
       } else {
@@ -500,7 +508,12 @@ function Observatory() {
           if (f)
             void task(async () => {
               await controller.load(await f.text());
-              usePresentation.setState({ selected: undefined, stack: [], overlay: undefined });
+              usePresentation.setState({
+                selected: undefined,
+                stack: [],
+                overlay: undefined,
+                historyFilters: undefined,
+              });
               notify('城市已載入。');
             });
           e.target.value = '';

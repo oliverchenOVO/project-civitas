@@ -341,11 +341,24 @@ export function InvestigationPage({ state }: { state: CityState }) {
   );
 }
 export function CityHistoryPage({ state }: { state: CityState }) {
-  const [year, setYear] = useState(Math.max(0, Math.floor(state.day / 365) - 1)),
-    [category, setCategory] = useState(''),
-    [district, setDistrict] = useState(''),
-    [entityType, setEntityType] = useState(''),
-    [limit, setLimit] = useState(30);
+  const savedFilters = usePresentation((s) => s.historyFilters);
+  const { year, category, district, entityType, limit } = savedFilters ?? {
+    year: Math.max(0, Math.floor(state.day / 365) - 1),
+    category: '',
+    district: '',
+    entityType: '',
+    limit: 30,
+  };
+  const setFilters = (patch: Partial<import('../store').HistoryFilters>) =>
+    usePresentation.setState({
+      historyFilters: { year, category, district, entityType, limit, ...patch },
+    });
+  const setYear = (year: number) => setFilters({ year, limit: 30 });
+  const setCategory = (category: string) => setFilters({ category });
+  const setDistrict = (district: string) => setFilters({ district });
+  const setEntityType = (entityType: string) => setFilters({ entityType });
+  const setLimit = (value: number | ((limit: number) => number)) =>
+    setFilters({ limit: typeof value === 'function' ? value(limit) : value });
   const events = useMemo(
     () =>
       cityHistory(controller.events, {
@@ -369,7 +382,6 @@ export function CityHistoryPage({ state }: { state: CityState }) {
             value={year}
             onChange={(e) => {
               setYear(Number(e.target.value));
-              setLimit(30);
             }}
           >
             {Array.from({ length: Math.floor(state.day / 365) + 1 }, (_, i) => (

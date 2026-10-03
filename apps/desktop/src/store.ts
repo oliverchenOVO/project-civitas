@@ -13,23 +13,36 @@ export interface AffectedOverlay {
   refs: { kind: 'citizen' | 'company' | 'household' | 'district'; id: string }[];
   mode: 'all' | 'citizen' | 'company' | 'household';
 }
+export interface HistoryFilters {
+  year: number;
+  category: string;
+  district: string;
+  entityType: string;
+  limit: number;
+}
 interface Context {
   page: Page;
   selected?: Selection;
   overlay?: AffectedOverlay;
-  scroll: { main: number; window: number };
+  historyFilters?: HistoryFilters;
+  scroll: { main: number; window: number; inspector: number };
 }
 function context(s: Presentation): Context {
   return {
     page: s.page,
     selected: s.selected,
     overlay: s.overlay,
+    historyFilters: s.historyFilters,
     scroll: {
       main:
         typeof document === 'undefined'
           ? 0
           : (document.querySelector('.main-view')?.scrollTop ?? 0),
       window: typeof window === 'undefined' ? 0 : window.scrollY,
+      inspector:
+        typeof document === 'undefined'
+          ? 0
+          : (document.querySelector('.inspector')?.scrollTop ?? 0),
     },
   };
 }
@@ -38,9 +51,10 @@ interface Presentation {
   page: Page;
   selected?: Selection;
   overlay?: AffectedOverlay;
+  historyFilters?: HistoryFilters;
   stack: Context[];
   navigationRevision: number;
-  scroll: { main: number; window: number };
+  scroll: { main: number; window: number; inspector: number };
   back: () => void;
   trace: (direction: 'causes' | 'effects') => void;
   metricOptions: (options: { window?: number; explained?: boolean }) => void;
@@ -57,7 +71,7 @@ export const usePresentation = create<Presentation>((set, get) => ({
   notice: '',
   stack: [],
   navigationRevision: 0,
-  scroll: { main: 0, window: 0 },
+  scroll: { main: 0, window: 0, inspector: 0 },
   metricOptions: (options) =>
     set((s) => ({
       selected: s.selected?.kind === 'metric' ? { ...s.selected, ...options } : s.selected,
@@ -74,7 +88,7 @@ export const usePresentation = create<Presentation>((set, get) => ({
         selected: { ...s.selected, trace },
         stack: [...s.stack, context(s)].slice(-50),
         navigationRevision: s.navigationRevision + 1,
-        scroll: { main: 0, window: 0 },
+        scroll: { main: 0, window: 0, inspector: 0 },
       });
   },
   focusMap: () => {
@@ -83,7 +97,7 @@ export const usePresentation = create<Presentation>((set, get) => ({
       page: 'City',
       stack: [...s.stack, context(s)].slice(-50),
       navigationRevision: s.navigationRevision + 1,
-      scroll: { main: 0, window: 0 },
+      scroll: { main: 0, window: 0, inspector: 0 },
     });
   },
   setOverlay: (overlay) => set({ overlay }),
@@ -93,7 +107,7 @@ export const usePresentation = create<Presentation>((set, get) => ({
       page,
       stack: [...s.stack, context(s)].slice(-50),
       navigationRevision: s.navigationRevision + 1,
-      scroll: { main: 0, window: 0 },
+      scroll: { main: 0, window: 0, inspector: 0 },
     });
   },
   select: (kind, id) => {
@@ -104,7 +118,7 @@ export const usePresentation = create<Presentation>((set, get) => ({
         kind === 'metric' || kind === 'event' ? 'Metrics' : s.page === 'Metrics' ? 'City' : s.page,
       stack: [...s.stack, context(s)].slice(-50),
       navigationRevision: s.navigationRevision + 1,
-      scroll: { main: 0, window: 0 },
+      scroll: { main: 0, window: 0, inspector: 0 },
     });
   },
   notify: (notice) => set({ notice }),
