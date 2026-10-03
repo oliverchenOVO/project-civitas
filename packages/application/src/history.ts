@@ -1,5 +1,6 @@
 import type { CityState, Metrics } from '../../domain/src/index';
 import { advance, applyCommand, createCity } from '../../simulation/src/index';
+import { humanDevelopment, type HumanDevelopmentSample } from './human-development';
 
 export type MetricKey = keyof Metrics | 'treasury' | 'occupancyRate';
 export type Values = Record<MetricKey, number>;
@@ -23,6 +24,8 @@ export interface EntitySample {
 }
 export interface ObservationHistory {
   historyAvailableFromDay: number;
+  humanDevelopment: { availableFromDay: number; samples: HumanDevelopmentSample[] };
+  replayCheckpoint?: string;
   initial: Sample;
   daily: Sample[];
   monthly: Period[];
@@ -51,6 +54,7 @@ export function createHistory(s: CityState): ObservationHistory {
   const initial = sampleCity(s);
   const h: ObservationHistory = {
     historyAvailableFromDay: s.day,
+    humanDevelopment: { availableFromDay: s.day, samples: [humanDevelopment(s)] },
     initial,
     daily: [initial],
     monthly: [],
@@ -101,6 +105,11 @@ export function periodIds(day: number) {
   return { year, month: year * 12 + Math.min(11, Math.floor(((day - 1) % 365) / 30)) };
 }
 export function captureHistory(h: ObservationHistory, s: CityState) {
+  const humanLast = h.humanDevelopment.samples.at(-1)!;
+  if (humanLast.day === s.day)
+    h.humanDevelopment.samples[h.humanDevelopment.samples.length - 1] = humanDevelopment(s);
+  else if (s.day % 30 === 0 || s.day % 365 === 0)
+    h.humanDevelopment.samples.push(humanDevelopment(s));
   const row = sampleCity(s),
     previous = h.daily.at(-1)!;
   if (row.day < previous.day || row.day > previous.day + 1)
@@ -159,12 +168,19 @@ export function historicalValue(h: ObservationHistory, day: number, key: MetricK
   if (daily) return daily.values[key];
   return h.monthly.find((row) => row.endDay === day)?.closing[key];
 }
-export function replayHistory(source: CityState, boundary: number) {
-  const state = createCity(source.config);
-  let history: ObservationHistory | undefined;
-  let commandCursor = 0;
-  for (let day = 0; day <= source.day; day++) {
-    if (day > 0) {
+export function replayHistory(source: CityState, boundary: number, observed?: ObservationHistory) {
+  const state: CityState = source.migrationCheckpoint
+    ? JSON.parse(source.migrationCheckpoint)
+    : createCity(source.config);
+  if (source.migrationCheckpoint) state.migrationCheckpoint = source.migrationCheckpoint;
+  let history: ObservationHistory | undefined = observed?.replayCheckpoint
+    ? JSON.parse(observed.replayCheckpoint)
+    : undefined;
+  if (history) history.replayCheckpoint = observed!.replayCheckpoint;
+  let commandCursor = state.commands.length;
+  const start = state.day;
+  for (let day = start; day <= source.day; day++) {
+    if (day > start) {
       advance(state);
       if (history) captureHistory(history, state);
     }
@@ -172,7 +188,7 @@ export function replayHistory(source: CityState, boundary: number) {
       applyCommand(state, source.commands[commandCursor++].command);
       if (history) captureHistory(history, state);
     }
-    if (day === boundary) history = createHistory(state);
+    if (day === boundary && !history) history = createHistory(state);
   }
   if (!history) throw new Error('Invalid replay history boundary');
   return history;

@@ -71,7 +71,7 @@ export class CityController {
     const [expected, actual] = await Promise.all([stateHash(source), stateHash(replay)]);
     const [historyExpected, historyActual] = await Promise.all([
       stateHash(this.history),
-      stateHash(replayHistory(source, this.history.historyAvailableFromDay)),
+      stateHash(replayHistory(source, this.history.historyAvailableFromDay, this.history)),
     ]);
     return {
       ok: expected === actual && historyExpected === historyActual,

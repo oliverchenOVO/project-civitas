@@ -10,6 +10,7 @@ export interface Branch {
   history: ObservationHistory;
 }
 export interface ScenarioWorkspace {
+  migratedLegacy?: boolean;
   checkpoint: CityState;
   checkpointHistory: ObservationHistory;
   branches: [Branch, Branch];
@@ -39,8 +40,16 @@ export function advanceBranch(branch: Branch, days: number) {
 export async function verifyScenarios(workspace: ScenarioWorkspace) {
   const results = [];
   for (const branch of workspace.branches) {
-    const state = structuredClone(workspace.checkpoint),
-      history = structuredClone(workspace.checkpointHistory);
+    const state: CityState = workspace.migratedLegacy
+        ? JSON.parse(branch.state.migrationCheckpoint!)
+        : structuredClone(workspace.checkpoint),
+      history: ObservationHistory = workspace.migratedLegacy
+        ? JSON.parse(branch.history.replayCheckpoint!)
+        : structuredClone(workspace.checkpointHistory);
+    if (workspace.migratedLegacy) {
+      state.migrationCheckpoint = branch.state.migrationCheckpoint;
+      history.replayCheckpoint = branch.history.replayCheckpoint;
+    }
     for (const recorded of branch.state.commands.slice(state.commands.length)) {
       while (state.day < recorded.day) {
         advance(state);

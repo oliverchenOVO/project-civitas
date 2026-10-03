@@ -263,6 +263,20 @@ export function yearReview(h: ObservationHistory, index: EventIndex, year: numbe
     events: events.slice(0, 10),
     mostRecordedDistrict:
       [...districts].sort((a, b) => b[1] - a[1] || (a[0] < b[0] ? -1 : 1))[0] ?? null,
+    human: (() => {
+      const rows = h.humanDevelopment.samples,
+        opening = rows.find((r) => r.day === year * 365),
+        closing = rows.find((r) => r.day === (year + 1) * 365);
+      if (!opening || !closing || h.humanDevelopment.availableFromDay > year * 365)
+        return undefined;
+      return {
+        educationSpending: closing.educationSpending - opening.educationSpending,
+        vocationalSpending: closing.vocationalSpending - opening.vocationalSpending,
+        subsidySpending: closing.subsidySpending - opening.subsidySpending,
+        upward: closing.upward - opening.upward,
+        downward: closing.downward - opening.downward,
+      };
+    })(),
     populationMilestone:
       Math.floor(period.closing.population / 100) - Math.floor(period.opening.population / 100),
   };

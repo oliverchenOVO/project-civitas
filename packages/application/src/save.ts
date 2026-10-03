@@ -5,6 +5,9 @@ import { assertInvariants } from '../../simulation/src/invariants';
 import { stateHash } from '../../shared/src/canonical';
 import { createHistory, type ObservationHistory } from './history';
 import type { ScenarioWorkspace } from './scenarios';
+import { legacyCitySchema } from '../../simulation/src/legacy-schema';
+import { migrateLegacyState } from '../../simulation/src/migration';
+import { humanDevelopment } from './human-development';
 
 const natural = z.number().int().safe().nonnegative();
 const values = citySchema.shape.metrics.extend({ treasury: natural, occupancyRate: natural });
@@ -33,6 +36,59 @@ const entitySeries = z.record(
 );
 export const historySchema = z
   .object({
+    humanDevelopment: z
+      .object({
+        availableFromDay: natural,
+        samples: z
+          .array(
+            z
+              .object({
+                day: natural,
+                population: natural,
+                adults: natural,
+                education: z.record(
+                  z.enum(['basic', 'secondary', 'vocational', 'tertiary']),
+                  natural,
+                ),
+                unemployedByEducation: z.record(
+                  z.enum(['basic', 'secondary', 'vocational', 'tertiary']),
+                  natural,
+                ),
+                laborForceByEducation: z.record(
+                  z.enum(['basic', 'secondary', 'vocational', 'tertiary']),
+                  natural,
+                ),
+                incomeByEducation: z.record(
+                  z.enum(['basic', 'secondary', 'vocational', 'tertiary']),
+                  natural,
+                ),
+                occupations: z.record(
+                  z.enum([
+                    'labor',
+                    'service',
+                    'clerical',
+                    'technical',
+                    'professional',
+                    'management',
+                  ]),
+                  natural,
+                ),
+                classes: z.record(z.enum(['vulnerable', 'working', 'middle', 'affluent']), natural),
+                upward: natural,
+                downward: natural,
+                mobilityHouseholdYears: natural,
+                educationSpending: natural,
+                vocationalSpending: natural,
+                subsidySpending: natural,
+                productivity: natural,
+              })
+              .strict(),
+          )
+          .min(1)
+          .max(20000),
+      })
+      .strict(),
+    replayCheckpoint: z.string().max(250000000).optional(),
     historyAvailableFromDay: natural,
     initial: sample,
     daily: z.array(sample).min(1).max(400),
@@ -47,6 +103,7 @@ const branch = z
   .strict();
 const workspace = z
   .object({
+    migratedLegacy: z.boolean().optional(),
     checkpoint: citySchema,
     checkpointHistory: historySchema,
     branches: z.tuple([branch, branch]),
@@ -60,7 +117,7 @@ const saveSchema = z
   .object({
     manifest: z
       .object({
-        saveVersion: z.literal(2),
+        saveVersion: z.literal(3),
         simulationVersion: z.literal(SIMULATION_VERSION),
         simulationTruthHash: hash,
         containerIntegrityHash: hash,
@@ -76,6 +133,23 @@ export interface ObservatorySave {
   scenarios: ScenarioWorkspace | null;
 }
 function validateHistory(state: CityState, h: ObservationHistory) {
+  const human = h.humanDevelopment;
+  if (human.availableFromDay > state.day || human.samples[0]?.day !== human.availableFromDay)
+    throw new Error('Invalid human-development availability');
+  for (let i = 0; i < human.samples.length; i++) {
+    const row = human.samples[i];
+    if (
+      row.day > state.day ||
+      (i > 0 && row.day <= human.samples[i - 1].day) ||
+      Object.values(row.education).reduce((n, x) => n + x, 0) !== row.adults
+    )
+      throw new Error('Invalid human-development chronology/cohort');
+  }
+  if (h.replayCheckpoint) {
+    const baseline = historySchema.parse(JSON.parse(h.replayCheckpoint));
+    if (baseline.replayCheckpoint || baseline.daily.at(-1)!.day > state.day)
+      throw new Error('Invalid history replay checkpoint');
+  }
   if (
     h.initial.day !== h.historyAvailableFromDay ||
     h.initial.day > state.day ||
@@ -114,6 +188,18 @@ function validateHistory(state: CityState, h: ObservationHistory) {
 }
 function validateBody(body: ObservatorySave) {
   assertInvariants(body.state);
+  if (body.state.migrationCheckpoint) {
+    const checkpoint = citySchema.parse(JSON.parse(body.state.migrationCheckpoint)) as CityState;
+    assertInvariants(checkpoint);
+    if (
+      checkpoint.migrationCheckpoint ||
+      checkpoint.day > body.state.day ||
+      checkpoint.config.seed !== body.state.config.seed ||
+      JSON.stringify(checkpoint.commands) !==
+        JSON.stringify(body.state.commands.slice(0, checkpoint.commands.length))
+    )
+      throw new Error('Invalid migration replay checkpoint');
+  }
   validateHistory(body.state, body.history);
   if (body.scenarios) {
     const w = body.scenarios;
@@ -135,7 +221,7 @@ function validateBody(body: ObservatorySave) {
 export async function saveObservatory(body: ObservatorySave) {
   validateBody(body);
   const manifest = {
-    saveVersion: 2,
+    saveVersion: 3,
     simulationVersion: SIMULATION_VERSION,
     simulationTruthHash: await stateHash(body.state),
     containerIntegrityHash: await stateHash(body),
@@ -165,7 +251,18 @@ export async function loadObservatory(text: string): Promise<ObservatorySave> {
   if (input?.manifest?.saveVersion === 1) return MIGRATIONS[1](await loadCity(text));
   if (input?.manifest?.encoding === 'gzip-base64') {
     const encoded = z
-      .object({ manifest: saveSchema.shape.manifest, compressedPayload: z.string() })
+      .object({
+        manifest: z
+          .object({
+            saveVersion: natural,
+            simulationVersion: z.string(),
+            simulationTruthHash: hash,
+            containerIntegrityHash: hash,
+            encoding: z.literal('gzip-base64'),
+          })
+          .strict(),
+        compressedPayload: z.string(),
+      })
       .strict()
       .parse(input);
     const bytes = Uint8Array.from(atob(encoded.compressedPayload), (c) => c.charCodeAt(0));
@@ -195,6 +292,77 @@ export async function loadObservatory(text: string): Promise<ObservatorySave> {
     }
     input.body = JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(expanded));
     delete input.compressedPayload;
+  }
+  if (input?.manifest?.saveVersion === 2) {
+    const oldHistory = historySchema.omit({ humanDevelopment: true, replayCheckpoint: true });
+    const oldBranch = z
+      .object({ name: z.string().max(80), state: legacyCitySchema, history: oldHistory })
+      .strict();
+    const oldWorkspace = z
+      .object({
+        checkpoint: legacyCitySchema,
+        checkpointHistory: oldHistory,
+        branches: z.tuple([oldBranch, oldBranch]),
+      })
+      .strict();
+    const old = z
+      .object({
+        manifest: z
+          .object({
+            saveVersion: z.literal(2),
+            simulationVersion: z.literal('0.1.0'),
+            simulationTruthHash: hash,
+            containerIntegrityHash: hash,
+            encoding: z.enum(['json', 'gzip-base64']).optional(),
+          })
+          .strict(),
+        body: z
+          .object({
+            state: legacyCitySchema,
+            history: oldHistory,
+            scenarios: oldWorkspace.nullable(),
+          })
+          .strict(),
+      })
+      .strict()
+      .parse(input);
+    if (
+      (await stateHash(old.body)) !== old.manifest.containerIntegrityHash ||
+      (await stateHash(old.body.state)) !== old.manifest.simulationTruthHash
+    )
+      throw new Error('Legacy save integrity mismatch');
+    const migratePair = (pair: { state: unknown; history: unknown }) => {
+      const state = migrateLegacyState(pair.state);
+      const history = structuredClone(pair.history) as ObservationHistory;
+      history.humanDevelopment = {
+        availableFromDay: state.day,
+        samples: [humanDevelopment(state)],
+      };
+      history.replayCheckpoint = JSON.stringify(history);
+      return { state, history };
+    };
+    const migrated = migratePair(old.body);
+    const scenarios = old.body.scenarios
+      ? {
+          migratedLegacy: true,
+          checkpoint: migratePair({
+            state: old.body.scenarios.checkpoint,
+            history: old.body.scenarios.checkpointHistory,
+          }).state,
+          checkpointHistory: migratePair({
+            state: old.body.scenarios.checkpoint,
+            history: old.body.scenarios.checkpointHistory,
+          }).history,
+          branches: old.body.scenarios.branches.map((b) => ({
+            name: b.name,
+            ...migratePair(b),
+          })) as ScenarioWorkspace['branches'],
+        }
+      : null;
+    // Legacy diverged branches resume from their individual migration points; a new fork is required for cross-version checkpoint replay.
+    const body = { ...migrated, scenarios };
+    validateBody(body);
+    return body;
   }
   const save = saveSchema.parse(input),
     body = save.body as ObservatorySave;

@@ -1,8 +1,16 @@
 import { z } from 'zod';
-import { SIMULATION_VERSION, type CityState } from '../../domain/src/index';
+import {
+  SIMULATION_VERSION,
+  EDUCATION_LEVELS,
+  OCCUPATIONS,
+  CLASS_BANDS,
+  type CityState,
+} from '../../domain/src/index';
 import { stateHash } from '../../shared/src/canonical';
 import { createCity, advance, applyCommand } from './index';
 import { assertInvariants } from './invariants';
+import { legacyCitySchema } from './legacy-schema';
+import { migrateLegacyState } from './migration';
 const integer = z.number().int().safe();
 const natural = integer.nonnegative();
 const entityId = z.string().min(1);
@@ -13,13 +21,24 @@ const policies = z
     corporateTax: integer.min(0).max(6000),
     welfare: integer.min(0).max(300000),
     minimumWage: integer.min(0).max(600000),
+    publicEducationFunding: natural.max(100000),
+    vocationalFunding: natural.max(100000),
+    higherEducationSubsidy: natural.max(100000),
   })
   .strict();
 export const commandSchema = z.discriminatedUnion('type', [
   z
     .object({
       type: z.literal('SET_POLICY'),
-      key: z.enum(['incomeTax', 'corporateTax', 'welfare', 'minimumWage']),
+      key: z.enum([
+        'incomeTax',
+        'corporateTax',
+        'welfare',
+        'minimumWage',
+        'publicEducationFunding',
+        'vocationalFunding',
+        'higherEducationSubsidy',
+      ]),
       value: natural,
     })
     .strict(),
@@ -34,6 +53,92 @@ export const commandSchema = z.discriminatedUnion('type', [
 export const configSchema = z
   .object({ seed: z.string().min(1).max(128), population: integer.min(10).max(1000) })
   .strict();
+const skillProfile = z
+  .object({
+    general: natural.max(100),
+    technical: natural.max(100),
+    service: natural.max(100),
+    managerial: natural.max(100),
+  })
+  .strict();
+const experience = z
+  .object({
+    labor: natural,
+    service: natural,
+    clerical: natural,
+    technical: natural,
+    professional: natural,
+    management: natural,
+  })
+  .strict();
+const mobility = z
+  .object({
+    class: z.enum(CLASS_BANDS),
+    annualClass: z.enum(CLASS_BANDS),
+    annualDay: natural,
+    reviewedYears: natural,
+    monthlyIncome: natural,
+    incomeSum: natural,
+    incomeDays: natural,
+  })
+  .strict();
+const humanCapital = z
+  .object({
+    education: z.enum(EDUCATION_LEVELS),
+    skills: skillProfile,
+    track: z.enum(['childhood', 'secondary', 'vocational', 'tertiary', 'workforce']),
+    performance: natural.max(100),
+    availableFromDay: natural,
+    provenance: z.enum(['initial', 'birth', 'immigration', 'legacy-inferred']),
+    secondaryDay: natural.optional(),
+    vocationalDay: natural.optional(),
+    tertiaryDay: natural.optional(),
+    educationEventId: entityId.optional(),
+    educationQualifications: z
+      .object({
+        labor: entityId.optional(),
+        service: entityId.optional(),
+        clerical: entityId.optional(),
+        technical: entityId.optional(),
+        professional: entityId.optional(),
+        management: entityId.optional(),
+      })
+      .strict()
+      .optional(),
+    qualificationEventId: entityId.optional(),
+    lossEventId: entityId.optional(),
+    salaryEventId: entityId.optional(),
+    experience,
+    unemployedMonths: natural,
+    lastOccupation: z.enum(OCCUPATIONS).optional(),
+    lastEducationAge: natural,
+    missedStudyMonths: natural,
+    publicSupport: natural,
+    vocationalSupport: natural,
+    subsidySupport: natural,
+    lifetimeEarned: natural,
+    origin: z
+      .object({
+        householdId: entityId,
+        class: z.enum(CLASS_BANDS),
+        income: natural,
+        parentEducation: natural.max(3),
+        day: natural,
+        childhoodObserved: z.boolean(),
+      })
+      .strict(),
+    adultComparison: z
+      .object({
+        day: natural,
+        origin: z.enum(CLASS_BANDS),
+        current: z.enum(CLASS_BANDS),
+        direction: z.enum(['up', 'down', 'stable']),
+      })
+      .strict()
+      .optional(),
+    legacyOccupation: z.enum(OCCUPATIONS).optional(),
+  })
+  .strict();
 const citizen = z
   .object({
     id: entityId,
@@ -44,10 +149,11 @@ const citizen = z
     householdId: entityId,
     residenceId: entityId.optional(),
     education: natural,
-    skills: natural,
-    employmentStatus: z.enum(['employed', 'unemployed', 'child', 'retired']),
+    skills: natural.max(100),
+    humanCapital,
+    employmentStatus: z.enum(['employed', 'unemployed', 'child', 'student', 'retired']),
     employerId: entityId.optional(),
-    occupation: z.string().optional(),
+    occupation: z.enum(OCCUPATIONS).optional(),
     salary: natural,
     cash: natural,
     debt: natural,
@@ -72,6 +178,7 @@ const household = z
     expenses: natural,
     housingCost: natural,
     socioeconomicStatus: z.enum(['secure', 'strained', 'vulnerable']),
+    mobility,
   })
   .strict();
 const company = z
@@ -94,6 +201,8 @@ const company = z
     status: z.enum(['active', 'bankrupt']),
     lossDays: natural,
     targetWorkers: natural,
+    occupationDemand: experience,
+    skillProductivity: natural.min(9000).max(12000),
   })
   .strict();
 const event = z
@@ -120,6 +229,20 @@ const event = z
       'HOUSEHOLD_INCOME_DROP',
       'POLICY_CHANGED',
       'HOUSING_BUILT',
+      'EDUCATION_COMPLETED',
+      'EDUCATION_DROPPED',
+      'EDUCATION_ENROLLED',
+      'VOCATIONAL_COMPLETED',
+      'TERTIARY_COMPLETED',
+      'QUALIFICATION_GAINED',
+      'SKILL_MILESTONE',
+      'PROMOTED',
+      'OCCUPATION_CHANGED',
+      'SALARY_CHANGED',
+      'CLASS_MOVED_UP',
+      'CLASS_MOVED_DOWN',
+      'INTERGENERATIONAL_REVIEW',
+      'HOUSEHOLD_FORMED',
     ]),
     actorIds: ids,
     targetIds: ids,
@@ -206,6 +329,9 @@ export const citySchema = z
         taxRevenue: natural,
         welfareSpending: natural,
         constructionSpending: natural,
+        educationSpending: natural,
+        vocationalSpending: natural,
+        subsidySpending: natural,
       })
       .strict(),
     economy: z
@@ -246,6 +372,7 @@ export const citySchema = z
     ),
     events: z.array(event),
     commands: z.array(z.object({ id: entityId, day: natural, command: commandSchema }).strict()),
+    migrationCheckpoint: z.string().max(250000000).optional(),
   })
   .strict();
 const saveSchema = z
@@ -275,7 +402,27 @@ export async function saveCity(s: CityState): Promise<string> {
 }
 export async function loadCity(text: string): Promise<CityState> {
   if (text.length > 100_000_000) throw new Error('Save exceeds 100 MB limit');
-  const parsed = saveSchema.parse(JSON.parse(text));
+  const input = JSON.parse(text);
+  if (input?.manifest?.saveVersion === 1 && input?.manifest?.simulationVersion === '0.1.0') {
+    const legacy = z
+      .object({
+        manifest: z
+          .object({
+            saveVersion: z.literal(1),
+            simulationVersion: z.literal('0.1.0'),
+            hash: z.string().regex(/^[0-9a-f]{64}$/),
+            metadata: z.object({ cityName: z.string() }).strict(),
+          })
+          .strict(),
+        state: legacyCitySchema,
+      })
+      .strict()
+      .parse(input);
+    if ((await stateHash(legacy.state)) !== legacy.manifest.hash)
+      throw new Error('Save integrity hash mismatch');
+    return migrateLegacyState(legacy.state);
+  }
+  const parsed = saveSchema.parse(input);
   const state = parsed.state as CityState;
   if ((await stateHash(state)) !== parsed.manifest.hash)
     throw new Error('Save integrity hash mismatch');
@@ -285,9 +432,15 @@ export async function loadCity(text: string): Promise<CityState> {
 export const MIGRATIONS: Readonly<Record<number, (input: unknown) => unknown>> = {}; // v1 is current; unknown versions are rejected, never silently upgraded.
 export function replayCity(source: CityState): CityState {
   if (source.simulationVersion !== SIMULATION_VERSION) throw new Error('Replay version mismatch');
-  const state = createCity(source.config);
-  let day = 0;
-  for (const recorded of source.commands) {
+  const state = source.migrationCheckpoint
+    ? (citySchema.parse(JSON.parse(source.migrationCheckpoint)) as CityState)
+    : createCity(source.config);
+  if (source.migrationCheckpoint) {
+    assertInvariants(state);
+    state.migrationCheckpoint = source.migrationCheckpoint;
+  }
+  let day = state.day;
+  for (const recorded of source.commands.slice(state.commands.length)) {
     if (recorded.day < day || recorded.day > source.day)
       throw new Error('Invalid command chronology');
     advance(state, recorded.day - day);
