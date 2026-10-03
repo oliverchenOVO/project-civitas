@@ -1,0 +1,141 @@
+{
+  "appVersion": "0.1.1",
+  "productionPayloadMatchesFreshBuild": true,
+  "files": [
+    {
+      "name": "apps/desktop/electron/main.cjs",
+      "packedHash": "ce8fc48a8882667a03171290ee8493f3ef649d366a17a46c0a602676a6b446f4",
+      "sourceHash": "ce8fc48a8882667a03171290ee8493f3ef649d366a17a46c0a602676a6b446f4",
+      "matches": true
+    },
+    {
+      "name": "apps/desktop/electron/preload.cjs",
+      "packedHash": "b6bcca3315fdff569cda56511fd6b3ea03aecf934babb7b1abfc46db398afe05",
+      "sourceHash": "b6bcca3315fdff569cda56511fd6b3ea03aecf934babb7b1abfc46db398afe05",
+      "matches": true
+    },
+    {
+      "name": "dist/assets/CanvasRenderer-BH2SYs7h.js",
+      "packedHash": "047fb0e325913b182db7fb911559746252dd4911e677e5998fa6752240daa8f1",
+      "sourceHash": "047fb0e325913b182db7fb911559746252dd4911e677e5998fa6752240daa8f1",
+      "matches": true
+    },
+    {
+      "name": "dist/assets/Filter-5Ntd7N2B.js",
+      "packedHash": "307b47f17c92a33e7d1c8ee64d6da978287b0615ee80fa3f6ec50ab0bf32094e",
+      "sourceHash": "307b47f17c92a33e7d1c8ee64d6da978287b0615ee80fa3f6ec50ab0bf32094e",
+      "matches": true
+    },
+    {
+      "name": "dist/assets/RenderTargetSystem-COSdBt-R.js",
+      "packedHash": "3ca98d4cad7299f6c165a64b6301eca916f5ac5e95e7a1f7f86421ab89051ff7",
+      "sourceHash": "3ca98d4cad7299f6c165a64b6301eca916f5ac5e95e7a1f7f86421ab89051ff7",
+      "matches": true
+    },
+    {
+      "name": "dist/assets/WebGLRenderer-7TGLyPLi.js",
+      "packedHash": "2451fc46370cf4b6a7811525b5eec481ee17eb2e03d9e2a0ebabbd6f26261c23",
+      "sourceHash": "2451fc46370cf4b6a7811525b5eec481ee17eb2e03d9e2a0ebabbd6f26261c23",
+      "matches": true
+    },
+    {
+      "name": "dist/assets/WebGPURenderer-CC7pUXQk.js",
+      "packedHash": "79dbd003f69fb9c2e1e18dd744d543b2b8443948a6ce2fa3b6fd844008b1fda5",
+      "sourceHash": "79dbd003f69fb9c2e1e18dd744d543b2b8443948a6ce2fa3b6fd844008b1fda5",
+      "matches": true
+    },
+    {
+      "name": "dist/assets/browserAll-YliS6dJK.js",
+      "packedHash": "187e77d7446793b7fc3f37d02d57719806ac36c71d7004e1ea995fb8eab2e741",
+      "sourceHash": "187e77d7446793b7fc3f37d02d57719806ac36c71d7004e1ea995fb8eab2e741",
+      "matches": true
+    },
+    {
+      "name": "dist/assets/getTexelRangeRects-DQCmxY7p.js",
+      "packedHash": "32aacbaa099db6fcc4b9584e5ca09e3217efee72de407ac476be3d875cc9c5b8",
+      "sourceHash": "32aacbaa099db6fcc4b9584e5ca09e3217efee72de407ac476be3d875cc9c5b8",
+      "matches": true
+    },
+    {
+      "name": "dist/assets/index-Ng-u-qYl.css",
+      "packedHash": "ed165e102b96cb33f17f3b2e862a07d4ff858599402ad9fbaef22ff8e91dab14",
+      "sourceHash": "ed165e102b96cb33f17f3b2e862a07d4ff858599402ad9fbaef22ff8e91dab14",
+      "matches": true
+    },
+    {
+      "name": "dist/assets/index-XNqPzSLj.js",
+      "packedHash": "2f4e160420cef4fb358573b9c6831366ad865903b5dcc1a1c5933d8febfb7c39",
+      "sourceHash": "2f4e160420cef4fb358573b9c6831366ad865903b5dcc1a1c5933d8febfb7c39",
+      "matches": true
+    },
+    {
+      "name": "dist/assets/webworkerAll-Bwsy_tS7.js",
+      "packedHash": "f83d488a0fadf6c7c9dcf5717f9e3c3ee0afc24ca18d8dad3bcee743ef1dcd1a",
+      "sourceHash": "f83d488a0fadf6c7c9dcf5717f9e3c3ee0afc24ca18d8dad3bcee743ef1dcd1a",
+      "matches": true
+    },
+    {
+      "name": "dist/index.html",
+      "packedHash": "171fbee0ed7026879dbbf45b47110013bb72c1d066146e7442b93767552e5a70",
+      "sourceHash": "171fbee0ed7026879dbbf45b47110013bb72c1d066146e7442b93767552e5a70",
+      "matches": true
+    }
+  ],
+  "benchmarkHashesUnchanged": true,
+  "stabilityHashesUnchanged": true,
+  "benchmark": [
+    {
+      "initialPopulation": 100,
+      "years": 10,
+      "day": 3650,
+      "runtimeMs": 464,
+      "daysPerSecond": 7864,
+      "eventCount": 4952,
+      "finalPopulation": 113,
+      "activeCompanies": 7,
+      "finalHash": "0e21ceef932e7a465b235cd1155562a87bf2054ce7b1ae51df6c83025913ae51",
+      "invariantViolations": 0,
+      "memoryMiB": 31
+    },
+    {
+      "initialPopulation": 250,
+      "years": 10,
+      "day": 3650,
+      "runtimeMs": 763,
+      "daysPerSecond": 4781,
+      "eventCount": 11656,
+      "finalPopulation": 275,
+      "activeCompanies": 11,
+      "finalHash": "1997a1eb7452025de74d2a5b63e8167ec952e63b0e2617c24a29cbeebbece1cd",
+      "invariantViolations": 0,
+      "memoryMiB": 58
+    },
+    {
+      "initialPopulation": 500,
+      "years": 10,
+      "day": 3650,
+      "runtimeMs": 1634,
+      "daysPerSecond": 2234,
+      "eventCount": 20035,
+      "finalPopulation": 530,
+      "activeCompanies": 22,
+      "finalHash": "13fea6a3e754d0c3c362a76338663a5f10aa91934d552ca8d007a2b14d95ffb7",
+      "invariantViolations": 0,
+      "memoryMiB": 21
+    },
+    {
+      "initialPopulation": 1000,
+      "years": 10,
+      "day": 3650,
+      "runtimeMs": 4450,
+      "daysPerSecond": 820,
+      "eventCount": 35918,
+      "finalPopulation": 1054,
+      "activeCompanies": 42,
+      "finalHash": "c28b6aaa82ee4f927b07a0a09a32ee1ad8cffbd8c6c228beb4452717607a1ee8",
+      "invariantViolations": 0,
+      "memoryMiB": 129
+    }
+  ],
+  "seedCount": 100
+}

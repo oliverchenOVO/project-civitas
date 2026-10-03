@@ -3,52 +3,52 @@
     "initialPopulation": 100,
     "years": 10,
     "day": 3650,
-    "runtimeMs": 507,
-    "daysPerSecond": 7202,
+    "runtimeMs": 464,
+    "daysPerSecond": 7864,
     "eventCount": 4952,
     "finalPopulation": 113,
     "activeCompanies": 7,
     "finalHash": "0e21ceef932e7a465b235cd1155562a87bf2054ce7b1ae51df6c83025913ae51",
     "invariantViolations": 0,
-    "memoryMiB": 30
+    "memoryMiB": 31
   },
   {
     "initialPopulation": 250,
     "years": 10,
     "day": 3650,
-    "runtimeMs": 618,
-    "daysPerSecond": 5908,
+    "runtimeMs": 763,
+    "daysPerSecond": 4781,
     "eventCount": 11656,
     "finalPopulation": 275,
     "activeCompanies": 11,
     "finalHash": "1997a1eb7452025de74d2a5b63e8167ec952e63b0e2617c24a29cbeebbece1cd",
     "invariantViolations": 0,
-    "memoryMiB": 40
+    "memoryMiB": 58
   },
   {
     "initialPopulation": 500,
     "years": 10,
     "day": 3650,
-    "runtimeMs": 1380,
-    "daysPerSecond": 2646,
+    "runtimeMs": 1634,
+    "daysPerSecond": 2234,
     "eventCount": 20035,
     "finalPopulation": 530,
     "activeCompanies": 22,
     "finalHash": "13fea6a3e754d0c3c362a76338663a5f10aa91934d552ca8d007a2b14d95ffb7",
     "invariantViolations": 0,
-    "memoryMiB": 77
+    "memoryMiB": 21
   },
   {
     "initialPopulation": 1000,
     "years": 10,
     "day": 3650,
-    "runtimeMs": 3581,
-    "daysPerSecond": 1019,
+    "runtimeMs": 4450,
+    "daysPerSecond": 820,
     "eventCount": 35918,
     "finalPopulation": 1054,
     "activeCompanies": 42,
     "finalHash": "c28b6aaa82ee4f927b07a0a09a32ee1ad8cffbd8c6c228beb4452717607a1ee8",
     "invariantViolations": 0,
-    "memoryMiB": 32
+    "memoryMiB": 129
   }
 ]

@@ -6,12 +6,15 @@ param(
     [switch]$GpuOff,
     [ValidateSet('quit','exit')][string]$ExitMode = 'quit',
     [int]$TimeoutSeconds = 60,
-    [int]$Repetitions = 1,
+    [ValidateRange(1,100)][int]$Repetitions = 1,
+    [string]$AppVersion,
     [switch]$StopWhenExited
 )
 $ErrorActionPreference = 'Stop'
 if($Case -notmatch '^[a-z0-9-]+$'){throw 'Case must be a lowercase artifact directory label'}
 $taskRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
+if(-not $AppVersion){$AppVersion=(Get-Content -LiteralPath (Join-Path $taskRoot 'package.json') -Raw | ConvertFrom-Json).version}
+if($AppVersion -notmatch '^\d+\.\d+\.\d+(-[A-Za-z0-9.-]+)?$'){throw 'Invalid app version'}
 $taskOutput = Join-Path $taskRoot ('artifacts/qa/exit-' + $Case)
 New-Item -ItemType Directory -Force -Path $taskOutput | Out-Null
 Add-Type @'
@@ -63,8 +66,8 @@ for ($iteration=1; $iteration -le $Repetitions; $iteration++) {
     Remove-Item Env:ELECTRON_RUN_AS_NODE,Env:CIVITAS_DEV_URL -ErrorAction SilentlyContinue
     $executable = switch($Target) {
         'Minimal' { Join-Path $taskRoot $RuntimePath }
-        'Unpacked' { Join-Path $taskRoot 'release/0.1.0/win-unpacked/Project CIVITAS.exe' }
-        'Portable' { Join-Path $taskRoot 'release/0.1.0/CIVITAS-0.1.0-Windows-portable.exe' }
+        'Unpacked' { Join-Path $taskRoot "release/$AppVersion/win-unpacked/Project CIVITAS.exe" }
+        'Portable' { Join-Path $taskRoot "release/$AppVersion/CIVITAS-$AppVersion-Windows-portable.exe" }
         'PackagedMinimal' { Join-Path $taskRoot $RuntimePath }
     }
     $arguments = @()
@@ -94,7 +97,21 @@ for ($iteration=1; $iteration -le $Repetitions; $iteration++) {
     $known = @{}
     $samples = [Collections.Generic.List[object]]::new()
     function Snapshot([string]$label,[double]$elapsed) {
-        $rows = @(Get-CimInstance Win32_Process | Select-Object ProcessId,ParentProcessId,Name,ExecutablePath,CommandLine,CreationDate)
+        if($label -like 'close+*') {
+            # Query the owned identity/parent closure instead of every unrelated process.
+            # Repeat for newly discovered descendants, including children born after close.
+            $queryIds=@($known.Keys); $rowIndex=@{}; $queried=@{}
+            while($queryIds.Count) {
+                $filter=($queryIds | ForEach-Object { "ProcessId=$_ OR ParentProcessId=$_" }) -join ' OR '
+                $found=@(Get-CimInstance Win32_Process -Filter $filter)
+                foreach($id in $queryIds){$queried[$id]=$true}
+                foreach($row in $found){$rowIndex[[int]$row.ProcessId]=$row}
+                $queryIds=@($found | Where-Object { -not $queried.ContainsKey([int]$_.ProcessId) } | ForEach-Object { [int]$_.ProcessId })
+            }
+            $rows=@($rowIndex.Values)
+        } else {
+            $rows = @(Get-CimInstance Win32_Process | Select-Object ProcessId,ParentProcessId,Name,ExecutablePath,CommandLine,CreationDate)
+        }
         $discover = $true
         while ($discover) {
             $discover=$false
@@ -142,7 +159,19 @@ for ($iteration=1; $iteration -le $Repetitions; $iteration++) {
     $clock=[Diagnostics.Stopwatch]::StartNew()
     if(-not [CivitasExitNative]::PostMessage($windowHandle,0x0010,[IntPtr]::Zero,[IntPtr]::Zero)){throw 'WM_CLOSE failed'}
     $final=$null
-    foreach($seconds in @(0,1,3,5,10,30,60) | Where-Object { $_ -le $TimeoutSeconds }) {
+    # Poll kernel handles without repeated full-machine WMI enumeration during shutdown.
+    # Snapshot again to discover late descendants; a late observation still fails.
+    $kernelExitUpperBoundMs=$null
+    if($StopWhenExited) {
+        do {
+            $pending=@($known.Values | Where-Object { $_.handle -eq [IntPtr]::Zero -or [CivitasExitNative]::WaitForSingleObject($_.handle,0) -ne 0 })
+            if($pending.Count -eq 0){$kernelExitUpperBoundMs=[math]::Round($clock.Elapsed.TotalMilliseconds);break}
+            Start-Sleep -Milliseconds 50
+        } while($clock.Elapsed.TotalMilliseconds -lt $TimeoutSeconds*1000)
+    }
+    $observationSeconds = @(0,1,3,5,10,30,60)
+    if($StopWhenExited){$observationSeconds = @([math]::Floor($clock.Elapsed.TotalSeconds))}
+    foreach($seconds in $observationSeconds | Where-Object { $StopWhenExited -or $_ -le $TimeoutSeconds }) {
         $sleep=[math]::Max(0, $seconds*1000-$clock.ElapsedMilliseconds)
         if($sleep -gt 0){Start-Sleep -Milliseconds $sleep}
         $final=Snapshot "close+$($seconds)s" $clock.Elapsed.TotalMilliseconds
@@ -156,6 +185,7 @@ for ($iteration=1; $iteration -le $Repetitions; $iteration++) {
     $legacyWindowWait=$legacyWindowProcess.WaitForExit(0)
     $legacyRootWait=$rootProcess.WaitForExit(0)
     $run=[pscustomobject]@{ case=$Case; target=$Target; launcher=$Launcher; gpuOff=[bool]$GpuOff; exitMode=$ExitMode; iteration=$iteration; rootPid=$rootId; mainPid=$mainId; executable=$executable; launched=$true; windowClosed=([CivitasExitNative]::Find($mainId) -eq [IntPtr]::Zero); mainExited=(@($remaining | Where-Object pid -eq $mainId).Count -eq 0); allChildrenExited=(@($remaining | Where-Object pid -ne $mainId).Count -eq 0); exitLatencyUpperBoundMs=$(if($firstGone){$firstGone.elapsedMs}else{$null}); passed=($remaining.Count -eq 0 -and $firstGone.elapsedMs -le 10000); legacyWindowWaitForExit=$legacyWindowWait; legacyRootWaitForExit=$legacyRootWait; remainingProcesses=$remaining; lifecycleEvents=$lifecycle; samples=$samples.ToArray(); measuredBeforeCleanup=$true; forceCleanupPerformed=($remaining.Count -gt 0) }
+    $run | Add-Member -NotePropertyName kernelExitUpperBoundMs -NotePropertyValue $kernelExitUpperBoundMs
     # Cleanup is separate from results; only test-owned, still-live identities.
     foreach($entry in $known.Values){if($entry.handle -ne [IntPtr]::Zero){[void][CivitasExitNative]::CloseHandle($entry.handle)}}
     if($remaining.Count) {
@@ -170,7 +200,8 @@ for ($iteration=1; $iteration -le $Repetitions; $iteration++) {
     $legacyWindowProcess.Dispose()
     if($remaining.Count -eq 0) {
         Start-Sleep -Milliseconds 100
-        $left=@(Get-CimInstance Win32_Process | Where-Object { $known.ContainsKey([int]$_.ProcessId) -and $_.CreationDate -eq $known[[int]$_.ProcessId].metadata.CreationDate })
+        $identityFilter=(@($known.Keys) | ForEach-Object { "ProcessId=$_" }) -join ' OR '
+        $left=@(Get-CimInstance Win32_Process -Filter $identityFilter | Where-Object { $_.CreationDate -eq $known[[int]$_.ProcessId].metadata.CreationDate })
         $run | Add-Member -NotePropertyName cimRowsAfterHandleRelease -NotePropertyValue $left.Count
         $run | Add-Member -NotePropertyName finalCimAbsenceCheckMs -NotePropertyValue ([math]::Round($clock.Elapsed.TotalMilliseconds))
         if($left.Count -gt 0){$run.passed=$false}

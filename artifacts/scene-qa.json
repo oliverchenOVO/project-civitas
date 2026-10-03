@@ -1,0 +1,38 @@
+{
+  "passed": true,
+  "appVersion": "0.1.1",
+  "runtime": {
+    "electron": "38.8.6",
+    "chrome": "140.0.7339.249",
+    "node": "22.22.0"
+  },
+  "checks": [
+    "1536×1024 native scene: real building/resident counts, four readable labels, no label/legend overlap or body overflow",
+    "District label selects real district and inspector links",
+    "Canvas resident hover and click opens actual citizen inspector with residence highlight",
+    "Resident layer changes rendered canvas; housing click opens actual household",
+    "Canvas company footprint opens actual business with selection outline",
+    "Housing and company layer toggles alter actual canvas and restore",
+    "1280×800 native overview remains readable and contained",
+    "1000 residents render and advance 20 days without errors; per-update CPU timing recorded",
+    "Packaged scene QA exits normally with code 0, no force kill",
+    "390×844 production responsive scene: readable labels, no overflow, district selection works"
+  ],
+  "consoleErrors": [],
+  "timings": [
+    {
+      "population": 1000,
+      "phase": "daily data projection and graphics rebuild; terrain retained",
+      "renderMs": 17.775
+    }
+  ],
+  "screenshots": "artifacts/qa/scene-remaster/after",
+  "testedAt": "2026-10-03T12:43:05.115Z",
+  "screenshotMethod": "Playwright Electron, native packaged renderer; Edge headless production responsive. IAB also used for interactive visual review.",
+  "geometry": {
+    "buildings": 136,
+    "residents": 250,
+    "unlocated": 0
+  },
+  "limitations": "CPU timing includes presentation projection/graphics commands, excludes GPU rasterization; no traffic/at-work inference or physical scale."
+}
