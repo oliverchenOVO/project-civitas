@@ -4,8 +4,8 @@
 
 ## 使用
 
-Windows 可攜版：`release/0.1.0/CIVITAS-0.1.0-Windows-portable.exe`。
-也可執行 `release/0.1.0/win-unpacked/Project CIVITAS.exe`（必須保留同資料夾其他檔案）。
+Phase 1A 場景重建版：`release/0.1.1/CIVITAS-0.1.1-Windows-portable.exe`。
+也可執行 `release/0.1.1/win-unpacked/Project CIVITAS.exe`（必須保留同資料夾其他檔案）。GitHub 已發布的 Phase 1 正式版仍是 `v0.1.0`。
 
 1. 用右上角「＋」輸入種子，選擇 100／250／500／1000 人。
 2. 透過 1x／5x／20x／Max 推進；「前進一天」可逐日觀察。
@@ -37,9 +37,11 @@ pnpm stability
 pnpm package:win
 pnpm exec vite preview --host 127.0.0.1 --port 4173 --strictPort # 另一個終端機
 pnpm qa:desktop # 需先打包，並保持 4173 的 production preview 運作
+pnpm qa:scene
+pwsh -NoProfile -File scripts/native-close-qa.ps1 -CasePrefix scene-acceptance -ReportName scene-native-close-qa.json
 ```
 
-基準與種子掃描寫入 `artifacts/`，實際桌面 QA 與螢幕圖寫入 `artifacts/qa/`。請見 `docs/PHASE1_REPORT.md` 的實測結果與限制。
+基準與種子掃描寫入 `artifacts/`，實際桌面 QA 與螢幕圖寫入 `artifacts/qa/`。請見 [Phase 1A 場景報告](docs/SCENE_REMASTER_REPORT.md) 與 [Phase 1 報告](docs/PHASE1_REPORT.md)。地圖圖層可切換居民、住宅及企業；點位表示真實住所，地標與比例尺是空間示意。
 
 ## 原則
 
