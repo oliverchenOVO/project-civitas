@@ -22,7 +22,13 @@ import {
   type Point,
   type Road,
 } from './layout';
-import { projectSceneData, selectedParcels, type MapSelection, type SceneData } from './data';
+import {
+  affectedParcels,
+  projectSceneData,
+  selectedParcels,
+  type MapSelection,
+  type SceneData,
+} from './data';
 
 export interface MapLayers {
   residents: boolean;
@@ -56,6 +62,7 @@ export class CityScene {
   readonly buildings = new Graphics();
   readonly residents = new Graphics();
   readonly selection = new Graphics();
+  readonly affected = new Graphics();
   layout!: CityLayout;
   data!: SceneData;
   view: View = { scale: 1, x: 0, y: 0, width: 1000, height: 650 };
@@ -73,7 +80,7 @@ export class CityScene {
   ) {
     this.select = select;
     this.hover = hover;
-    this.root.addChild(this.terrain, this.buildings, this.residents, this.selection);
+    this.root.addChild(this.terrain, this.buildings, this.residents, this.affected, this.selection);
     this.root.eventMode = 'static';
     this.root.hitArea = new Rectangle(0, 0, WORLD.width, WORLD.height);
     this.root.on('pointermove', (event: FederatedPointerEvent) => this.point(event, false));
@@ -114,6 +121,24 @@ export class CityScene {
     this.drawResidents();
     this.drawSelection();
     this.renderMs = performance.now() - start;
+  }
+  setAffected(overlay?: { refs: { kind: MapSelection['kind']; id: string }[]; mode: string }) {
+    this.affected.clear();
+    if (!overlay) return;
+    const refs = overlay.refs.filter((ref) => overlay.mode === 'all' || overlay.mode === ref.kind);
+    for (const parcel of affectedParcels(this.data, refs))
+      this.affected
+        .poly(flat(corners(parcel)))
+        .stroke({ color: 0xe5be77, width: 2.1, alpha: 0.95 });
+    for (const ref of refs) {
+      if (ref.kind === 'district') {
+        const district = this.layout.districts.find((d) => d.id === ref.id);
+        if (district)
+          this.affected
+            .poly(flat(district.polygon))
+            .stroke({ color: 0xe5be77, width: 2, alpha: 0.8 });
+      }
+    }
   }
   private drawTerrain(seed: string) {
     for (const child of this.terrain.removeChildren()) child.destroy({ children: true });

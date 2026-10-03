@@ -5,6 +5,11 @@ import type { CityState } from '../../../../packages/domain/src/index';
 import { usePresentation } from '../store';
 import { CityScene, type MapLayers, type View } from '../scene/renderer';
 import type { SceneData } from '../scene/data';
+import type { MapSelection } from '../scene/data';
+const mapSelection = (selected?: { kind: string; id: string }): MapSelection | undefined =>
+  selected && ['citizen', 'company', 'household', 'district'].includes(selected.kind)
+    ? { kind: selected.kind as MapSelection['kind'], id: selected.id }
+    : undefined;
 
 const INITIAL_LAYERS: MapLayers = { residents: true, housing: true, companies: true };
 const controls = [
@@ -17,6 +22,7 @@ export function CityMap({ state, revision }: { state: CityState; revision: numbe
   const appRef = useRef<Application | null>(null);
   const sceneRef = useRef<CityScene | null>(null);
   const selected = usePresentation((s) => s.selected);
+  const overlay = usePresentation((s) => s.overlay);
   const select = usePresentation((s) => s.select);
   const [layers, setLayers] = useState(INITIAL_LAYERS);
   const current = useRef({ state, layers, selected });
@@ -51,7 +57,8 @@ export function CityMap({ state, revision }: { state: CityState; revision: numbe
         const scene = new CityScene(app, select, setHover);
         sceneRef.current = scene;
         const { state, layers, selected } = current.current;
-        scene.update(state, layers, selected);
+        scene.update(state, layers, mapSelection(selected));
+        scene.setAffected(overlay);
         const resize = () => {
           app.resize();
           setView(scene.resize());
@@ -80,11 +87,17 @@ export function CityMap({ state, revision }: { state: CityState; revision: numbe
     const scene = sceneRef.current,
       app = appRef.current;
     if (!scene || !app || !ready) return;
-    scene.update(state, layers, selected);
+    scene.update(state, layers, mapSelection(selected));
+    const overlayStart = performance.now();
+    scene.setAffected(overlay);
+    const overlayMs = performance.now() - overlayStart;
     setData(scene.data);
-    if (host.current) host.current.dataset.renderMs = scene.renderMs.toFixed(3);
+    if (host.current) {
+      host.current.dataset.renderMs = (scene.renderMs + overlayMs).toFixed(3);
+      host.current.dataset.overlayMs = overlayMs.toFixed(3);
+    }
     app.render();
-  }, [state, revision, layers, selected, ready]);
+  }, [state, revision, layers, selected, ready, overlay]);
   const layouts = sceneRef.current?.layout.districts ?? [];
   return (
     <div
@@ -96,9 +109,34 @@ export function CityMap({ state, revision }: { state: CityState; revision: numbe
       data-buildings={data?.buildings.length ?? 0}
       data-residents={data?.residents.length ?? 0}
       data-selected-id={selected?.id ?? ''}
+      data-affected-count={
+        overlay?.refs.filter((r) => overlay.mode === 'all' || overlay.mode === r.kind).length ?? 0
+      }
       data-view={JSON.stringify(view)}
     >
       {error && <div className="empty">{error}</div>}
+      {overlay && (
+        <div className="map-evidence">
+          <span>{overlay.label} · 目前可定位住所 / 建築</span>
+          <select
+            aria-label="受影響實體圖層"
+            value={overlay.mode}
+            onChange={(e) =>
+              usePresentation
+                .getState()
+                .setOverlay({ ...overlay, mode: e.target.value as typeof overlay.mode })
+            }
+          >
+            <option value="all">全部</option>
+            <option value="company">企業</option>
+            <option value="citizen">居民住所</option>
+            <option value="household">家庭住所</option>
+          </select>
+          <button onClick={() => usePresentation.getState().setOverlay(undefined)}>
+            清除調查圖層
+          </button>
+        </div>
+      )}
       <div className="map-compass" aria-label="地圖北向">
         <Navigation size={21} strokeWidth={1.2} />
         <span>N</span>

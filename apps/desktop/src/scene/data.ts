@@ -119,3 +119,21 @@ export function selectedParcels(data: SceneData, selected?: MapSelection): Parce
     )
     .map((b) => b.parcel);
 }
+export function affectedParcels(data: SceneData, refs: MapSelection[]): Parcel[] {
+  const byRef = new Map<string, Parcel>(),
+    byBuilding = new Map(data.buildings.map((b) => [b.parcel.id, b.parcel]));
+  for (const b of data.buildings) {
+    if (b.companyId) byRef.set(`company:${b.companyId}`, b.parcel);
+    for (const id of b.householdIds) byRef.set(`household:${id}`, b.parcel);
+  }
+  for (const r of data.residents) {
+    const p = byBuilding.get(r.buildingId);
+    if (p) byRef.set(`citizen:${r.id}`, p);
+  }
+  const result = new Map<string, Parcel>();
+  for (const ref of refs) {
+    const p = byRef.get(`${ref.kind}:${ref.id}`);
+    if (p) result.set(p.id, p);
+  }
+  return [...result.values()];
+}
