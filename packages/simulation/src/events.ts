@@ -26,7 +26,12 @@ export function emit(
     payload,
     causeEventIds: causes,
     category,
-    severity: /BANKRUPT|LAYOFF|POLICY|DIED|DEFAULT/.test(type) ? 'major' : 'info',
+    severity:
+      /BANKRUPT|LAYOFF|POLICY|DIED|DEFAULT|COMPLETED|PROMOTED|CLASS_MOVED|INTERGENERATIONAL/.test(
+        type,
+      )
+        ? 'major'
+        : 'info',
   };
   s.events.push(event);
   return event;

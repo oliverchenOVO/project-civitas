@@ -9,6 +9,13 @@ import {
 import { randomInt } from './random';
 import { emit, id } from './events';
 import { metricsSystem } from './systems';
+import {
+  emptyMobility,
+  initializeHumanCapital,
+  initializeBackground,
+  matchJobs,
+} from './human-capital';
+import { occupationDemand } from '../../domain/src/occupations';
 export const roll = (s: CityState, scope: string, min: number, max: number) =>
   randomInt(s.rng, scope, s.config.seed, min, max);
 const names = [
@@ -57,6 +64,7 @@ export function createCitizen(s: CityState, householdId: string, birthDay?: numb
     householdId,
     education: roll(s, 'population', 1, 4),
     skills: roll(s, 'population', 40, 100),
+    humanCapital: undefined as unknown as Citizen['humanCapital'],
     employmentStatus: 'unemployed',
     salary: 0,
     cash: roll(s, 'population', 10000, 80000),
@@ -71,6 +79,11 @@ export function createCitizen(s: CityState, householdId: string, birthDay?: numb
   const a = age(s, c);
   if (a < 18) c.employmentStatus = 'child';
   else if (a >= 65) c.employmentStatus = 'retired';
+  initializeHumanCapital(
+    s,
+    c,
+    birthDay === s.day ? 'birth' : s.day === 0 ? 'initial' : 'immigration',
+  );
   s.citizens.push(c);
   return c;
 }
@@ -96,6 +109,8 @@ export function createCompany(s: CityState, founder?: Citizen): Company {
     status: 'active',
     lossDays: 0,
     targetWorkers: roll(s, 'company', 5, 10),
+    occupationDemand: occupationDemand(industries[s.companies.length % 4], 0),
+    skillProductivity: 10000,
   };
   if (founder) s.economy.financing += c.cash;
   s.companies.push(c);
@@ -184,11 +199,22 @@ export function createCity(
     units: [],
     relationships: [],
     government: {
-      policies: { incomeTax: 1500, corporateTax: 1800, welfare: 45000, minimumWage: 160000 },
+      policies: {
+        incomeTax: 1500,
+        corporateTax: 1800,
+        welfare: 45000,
+        minimumWage: 160000,
+        publicEducationFunding: 10000,
+        vocationalFunding: 10000,
+        higherEducationSubsidy: 10000,
+      },
       cash: 20000000,
       taxRevenue: 0,
       welfareSpending: 0,
       constructionSpending: 0,
+      educationSpending: 0,
+      vocationalSpending: 0,
+      subsidySpending: 0,
     },
     economy: { imports: 0, exports: 0, financing: 0, openingMoney: 0 },
     metrics: {} as CityState['metrics'],
@@ -208,6 +234,7 @@ export function createCity(
       expenses: 0,
       housingCost: 0,
       socioeconomicStatus: 'secure',
+      mobility: emptyMobility(),
     });
   for (let i = 0; i < config.population; i++) {
     const h = s.households[i % householdCount];
@@ -294,34 +321,8 @@ export function createCity(
     );
   });
   for (let i = 0; i < Math.max(8, Math.round(config.population / 12.5)); i++) createCompany(s);
-  // Initial jobs are actual assignments and logged facts, not invented histories.
-  let cursor = 0;
-  const workers = s.citizens.filter((c) => c.employmentStatus === 'unemployed');
-  for (const firm of s.companies)
-    for (let j = 0; j < firm.targetWorkers && cursor < Math.floor(workers.length * 0.88); j++) {
-      const c = workers[cursor++];
-      c.employmentStatus = 'employed';
-      c.employerId = firm.id;
-      c.salary = Math.max(s.government.policies.minimumWage, 180000 + c.skills * 1200);
-      c.occupation =
-        firm.industry === 'Food'
-          ? 'Food worker'
-          : firm.industry === 'Technology'
-            ? 'Developer'
-            : firm.industry === 'Manufacturing'
-              ? 'Technician'
-              : 'Service specialist';
-      firm.employeeIds.push(c.id);
-      emit(
-        s,
-        'CITIZEN_HIRED',
-        [
-          { kind: 'citizen', id: c.id },
-          { kind: 'company', id: firm.id },
-        ],
-        { name: c.name, company: firm.name, salary: c.salary, initial: 1 },
-      );
-    }
+  matchJobs(s, true);
+  initializeBackground(s);
   for (const firm of s.companies)
     firm.openPositions = Math.max(0, firm.targetWorkers - firm.employeeIds.length);
   for (let i = 0; i + 1 < s.citizens.length; i += 7)

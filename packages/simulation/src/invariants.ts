@@ -1,4 +1,12 @@
-import { age, type CityState } from '../../domain/src/index';
+import {
+  age,
+  CLASS_BANDS,
+  EDUCATION_LEVELS,
+  OCCUPATIONS,
+  type Occupation,
+  type CityState,
+} from '../../domain/src/index';
+import { qualification, educationRank } from '../../domain/src/occupations';
 import { totalMoney } from './world';
 export function checkInvariants(s: CityState): string[] {
   const errors: string[] = [];
@@ -36,6 +44,46 @@ export function checkInvariants(s: CityState): string[] {
     commandDay = c.day;
   }
   for (const c of s.citizens) {
+    const hc = c.humanCapital;
+    fail(EDUCATION_LEVELS.includes(hc.education), `Education enum ${c.id}`);
+    fail(
+      Object.values(hc.skills).every((x) => Number.isInteger(x) && x >= 0 && x <= 100),
+      `Skill bounds ${c.id}`,
+    );
+    fail(
+      hc.availableFromDay <= s.day &&
+        hc.origin.day <= s.day &&
+        households.has(hc.origin.householdId),
+      `Human-capital boundary/origin ${c.id}`,
+    );
+    fail(hc.education !== 'tertiary' || age(s, c) >= 22, `Child/young tertiary completion ${c.id}`);
+    fail(hc.education !== 'vocational' || age(s, c) >= 20, `Young vocational completion ${c.id}`);
+    fail(hc.education !== 'secondary' || age(s, c) >= 18, `Young secondary completion ${c.id}`);
+    fail(
+      !hc.secondaryDay || (hc.secondaryDay >= hc.availableFromDay && hc.secondaryDay <= s.day),
+      `Secondary chronology ${c.id}`,
+    );
+    for (const day of [hc.vocationalDay, hc.tertiaryDay])
+      if (day !== undefined) {
+        fail(day <= s.day && day >= hc.availableFromDay, `Education chronology ${c.id}`);
+        fail(
+          hc.provenance !== 'birth' || (hc.secondaryDay !== undefined && hc.secondaryDay <= day),
+          `Missing earlier secondary completion ${c.id}`,
+        );
+      }
+    if (hc.adultComparison) {
+      fail(
+        age(s, c) >= 25 && hc.origin.childhoodObserved && hc.adultComparison.day <= s.day,
+        `Mobility cohort boundary ${c.id}`,
+      );
+      const delta =
+        CLASS_BANDS.indexOf(hc.adultComparison.current) -
+        CLASS_BANDS.indexOf(hc.adultComparison.origin);
+      fail(
+        hc.adultComparison.direction === (delta > 0 ? 'up' : delta < 0 ? 'down' : 'stable'),
+        `Mobility direction ${c.id}`,
+      );
+    }
     const h = households.get(c.householdId);
     fail(h, `Missing household for ${c.id}`);
     if (c.lifecycleStatus === 'alive') {
@@ -43,6 +91,11 @@ export function checkInvariants(s: CityState): string[] {
       fail(c.residenceId === h?.residenceId, `Residence mismatch ${c.id}`);
     }
     if (c.employmentStatus === 'employed') {
+      fail(
+        OCCUPATIONS.includes(c.occupation as Occupation) &&
+          qualification(c, c.occupation as Occupation).eligible,
+        `Employment qualification ${c.id}`,
+      );
       const f = companies.get(c.employerId ?? '');
       fail(f?.status === 'active' && f.employeeIds.includes(c.id), `Employer mismatch ${c.id}`);
       fail(
@@ -60,6 +113,11 @@ export function checkInvariants(s: CityState): string[] {
     if (c.spouseId) fail(citizens.get(c.spouseId)?.spouseId === c.id, `Spouse link ${c.id}`);
   }
   for (const h of s.households) {
+    fail(
+      CLASS_BANDS.includes(h.mobility.class) && CLASS_BANDS.includes(h.mobility.annualClass),
+      `Class band ${h.id}`,
+    );
+    fail(h.mobility.annualDay <= s.day, `Mobility time ${h.id}`);
     fail(new Set(h.memberIds).size === h.memberIds.length, `Duplicate household member ${h.id}`);
     for (const cid of h.memberIds)
       fail(
@@ -70,6 +128,13 @@ export function checkInvariants(s: CityState): string[] {
       fail(units.get(h.residenceId)?.occupantHouseholdId === h.id, `Housing mismatch ${h.id}`);
   }
   for (const f of s.companies) {
+    fail(
+      OCCUPATIONS.every(
+        (k) => Number.isInteger(f.occupationDemand[k]) && f.occupationDemand[k] >= 0,
+      ),
+      `Occupation demand ${f.id}`,
+    );
+    fail(f.skillProductivity >= 9000 && f.skillProductivity <= 12000, `Productivity bound ${f.id}`);
     fail(districts.has(f.districtId), `Firm district ${f.id}`);
     fail(new Set(f.employeeIds).size === f.employeeIds.length, `Duplicate employee ${f.id}`);
     for (const cid of f.employeeIds)
@@ -114,12 +179,40 @@ export function checkInvariants(s: CityState): string[] {
   };
   let previousTick = 0;
   for (const e of s.events) {
+    if (e.type === 'CLASS_MOVED_UP' || e.type === 'CLASS_MOVED_DOWN') {
+      const from = CLASS_BANDS.indexOf(e.payload.from as (typeof CLASS_BANDS)[number]),
+        to = CLASS_BANDS.indexOf(e.payload.to as (typeof CLASS_BANDS)[number]);
+      fail(
+        from >= 0 &&
+          to >= 0 &&
+          (e.type === 'CLASS_MOVED_UP' ? to > from : to < from) &&
+          e.entityRefs.some((r) => r.kind === 'household'),
+        `Class event consistency ${e.id}`,
+      );
+    }
+    if (['EDUCATION_COMPLETED', 'VOCATIONAL_COMPLETED', 'TERTIARY_COMPLETED'].includes(e.type)) {
+      const c = citizens.get(e.entityRefs.find((r) => r.kind === 'citizen')?.id ?? '');
+      const rank = EDUCATION_LEVELS.indexOf(e.payload.level as (typeof EDUCATION_LEVELS)[number]);
+      fail(
+        c && rank >= 0 && educationRank(c.humanCapital.education) >= rank,
+        `Education event consistency ${e.id}`,
+      );
+    }
     fail(e.tick >= previousTick && e.tick <= s.day, `Event tick ${e.id}`);
     previousTick = e.tick;
     for (const ref of e.entityRefs) fail(maps[ref.kind].has(ref.id), `Event reference ${e.id}`);
     for (const cause of e.causeEventIds) fail(eventIds.has(cause), `Future/missing cause ${e.id}`);
     eventIds.add(e.id);
   }
+  for (const c of s.citizens)
+    for (const eventId of [
+      ...Object.values(c.humanCapital.educationQualifications ?? {}),
+      c.humanCapital.educationEventId,
+      c.humanCapital.qualificationEventId,
+      c.humanCapital.lossEventId,
+      c.humanCapital.salaryEventId,
+    ])
+      if (eventId) fail(eventIds.has(eventId), `Missing human-capital evidence ${c.id}`);
   // All canonical numerical fields (including payload and RNG) must be safe integers.
   function numbers(value: unknown, path: string) {
     if (typeof value === 'number')

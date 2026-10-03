@@ -2,6 +2,14 @@ import { citizenById, householdById, companyById, unitById } from './lookups';
 import { age, type Citizen, type CityState, type Company } from '../../domain/src/index';
 import { emit, id, latestCause } from './events';
 import { createCitizen, createCompany, roll } from './world';
+import { familyFormationSystem } from './family';
+import {
+  careerSystem,
+  educationSystem,
+  mobilitySystem,
+  emptyMobility,
+  matchJobs,
+} from './human-capital';
 export const taxOn = (amount: number, basisPoints: number) =>
   Math.floor((amount * basisPoints) / 10000);
 export const dailyWage = (monthly: number, day: number) =>
@@ -31,6 +39,7 @@ export function releaseJob(
     { name: c.name, company: firm.name, salary },
     causes,
   );
+  c.humanCapital.lossEventId = event.id;
   emit(
     s,
     'HOUSEHOLD_INCOME_DROP',
@@ -50,10 +59,9 @@ export function demographySystem(s: CityState) {
     if (c.lifecycleStatus !== 'alive') continue;
     const a = age(s, c);
     if (c.employmentStatus === 'child' && a >= 18) {
-      c.employmentStatus = 'unemployed';
-      emit(s, 'WORKFORCE_ENTERED', [{ kind: 'citizen', id: c.id }], { name: c.name });
+      c.employmentStatus = 'student';
     }
-    if (c.employmentStatus === 'employed' && a >= 65) {
+    if (['employed', 'unemployed'].includes(c.employmentStatus) && a >= 65) {
       releaseJob(s, c, 'CITIZEN_QUIT');
       c.employmentStatus = 'retired';
       emit(s, 'CITIZEN_RETIRED', [{ kind: 'citizen', id: c.id }], { name: c.name });
@@ -101,6 +109,9 @@ export function demographySystem(s: CityState) {
       const c = createCitizen(s, h.id, s.day);
       c.cash = 0;
       c.parents = [m.id, m.spouseId!];
+      c.humanCapital.origin.parentEducation = Math.max(
+        ...c.parents.map((pid) => citizenById(s, pid).education - 1),
+      );
       c.residenceId = h.residenceId;
       h.memberIds.push(c.id);
       for (const pid of c.parents) {
@@ -153,36 +164,7 @@ export function householdSystem(s: CityState) {
 }
 export function employmentSystem(s: CityState) {
   if (s.day % 7 !== 1) return;
-  for (const c of s.citizens) {
-    if (c.lifecycleStatus !== 'alive' || c.employmentStatus !== 'unemployed') continue;
-    const jobs = s.companies
-      .filter((f) => f.status === 'active' && f.openPositions > 0 && f.cash > 100000)
-      .sort((a, b) => b.productivity - a.productivity || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
-    const firm = jobs[0];
-    if (!firm) break;
-    c.employmentStatus = 'employed';
-    c.employerId = firm.id;
-    c.salary = Math.max(s.government.policies.minimumWage, 180000 + c.skills * 1200);
-    c.occupation =
-      firm.industry === 'Technology'
-        ? 'Developer'
-        : firm.industry === 'Manufacturing'
-          ? 'Technician'
-          : firm.industry === 'Food'
-            ? 'Food worker'
-            : 'Service specialist';
-    firm.employeeIds.push(c.id);
-    firm.openPositions--;
-    emit(
-      s,
-      'CITIZEN_HIRED',
-      [
-        { kind: 'citizen', id: c.id },
-        { kind: 'company', id: firm.id },
-      ],
-      { name: c.name, company: firm.name, salary: c.salary },
-    );
-  }
+  matchJobs(s);
   if (s.day % 30 === 1)
     for (const c of s.citizens.filter((c) => c.employmentStatus === 'employed')) {
       const firm = companyById(s, c.employerId)!;
@@ -201,10 +183,24 @@ export function incomeSystem(s: CityState) {
   for (const firm of s.companies.filter((f) => f.status === 'active')) {
     for (const cid of firm.employeeIds) {
       const c = citizenById(s, cid);
-      c.salary = Math.max(c.salary, s.government.policies.minimumWage);
+      if (c.salary < s.government.policies.minimumWage) {
+        const event = emit(
+          s,
+          'SALARY_CHANGED',
+          [
+            { kind: 'citizen', id: c.id },
+            { kind: 'company', id: firm.id },
+          ],
+          { from: c.salary, to: s.government.policies.minimumWage, reason: 'minimum wage floor' },
+          [],
+        );
+        c.humanCapital.salaryEventId = event.id;
+        c.salary = s.government.policies.minimumWage;
+      }
       const wage = Math.min(firm.cash, dailyWage(c.salary, s.day));
       firm.cash -= wage;
       firm.payroll += wage;
+      c.humanCapital.lifetimeEarned += wage;
       const h = householdById(s, c.householdId);
       h.cash += wage;
       h.income += wage;
@@ -218,7 +214,9 @@ export function incomeSystem(s: CityState) {
 }
 export function governmentSystem(s: CityState) {
   for (const c of s.citizens.filter(
-    (c) => c.lifecycleStatus === 'alive' && ['unemployed', 'retired'].includes(c.employmentStatus),
+    (c) =>
+      c.lifecycleStatus === 'alive' &&
+      ['unemployed', 'retired', 'student'].includes(c.employmentStatus),
   )) {
     const payment = Math.min(
       Math.max(0, s.government.cash),
@@ -297,7 +295,8 @@ export function companySystem(s: CityState) {
       const c = citizenById(s, cid);
       return n + dailyWage(260000 + c.skills * 700, s.day);
     }, 0);
-    const exportSales = Math.floor((capacity * f.productivity * f.demand * 85) / 100000000);
+    const adjustedCapacity = Math.floor((capacity * f.skillProductivity) / 10000);
+    const exportSales = Math.floor((adjustedCapacity * f.productivity * f.demand * 85) / 100000000);
     f.cash += exportSales;
     f.revenue += exportSales;
     s.economy.exports += exportSales;
@@ -466,6 +465,7 @@ export function migrationSystem(s: CityState) {
       expenses: 0,
       housingCost: vacant.rent,
       socioeconomicStatus: 'secure' as const,
+      mobility: emptyMobility(s.day),
     };
     s.households.push(h);
     vacant.occupantHouseholdId = h.id;
@@ -569,6 +569,8 @@ export const PIPELINE = [
   calendarSystem,
   demographySystem,
   householdSystem,
+  educationSystem,
+  careerSystem,
   employmentSystem,
   incomeSystem,
   governmentSystem,
@@ -577,6 +579,8 @@ export const PIPELINE = [
   housingSystem,
   relationshipSystem,
   migrationSystem,
+  familyFormationSystem,
+  mobilitySystem,
   metricsSystem,
   eventAggregationSystem,
 ] as const;

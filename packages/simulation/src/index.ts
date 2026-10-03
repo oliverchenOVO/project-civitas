@@ -16,6 +16,9 @@ export function applyCommand(s: CityState, command: Command) {
       corporateTax: [0, 6000],
       welfare: [0, 300000],
       minimumWage: [0, 600000],
+      publicEducationFunding: [0, 100000],
+      vocationalFunding: [0, 100000],
+      higherEducationSubsidy: [0, 100000],
     } as const;
     if (!Object.hasOwn(limits, command.key)) throw new Error('Unknown policy');
     const [min, max] = limits[command.key];
