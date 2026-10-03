@@ -13,6 +13,7 @@ import { loadObservatory } from '../packages/application/src/save';
 const loadCity = async (text: string) => (await loadObservatory(text)).state;
 import { advance } from '../packages/simulation/src/index';
 import { stateHash } from '../packages/shared/src/canonical';
+import { closeBrowserTestSurface, closeNativeTestApp } from './native-test-close';
 const out = path.resolve('artifacts/qa');
 mkdirSync(out, { recursive: true });
 const savePath = path.join(out, 'qa-city.civitas');
@@ -66,7 +67,7 @@ async function closeTestApp(app: ElectronApplication) {
   // before shutdown rather than asking app.process() after disposal.
   const child = appProcesses.get(app)!;
   console.log('QA: normal native close begins', child.pid);
-  if (child.exitCode === null) await app.close();
+  if (child.exitCode === null) await closeNativeTestApp(app);
   assert.equal(child.exitCode, 0);
   console.log('QA: normal native close completes with exit code 0', child.pid);
 }
@@ -218,7 +219,7 @@ try {
     await screenshot(mobile, 'government-mobile');
     mark('390×844 responsive browser layout and policy controls render without body overflow');
   } finally {
-    await browser.close();
+    await closeBrowserTestSurface(browser);
   }
   assert.deepEqual(errors, []);
   writeFileSync(

@@ -4,6 +4,7 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 import { loadObservatory } from '../packages/application/src/save';
 import { stateHash } from '../packages/shared/src/canonical';
+import { closeBrowserTestSurface, closeNativeTestApp } from './native-test-close';
 const version = JSON.parse(readFileSync('package.json', 'utf8')).version;
 const out = path.resolve('artifacts/qa/3d');
 mkdirSync(out, { recursive: true });
@@ -171,7 +172,7 @@ try {
   assert.equal(await page.evaluate(() => document.body.scrollWidth > innerWidth), false);
   const drawCalls = Number(await page.locator('.map-host').getAttribute('data-draw-calls'));
   mark('1000-person scene advances 20 days without overflow or runtime errors');
-  await app.close();
+  await closeNativeTestApp(app);
   assert.equal(child.exitCode, 0);
   mark('Packaged native window closes normally with exit code 0');
   const browser = await chromium.launch({ channel: 'msedge', headless: true });
@@ -186,7 +187,7 @@ try {
     await shot(mobile, 'mobile');
     mark('390×844 responsive 3D controls and horizontal view work without body overflow');
   } finally {
-    await browser.close();
+    await closeBrowserTestSurface(browser);
   }
   assert.deepEqual(errors, []);
   writeFileSync(
@@ -216,5 +217,5 @@ try {
   );
   throw e;
 } finally {
-  if (child.exitCode === null) await app.close();
+  if (child.exitCode === null) await closeNativeTestApp(app);
 }

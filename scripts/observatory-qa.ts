@@ -7,6 +7,7 @@ import { saveCity } from '../packages/simulation/src/persistence';
 import { createCity, advance } from '../packages/simulation/src/index';
 import { verifyScenarios } from '../packages/application/src/scenarios';
 import { stateHash } from '../packages/shared/src/canonical';
+import { closeBrowserTestSurface, closeNativeTestApp } from './native-test-close';
 
 const version = JSON.parse(readFileSync('package.json', 'utf8')).version;
 const out = path.resolve('artifacts/qa/phase1-1');
@@ -61,7 +62,7 @@ async function save(page: Page) {
 }
 async function close() {
   const child = app!.process();
-  await app!.close();
+  await closeNativeTestApp(app!);
   assert.equal(child.exitCode, 0);
   app = undefined;
 }
@@ -290,7 +291,7 @@ try {
     await shot(mobile, 'metric-mobile');
     mark('390×844 investigation layout has no body overflow and metric controls remain usable');
   } finally {
-    await browser.close();
+    await closeBrowserTestSurface(browser);
   }
   assert.deepEqual(errors, []);
   writeFileSync(

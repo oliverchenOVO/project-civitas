@@ -9,6 +9,7 @@ import { age } from '../packages/domain/src/index';
 import { advance } from '../packages/simulation/src/index';
 import { qualification } from '../packages/domain/src/occupations';
 import type { Occupation } from '../packages/domain/src/index';
+import { closeBrowserTestSurface, closeNativeTestApp } from './native-test-close';
 
 const version = JSON.parse(readFileSync('package.json', 'utf8')).version;
 const out = path.resolve('artifacts/qa/phase2a');
@@ -55,7 +56,7 @@ async function launch() {
 }
 async function close() {
   const child = app!.process();
-  await app!.close();
+  await closeNativeTestApp(app!);
   assert.equal(child.exitCode, 0);
   app = undefined;
 }
@@ -259,7 +260,7 @@ try {
       '390×844 human-development analytics and cohort controls remain usable without body overflow',
     );
   } finally {
-    await browser.close();
+    await closeBrowserTestSurface(browser);
   }
   assert.deepEqual(errors, []);
   writeFileSync(
