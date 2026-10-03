@@ -8,7 +8,7 @@ import { createCityLayout, type Point } from '../apps/desktop/src/scene/layout';
 import { projectSceneData } from '../apps/desktop/src/scene/data';
 
 const version = JSON.parse(readFileSync('package.json', 'utf8')).version as string;
-const out = path.resolve('artifacts/qa/scene-remaster/after');
+const out = path.resolve('artifacts/qa/phase1-1/scene');
 mkdirSync(out, { recursive: true });
 const errors: string[] = [],
   checks: string[] = [];
@@ -211,6 +211,38 @@ try {
   checks.push(
     '1000 residents render and advance 20 days without errors; per-update CPU timing recorded',
   );
+  await page.getByRole('button', { name: 'Max', exact: true }).click();
+  await page.waitForFunction(
+    () =>
+      Number(document.querySelector('.clock small')?.textContent?.match(/第\s*(\d+)/)?.[1]) >= 365,
+  );
+  await page.getByRole('button', { name: '暫停', exact: true }).click();
+  await page.getByRole('button', { name: '解釋失業率', exact: true }).click();
+  await page.getByRole('button', { name: '365 日', exact: true }).click();
+  await page.getByRole('button', { name: 'Explain · 解釋這個數字', exact: true }).click();
+  await page.getByRole('button', { name: 'Focus on Map · 受影響實體', exact: true }).click();
+  assert.ok(Number(await page.locator('.map-host').getAttribute('data-affected-count')) > 0);
+  const overlaySamples: number[] = [];
+  const totalSamples: number[] = [];
+  for (let i = 0; i < 20; i++) {
+    await page.getByRole('button', { name: '前進一天', exact: true }).click();
+    overlaySamples.push(Number(await page.locator('.map-host').getAttribute('data-overlay-ms')));
+    totalSamples.push(Number(await page.locator('.map-host').getAttribute('data-render-ms')));
+  }
+  timings.push({
+    population: 1000,
+    phase: 'recorded affected overlay only, 20 updates',
+    renderMs: overlaySamples.reduce((a, b) => a + b, 0) / overlaySamples.length,
+  });
+  timings.push({
+    population: 1000,
+    phase: 'base scene plus affected overlay, 20 updates',
+    renderMs: totalSamples.reduce((a, b) => a + b, 0) / totalSamples.length,
+  });
+  await shot(page, 'affected-1000');
+  checks.push(
+    '1000-person recorded affected overlay has separately measured CPU cost and no console errors',
+  );
   await app.close();
   assert.equal(child.exitCode, 0);
   checks.push('Packaged scene QA exits normally with code 0, no force kill');
@@ -239,10 +271,10 @@ try {
     checks,
     consoleErrors: errors,
     timings,
-    screenshots: 'artifacts/qa/scene-remaster/after',
+    screenshots: 'artifacts/qa/phase1-1/scene',
     testedAt: new Date().toISOString(),
     screenshotMethod:
-      'Playwright Electron, native packaged renderer; Edge headless production responsive. IAB also used for interactive visual review.',
+      'Playwright Electron, native packaged renderer; Edge headless production responsive. Earlier interactive review used IAB; final packaged captures are inspected as local images.',
     geometry: {
       buildings: source.buildings.length,
       residents: data.residents.length,
@@ -251,11 +283,11 @@ try {
     limitations:
       'CPU timing includes presentation projection/graphics commands, excludes GPU rasterization; no traffic/at-work inference or physical scale.',
   };
-  writeFileSync('artifacts/scene-qa.json', JSON.stringify(report, null, 2));
+  writeFileSync('artifacts/phase1-1-scene-qa.json', JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
 } catch (error) {
   writeFileSync(
-    'artifacts/scene-qa.json',
+    'artifacts/phase1-1-scene-qa.json',
     JSON.stringify({ passed: false, checks, errors, error: String(error) }, null, 2),
   );
   throw error;

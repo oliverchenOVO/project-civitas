@@ -8,7 +8,9 @@ import { mkdirSync, writeFileSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 import type { ChildProcess } from 'node:child_process';
-import { loadCity, replayCity } from '../packages/simulation/src/persistence';
+import { replayCity } from '../packages/simulation/src/persistence';
+import { loadObservatory } from '../packages/application/src/save';
+const loadCity = async (text: string) => (await loadObservatory(text)).state;
 import { advance } from '../packages/simulation/src/index';
 import { stateHash } from '../packages/shared/src/canonical';
 const out = path.resolve('artifacts/qa');
@@ -129,6 +131,8 @@ try {
   assert.ok((await page.locator('.main-view').innerText()).includes('incomeTax'));
   await screenshot(page, 'events-1536');
   mark('News displays real policy event and related entities');
+  if (await page.getByRole('button', { name: '關閉通知', exact: true }).count())
+    await page.getByRole('button', { name: '關閉通知', exact: true }).click();
   await page.getByRole('button', { name: '存檔', exact: true }).click();
   await page.getByRole('status').filter({ hasText: '城市已儲存' }).waitFor();
   const saved = await loadCity(readFileSync(savePath, 'utf8'));
@@ -145,12 +149,16 @@ try {
   await page.getByRole('button', { name: '載入', exact: true }).click();
   await page.getByRole('status').filter({ hasText: '城市已載入' }).waitFor();
   assert.equal(await day(page), saved.day);
+  if (await page.getByRole('button', { name: '關閉通知', exact: true }).count())
+    await page.getByRole('button', { name: '關閉通知', exact: true }).click();
   await page.getByRole('button', { name: '存檔', exact: true }).click();
   await page.getByRole('status').filter({ hasText: '城市已儲存' }).waitFor();
   assert.equal(await stateHash(await loadCity(readFileSync(savePath, 'utf8'))), savedHash);
   mark('Close, relaunch, load restores identical canonical SHA-256');
   await page.getByRole('button', { name: '前進一天', exact: true }).click();
   assert.equal(await day(page), saved.day + 1);
+  if (await page.getByRole('button', { name: '關閉通知', exact: true }).count())
+    await page.getByRole('button', { name: '關閉通知', exact: true }).click();
   await page.getByRole('button', { name: '存檔', exact: true }).click();
   await page.getByRole('status').filter({ hasText: '城市已儲存' }).waitFor();
   const continued = await loadCity(readFileSync(savePath, 'utf8'));

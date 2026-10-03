@@ -1,6 +1,6 @@
 {
   "name": "project-civitas",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -14,7 +14,9 @@
     "desktop": "electron .",
     "package:win": "pnpm build && pwsh -NoProfile -File scripts/stage-desktop.ps1 && electron-builder --projectDir .desktop-runtime --win dir portable",
     "qa:desktop": "tsx scripts/desktop-qa.ts",
-    "qa:scene": "tsx scripts/scene-qa.ts"
+    "qa:scene": "tsx scripts/scene-qa.ts",
+    "qa:observatory": "tsx scripts/observatory-qa.ts",
+    "benchmark:observatory": "tsx scripts/observatory-benchmark.ts"
   },
   "main": "apps/desktop/electron/main.cjs",
   "dependencies": {
@@ -46,7 +48,7 @@
     "appId": "studio.civitas.observatory",
     "productName": "Project CIVITAS",
     "directories": {
-      "output": "release/0.1.1",
+      "output": "release/0.2.0",
       "app": ".desktop-runtime"
     },
     "files": [

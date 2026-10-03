@@ -1,0 +1,15 @@
+{
+  "passed": false,
+  "steps": [
+    "Packaged app launches and creates seeded 250-person city",
+    "20x advances and Pause stops simulation",
+    "Citizen search, employment filter, inspector and real life history",
+    "Citizen employer link opens actual company finances and history",
+    "Tax policy command and funded construction modify simulation",
+    "News displays real policy event and related entities",
+    "Native IPC writes validated versioned save including command ledger",
+    "Close, relaunch, load restores identical canonical SHA-256"
+  ],
+  "errors": [],
+  "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ '9a3d773536cffa3ac9c58db25500cb9ecb730bc002fcceef80038267957b5956'\n- 'ea377be0a7a657e253b7ca7cdad94df2cc8b9ce9594238ef90d82d21c816cef1'\n"
+}

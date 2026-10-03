@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "appVersion": "0.2.0",
+  "checks": [
+    "Native city advances 5 years; v2 save contains real observed metric/entity history",
+    "Unemployment detail shows actual trend, deltas, recorded job losses and contribution/association distinction",
+    "Actual affected company opens historical inspector and deterministic map footprint",
+    "Back restores prior metric explanation and time-range context",
+    "Citizen Life and bidirectional household navigation show real employment/residence/financial evidence and monthly financial samples",
+    "Real layoff/bankruptcy event supports bounded recorded causes/effects; absence is not invented",
+    "Affected companies/households/residents overlay changes presentation only; measured 20 scene updates",
+    "City History annual review links evidence back into the real city map",
+    "Fork A/B executes distinct policies, 30-day/1-year/5-year comparison and deterministic replay",
+    "Normal exit/relaunch/reload preserves original truth, history, scenario checkpoint and both branch replay guarantees",
+    "Native v1 migration explicitly marks detailed-history availability and does not fabricate deltas",
+    "390×844 investigation layout has no body overflow and metric controls remain usable"
+  ],
+  "consoleErrors": [],
+  "timings": [
+    {
+      "phase": "250-person retained scene + recorded causal affected overlay, 20 updates",
+      "meanMs": 7.014999999999999,
+      "refs": 3
+    }
+  ],
+  "saveTruthHash": "03252a21de5d74f48a3cbe9d053b6b9a65927d14a42a0ba7c4e82e3bf71a3666",
+  "containerIntegrityHash": "619978ca03dd1f85f9c468b55cb8974c6f67bb46f7180061940113811b7cf0b8",
+  "screenshots": "artifacts/qa/phase1-1",
+  "testedAt": "2026-10-03T15:09:15.988Z"
+}
