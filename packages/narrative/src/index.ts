@@ -15,8 +15,46 @@ const money = (n: unknown) =>
 export class TemplateNarrativeProvider implements NarrativeProvider {
   generateNews(e: DomainEvent): NewsArticle {
     const p = e.payload;
-    let title: string;
+    let title = `${e.type} · ${Object.entries(p)
+      .map(([k, v]) => `${k}: ${Array.isArray(v) ? v.join(', ') : v}`)
+      .join(' · ')}`;
     switch (e.type) {
+      case 'EDUCATION_COMPLETED':
+      case 'VOCATIONAL_COMPLETED':
+      case 'TERTIARY_COMPLETED':
+        title = `完成 ${p.level} 教育，記錄表現 ${p.performance}。`;
+        break;
+      case 'EDUCATION_ENROLLED':
+        title = `開始 ${p.track} 教育路徑。`;
+        break;
+      case 'EDUCATION_DROPPED':
+        title = `離開 ${p.track} 教育路徑：${p.reason ?? '完成評估未通過'}。`;
+        break;
+      case 'QUALIFICATION_GAINED':
+        title = `符合 ${p.occupation} 職位門檻：${Array.isArray(p.checks) ? p.checks.join(' · ') : ''}。`;
+        break;
+      case 'SKILL_MILESTONE':
+        title = `${p.skill} 技能由 ${p.from} 變為 ${p.to}：${p.reason}。`;
+        break;
+      case 'PROMOTED':
+        title = `職位由 ${p.from} 晉升為 ${p.to}。`;
+        break;
+      case 'OCCUPATION_CHANGED':
+        title = `職業由 ${p.from} 轉為 ${p.to}：${p.reason}。`;
+        break;
+      case 'SALARY_CHANGED':
+        title = `月薪由 ${money(p.from)} 調整為 ${money(p.to)}：${p.reason}。`;
+        break;
+      case 'CLASS_MOVED_UP':
+      case 'CLASS_MOVED_DOWN':
+        title = `家庭年度階層由 ${p.from} 變為 ${p.to}；月度實收收入換算 ${money(p.monthlyIncome)}。`;
+        break;
+      case 'INTERGENERATIONAL_REVIEW':
+        title = `成年代際比較：${p.originClass} → ${p.currentClass}（${p.direction}）。`;
+        break;
+      case 'HOUSEHOLD_FORMED':
+        title = `符合條件的成年人建立新家庭，月租 ${money(p.rent)}。`;
+        break;
       case 'CITY_FOUNDED':
         title = `城市成立，${p.population} 位居民開始共同生活。`;
         break;

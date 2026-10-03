@@ -4,6 +4,8 @@ import { usePresentation } from '../store';
 import { money, employmentLabels, date } from '../format';
 import { controller } from '../../../../packages/application/src/controller';
 import { EntityHistory, EntityLinks } from './Investigation';
+import { CitizenDevelopment, occupationLabels, classLabels } from './HumanDevelopment';
+import type { Occupation } from '../../../../packages/domain/src/index';
 function Field({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <div className="field">
@@ -141,7 +143,10 @@ export function Inspector({ state }: { state: CityState }) {
             label="年齡 / 狀態"
             value={`${age(state, citizen)} 歲 · ${citizen.lifecycleStatus === 'alive' ? employmentLabels[citizen.employmentStatus] : citizen.lifecycleStatus === 'dead' ? '已離世' : '已遷出'}`}
           />
-          <Field label="職業" value={citizen.occupation ?? '—'} />
+          <Field
+            label="職業"
+            value={citizen.occupation ? occupationLabels[citizen.occupation as Occupation] : '—'}
+          />
           <Field label="每月薪資" value={money(citizen.salary)} />
           <Field label="個人備用金" value={money(citizen.cash)} />
           <Field
@@ -174,6 +179,7 @@ export function Inspector({ state }: { state: CityState }) {
           <div className="meter">
             <i style={{ width: `${citizen.happiness}%` }} />
           </div>
+          <CitizenDevelopment key={citizen.id} citizen={citizen} state={state} />
           <h4>人際關係</h4>
           <div className="relationship-list">
             {state.relationships
@@ -201,6 +207,7 @@ export function Inspector({ state }: { state: CityState }) {
           />
           <Field label="每月房租" value={money(household.housingCost)} />
           <Field label="財務狀況" value={household.socioeconomicStatus} />
+          <Field label="家庭經濟階層" value={classLabels[household.mobility.class]} />
           {!citizen && (
             <>
               <Field label="目前住所" value={household.residenceId ?? '無住所'} />
@@ -248,6 +255,10 @@ export function Inspector({ state }: { state: CityState }) {
             value={<span className={firm.profit < 0 ? 'negative' : ''}>{money(firm.profit)}</span>}
           />
           <Field label="企業現金" value={money(firm.cash)} />
+          <Field
+            label="技能生產力係數（有界）"
+            value={`${(firm.skillProductivity / 10000).toFixed(2)}×`}
+          />
           <div className="relationship-list">
             {firm.employeeIds.slice(0, 12).map((cid) => (
               <button key={cid} onClick={() => select('citizen', cid)}>

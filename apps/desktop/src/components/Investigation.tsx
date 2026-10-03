@@ -17,6 +17,7 @@ import { verifyScenarios } from '../../../../packages/application/src/scenarios'
 import { usePresentation } from '../store';
 import { date, money, policyLabels } from '../format';
 import { EventRow, EventFeed } from './EventFeed';
+import { humanDevelopment } from '../../../../packages/application/src/human-development';
 
 export const metricLabels: Record<MetricKey, string> = {
   population: '現居人口',
@@ -452,6 +453,19 @@ export function CityHistoryPage({ state }: { state: CityState }) {
               年度稅收 {money(review.period.flows.taxRevenue)} · 福利{' '}
               {money(review.period.flows.welfareSpending)} · 倒閉 {review.period.flows.bankruptcies}
             </p>
+            {review.human ? (
+              <p>
+                年度公共教育 {money(review.human.educationSpending)} · 職訓{' '}
+                {money(review.human.vocationalSpending)} · 高等補助{' '}
+                {money(review.human.subsidySpending)} · 家庭向上／向下 {review.human.upward} /{' '}
+                {review.human.downward}
+              </p>
+            ) : (
+              <p>
+                本年度完整人力發展觀測不可用；資料自{' '}
+                {date(controller.history.humanDevelopment.availableFromDay)}。
+              </p>
+            )}
             <p>
               直接記錄事件最多行政區：
               {review.mostRecordedDistrict
@@ -635,6 +649,12 @@ export function ScenarioPage() {
       <button className="primary" disabled={busy} onClick={() => execute(() => controller.fork())}>
         {workspace ? '重新從目前城市建立 checkpoint' : '從目前城市 / 已載入存檔 Fork A / B'}
       </button>
+      {workspace?.migratedLegacy && (
+        <p className="muted">
+          舊版分支從各自升級 checkpoint 續跑；升級前人力發展資料不可用。需要相同新版起點時，請重新
+          Fork。
+        </p>
+      )}
       {workspace && (
         <>
           <p>
@@ -682,7 +702,9 @@ export function ScenarioPage() {
                 套用至 B
               </button>
             </div>
-            <p className="muted">稅率使用百分比；福利及最低工資使用每月美元金額。</p>
+            <p className="muted">
+              稅率使用百分比；福利／最低工資使用每月美元，教育經費使用每生每月美元，短期職訓使用每人每期美元。
+            </p>
             <div className="filter-bar">
               <select
                 aria-label="情境建設行政區"
@@ -720,9 +742,9 @@ export function ScenarioPage() {
             </div>
           </section>
           <div className="tabs">
-            {[30, 365, 1825].map((n) => (
+            {[30, 365, 1825, 3650, 7300].map((n) => (
               <button key={n} disabled={busy} onClick={() => void run(n)}>
-                兩分支推進 {n === 30 ? '30 日' : n === 365 ? '1 年' : '5 年'}
+                兩分支推進 {n === 30 ? '30 日' : `${n / 365} 年`}
               </button>
             ))}
             <button
@@ -777,6 +799,51 @@ export function ScenarioPage() {
                     <td>{metricDeltaFormat(k, values![1][k] - values![0][k])}</td>
                   </tr>
                 ))}
+                {(
+                  [
+                    'adults',
+                    'upward',
+                    'downward',
+                    'educationSpending',
+                    'vocationalSpending',
+                    'subsidySpending',
+                    'productivity',
+                  ] as const
+                ).map((k) => {
+                  const measures = workspace.branches.map((b) => humanDevelopment(b.state));
+                  return (
+                    <tr key={k}>
+                      <td>
+                        {k}（
+                        {k.endsWith('Spending')
+                          ? '累計實付'
+                          : k === 'productivity'
+                            ? '基點'
+                            : '目前／累計'}
+                        ）
+                      </td>
+                      {measures.map((r, i) => (
+                        <td key={i}>{k.endsWith('Spending') ? money(r[k]) : r[k]}</td>
+                      ))}
+                      <td>{measures[1][k] - measures[0][k]}</td>
+                    </tr>
+                  );
+                })}
+                {(['basic', 'secondary', 'vocational', 'tertiary'] as const).map((k) => {
+                  const measures = workspace.branches.map((b) => humanDevelopment(b.state));
+                  return (
+                    <tr key={k}>
+                      <td>{k} 完成教育（成年 cohort）</td>
+                      {measures.map((r, i) => (
+                        <td key={i}>
+                          {r.education[k]} / n={r.adults} · 成年平均月薪{' '}
+                          {money(r.incomeByEducation[k])}
+                        </td>
+                      ))}
+                      <td>{measures[1].education[k] - measures[0].education[k]}</td>
+                    </tr>
+                  );
+                })}
                 <tr>
                   <td>Fork 後累計稅收（flow）</td>
                   {workspace.branches.map((b) => (

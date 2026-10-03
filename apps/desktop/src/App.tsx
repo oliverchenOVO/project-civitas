@@ -36,6 +36,7 @@ import {
   GovernmentPage,
 } from './components/Pages';
 import { Inspector } from './components/Inspector';
+import { HumanDevelopmentPage } from './components/HumanDevelopment';
 import packageMetadata from '../../../package.json';
 import {
   CityHistoryPage,
@@ -53,6 +54,12 @@ const nav = [
   { page: 'Citizens' as Page, label: '居民', description: 'People & households', Icon: Users },
   { page: 'Companies' as Page, label: '企業', description: 'Firms & economy', Icon: Building2 },
   { page: 'Events' as Page, label: '事件', description: 'History & evidence', Icon: Newspaper },
+  {
+    page: 'Development' as Page,
+    label: '人力發展',
+    description: 'Education & mobility',
+    Icon: Users,
+  },
   { page: 'History' as Page, label: '城市歷史', description: 'Year in Review', Icon: Newspaper },
   {
     page: 'Scenarios' as Page,
@@ -459,6 +466,8 @@ function Observatory() {
             <CompaniesPage state={state} />
           ) : page === 'Events' ? (
             <EventsPage state={state} />
+          ) : page === 'Development' ? (
+            <HumanDevelopmentPage state={state} />
           ) : page === 'History' ? (
             <CityHistoryPage state={state} />
           ) : page === 'Metrics' ? (

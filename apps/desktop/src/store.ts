@@ -1,6 +1,14 @@
 import { create } from 'zustand';
 export type Page =
-  'City' | 'Citizens' | 'Companies' | 'Events' | 'Government' | 'Metrics' | 'History' | 'Scenarios';
+  | 'City'
+  | 'Citizens'
+  | 'Companies'
+  | 'Events'
+  | 'Government'
+  | 'Metrics'
+  | 'History'
+  | 'Scenarios'
+  | 'Development';
 export interface Selection {
   kind: 'citizen' | 'company' | 'household' | 'district' | 'metric' | 'event';
   id: string;

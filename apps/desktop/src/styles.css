@@ -1633,3 +1633,58 @@ tbody tr:hover {
     font-size: 8px;
   }
 }
+.human-citizen {
+  margin: 20px 0;
+  padding: 16px 0;
+  border-top: 1px solid #344753;
+  border-bottom: 1px solid #344753;
+}
+.human-citizen p,
+.human-citizen li {
+  font-size: 12px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+.human-citizen .tabs {
+  flex-wrap: wrap;
+}
+.human-citizen select {
+  width: 100%;
+}
+.human-skills {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.human-skills div {
+  display: grid;
+  gap: 5px;
+  font-size: 12px;
+}
+.human-skills progress {
+  width: 100%;
+  height: 4px;
+  accent-color: #91d8bd;
+}
+.development-cards {
+  margin: 24px 0;
+}
+.development-cards button {
+  text-align: left;
+  display: grid;
+  gap: 8px;
+  padding: 18px;
+}
+.development-cards strong {
+  font-size: 21px;
+  font-weight: 500;
+}
+.human-development h2 {
+  margin-top: 28px;
+}
+.human-development .review-grid {
+  margin: 16px 0;
+}
+.human-development select {
+  max-width: 100%;
+}

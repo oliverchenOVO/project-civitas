@@ -7,6 +7,7 @@ import { usePresentation } from '../store';
 import { money, employmentLabels, policyLabels } from '../format';
 import { CityMap } from './CityMap';
 import { EventFeed } from './EventFeed';
+import { DevelopmentCards } from './HumanDevelopment';
 export function CityPage({ state, revision }: { state: CityState; revision: number }) {
   return (
     <section className="city-page">
@@ -27,6 +28,7 @@ export function CityPage({ state, revision }: { state: CityState; revision: numb
         </div>
         <CityMap state={state} revision={revision} />
       </div>
+      <DevelopmentCards state={state} />
       <div className="city-bottom">
         <section>
           <h2>
@@ -128,6 +130,7 @@ export function CitizensPage({ state }: { state: CityState }) {
           <option value="unemployed">求職中</option>
           <option value="retired">退休</option>
           <option value="child">未成年</option>
+          <option value="student">進修中</option>
           <option value="all">所有歷史人口</option>
         </select>
         <select
@@ -315,19 +318,30 @@ function PolicyControl({ policy, state }: { policy: keyof Policies; state: CityS
   const [draft, setDraft] = useState(current);
   const notify = usePresentation((s) => s.notify);
   const percent = policy.endsWith('Tax');
-  const max = percent ? 6000 : policy === 'welfare' ? 300000 : 600000;
+  const educational = [
+    'publicEducationFunding',
+    'vocationalFunding',
+    'higherEducationSubsidy',
+  ].includes(policy);
+  const max = percent ? 6000 : educational ? 100000 : policy === 'welfare' ? 300000 : 600000;
   return (
     <section className="policy">
       <div>
         <h3>{policyLabels[policy]}</h3>
         <p>
-          {policy === 'incomeTax'
-            ? '薪資所得的扣繳比例，直接影響家庭可支配收入。'
-            : policy === 'corporateTax'
-              ? '僅針對企業正利潤課稅，影響企業累積資金。'
-              : policy === 'welfare'
-                ? '提供求職者與退休居民給付，以可用國庫資金為限。'
-                : '企業支付的每月薪資下限，可能改變招聘與盈虧。'}
+          {educational
+            ? policy === 'publicEducationFunding'
+              ? '每生每月購買公共教育服務，以實際可用國庫為限，影響完成機會。'
+              : policy === 'vocationalFunding'
+                ? '支付職業教育服務；求職者每三個月可接受一次有資金支持的短期職訓。'
+                : '給在學高等教育居民的每月家庭補助，降低進修機會成本；國庫不足會縮減給付。'
+            : policy === 'incomeTax'
+              ? '薪資所得的扣繳比例，直接影響家庭可支配收入。'
+              : policy === 'corporateTax'
+                ? '僅針對企業正利潤課稅，影響企業累積資金。'
+                : policy === 'welfare'
+                  ? '提供求職者與退休居民給付，以可用國庫資金為限。'
+                  : '企業支付的每月薪資下限，可能改變招聘與盈虧。'}
         </p>
       </div>
       <div className="policy-input">
@@ -337,7 +351,7 @@ function PolicyControl({ policy, state }: { policy: keyof Policies; state: CityS
           type="range"
           min="0"
           max={max}
-          step={percent ? 100 : 5000}
+          step={percent ? 100 : educational ? 1000 : 5000}
           value={draft}
           onChange={(e) => setDraft(Number(e.target.value))}
         />
@@ -388,6 +402,11 @@ export function GovernmentPage({ state }: { state: CityState }) {
           累計建設 <strong>{money(state.government.constructionSpending)}</strong>
         </span>
       </div>
+      <p>
+        累計公共教育 {money(state.government.educationSpending)} · 職訓{' '}
+        {money(state.government.vocationalSpending)} · 高等補助{' '}
+        {money(state.government.subsidySpending)}
+      </p>
       {(Object.keys(policyLabels) as (keyof Policies)[]).map((key) => (
         <PolicyControl
           key={`${state.config.seed}-${key}-${state.government.policies[key]}`}

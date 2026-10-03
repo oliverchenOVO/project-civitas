@@ -73,7 +73,10 @@ export function CityMap({ state, revision }: { state: CityState; revision: numbe
     } catch (e) {
       setError(`城市 3D 載入失敗：${String(e)}`);
     }
+    const release = () => scene?.dispose();
+    window.addEventListener('beforeunload', release);
     return () => {
+      window.removeEventListener('beforeunload', release);
       scene?.dispose();
       sceneRef.current = null;
     };

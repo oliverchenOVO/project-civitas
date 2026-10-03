@@ -755,6 +755,7 @@ export class CityScene3D {
     this.host.dataset.pickTargets = JSON.stringify(targets);
   }
   dispose() {
+    if (this.disposed) return;
     this.disposed = true;
     cancelAnimationFrame(this.frame);
     this.observer.disconnect();
