@@ -1,6 +1,6 @@
 # Civic Observatory design contract
 
-Concept: `observatory-concept.png`, generated with built-in Image Gen. Full desktop shell reference, 1536×1024.
+Concept: `observatory-concept.webp`, generated with built-in Image Gen. Full desktop shell reference, 1536×1024.
 
 Tokens: background #101b25, surface #182632, border #30424e, foreground #edf2ef, secondary #92a5b3, mint #8fd7c1, gold #d4b778. Dark slate civic observatory, no neon. Serif CIVITAS wordmark, Segoe UI/Microsoft JhengHei controls. Header 78px, footer 34px; navigation 185px, main flexible, right rail 330px. Header contains date, speed, day step, save/load/new. Five requested navigation pages. Main uses canvas/table/list/policy rows; right rail uses open metric rows and a real selected entity inspector. Button radii 5px, panel radii 6px. Motion is restrained hover transitions and respects reduced motion.
 

@@ -1,6 +1,6 @@
 # Phase 1A scene contract
 
-Primary reference: `observatory-concept.png` (1536×1024 shell). Detail reference: `scene-remaster-concept.png` (built-in Image Gen; river, street hierarchy, district grain, landmarks). The user's brief governs: procedural Pixi 2D, continuous geography, real entities, no photograph backdrop, no new simulation. Generated detail labels for fictional facilities, boats, transit and physical distances are not product copy. Those are intentional omissions.
+Primary reference: `observatory-concept.webp` (1536×1024 shell). Detail reference: `scene-remaster-concept.webp` (built-in Image Gen; river, street hierarchy, district grain, landmarks). The user's brief governs: procedural Pixi 2D, continuous geography, real entities, no photograph backdrop, no new simulation. Generated detail labels for fictional facilities, boats, transit and physical distances are not product copy. Those are intentional omissions.
 
 Keep the existing dark civic shell, five navigation pages, header, City Pulse and inspector. Map palette: terrain #101e28, planted land #1b3030, water #193849, road shoulders #34434a, road surface #50606a; district accents remain the actual district colors. No neon, image overlay or new gradients. Buildings use roof planes, ridge lines, small offset shadows and parcel edging; a footprint always refers to an actual Building ID. Unbuilt land is landscape, not fake houses.
 
