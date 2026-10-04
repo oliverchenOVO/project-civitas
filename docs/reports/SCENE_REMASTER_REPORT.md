@@ -8,7 +8,7 @@ Baseline: `deec84edd26d543c501a65bb36b794cc7ceaf2f8` / immutable `v0.1.0`. Appli
 
 Rebuilt the central Pixi map as a continuous miniature city: variable-width river, four bridge/arterial connections, riverbank roads, neighborhood streets, block subdivisions, entity parcels and roof masses. Districts share terrain; district colors no longer outline dashboard boxes. Existing navigation, toolbar and City Pulse remain.
 
-This is procedural presentation of simulation entities. The generated [detail concept](design/scene-remaster-concept.png) and original [shell concept](design/observatory-concept.png) are references only; neither is loaded by the application. No raster backdrop, invented residents, fake statistics, new economy, traffic system, Unity or Blender dependency was introduced.
+This is procedural presentation of simulation entities. The generated [detail concept](../design/scene-remaster-concept.webp) and original [shell concept](../design/observatory-concept.webp) are references only; neither is loaded by the application. No raster backdrop, invented residents, fake statistics, new economy, traffic system, Unity or Blender dependency was introduced.
 
 ## Architecture and modeling rules
 
@@ -46,13 +46,13 @@ Main controlled comparison: seed `CIVITAS-DESKTOP-QA`, 250 initial residents, da
 
 Before:
 
-![Before: four dashboard district boxes](design/scene-before-1536.png)
+![Before: four dashboard district boxes](../design/scene-before-1536.webp)
 
 After:
 
-![After: connected procedural microcity](design/scene-after-1536.png)
+![After: connected procedural microcity](../design/scene-after-1536.webp)
 
-Additional final captures: [1280×800](design/scene-after-1280.png), [1000 residents at 1280×800](design/scene-after-1000-1280.png), [390×844 responsive](design/scene-after-mobile.png). All are actual rendered application screenshots. Other before/interaction captures remain in local `artifacts/qa/scene-remaster/`. Old 1280/1000 captures use different day/seed, so they are visual history rather than controlled numeric comparisons.
+Additional final captures: [1280×800](../design/scene-after-1280.webp), [1000 residents at 1280×800](../design/scene-after-1000-1280.webp), [390×844 responsive](../design/scene-after-mobile.webp). All are actual rendered application screenshots. Other before/interaction captures remain in local `artifacts/qa/scene-remaster/`. Old 1280/1000 captures use different day/seed, so they are visual history rather than controlled numeric comparisons.
 
 Original and generated references plus all four final viewport screenshots were inspected together in the final QA pass. The final scene visibly reads as connected geography with identifiable neighborhoods, rather than four isolated widgets.
 
@@ -84,21 +84,21 @@ Copy audit: shipped names/counts/hover details are state-derived. Added map copy
 | Map QA | 10 checks passed: counts, selection/hover, actual canvas layer changes, highlights, three viewport widths, 1000-resident updates, normal shutdown |
 | Native WM_CLOSE gate | Final fresh batch 6/6 passed, no force cleanup; final CIM absence 1469–7414 ms |
 
-Core/domain/economy/save/replay files, Electron main/preload and dependency lockfile are unchanged from the Phase 1 baseline. Packaged save hash remains `9a3d773536cffa3ac9c58db25500cb9ecb730bc002fcceef80038267957b5956`. Full reports: [desktop](../artifacts/desktop-qa.json), [scene](../artifacts/scene-qa.json), [benchmark](../artifacts/benchmark.json), [payload/hash regression](../artifacts/scene-regression.json).
+Core/domain/economy/save/replay files, Electron main/preload and dependency lockfile are unchanged from the Phase 1 baseline. Packaged save hash remains `9a3d773536cffa3ac9c58db25500cb9ecb730bc002fcceef80038267957b5956`. Full reports: desktop (historical raw evidence retained locally), scene (historical raw evidence retained locally), benchmark (historical raw evidence retained locally), payload/hash regression (historical raw evidence retained locally).
 
 Final packaged 1000-resident daily presentation updates averaged **17.775 ms** over 20 days. This CPU measurement includes indexed data projection and Graphics command construction, excludes GPU rasterization, and is not an FPS guarantee.
 
-The initial 1000-resident CLI benchmark was 4528 ms versus baseline 3581 ms, prompting three additional measured runs: **3690 / 3778 / 4450 ms**, median **3778 ms (+5.5%)**. The CLI does not load the scene renderer and core files are unchanged. Timing spread is reported rather than attributed to an unproven cause. Latest benchmark artifact is the 4450 ms run; [three repeats](../artifacts/scene-benchmark-repeats.json) are preserved. No broad performance conclusion is based on a single timing sample.
+The initial 1000-resident CLI benchmark was 4528 ms versus baseline 3581 ms, prompting three additional measured runs: **3690 / 3778 / 4450 ms**, median **3778 ms (+5.5%)**. The CLI does not load the scene renderer and core files are unchanged. Timing spread is reported rather than attributed to an unproven cause. Latest benchmark artifact is the 4450 ms run; three repeats (historical raw evidence retained locally) are preserved. No broad performance conclusion is based on a single timing sample.
 
 ## Native exit investigation
 
-The first remaster acceptance batch passed unpacked 3/3; portable 1/3 established the strict deadline. The other two portable runs were first observed absent at 11291/11304 ms, with final CIM absence at 12701/12823 ms. No forced cleanup occurred in that initial batch. These are failed acceptance observations, not proof of an exit time within 10 seconds. The result is preserved in [initial exit QA](../artifacts/scene-native-close-initial-qa.json).
+The first remaster acceptance batch passed unpacked 3/3; portable 1/3 established the strict deadline. The other two portable runs were first observed absent at 11291/11304 ms, with final CIM absence at 12701/12823 ms. No forced cleanup occurred in that initial batch. These are failed acceptance observations, not proof of an exit time within 10 seconds. The result is preserved in initial exit QA (historical raw evidence retained locally).
 
-One-second full CIM polling then produced long observation durations and failed runs requiring test-owned cleanup. Those results must not be counted as passes: [dense batch](../artifacts/scene-native-close-dense-qa.json). A first kernel-polling batch still failed because portable run 1 completed its absence checks late: [kernel initial batch](../artifacts/scene-native-close-kernel-initial-qa.json). A contemporaneous unchanged v0.1.0 control also failed the portable deadline: [baseline control](../artifacts/scene-baseline-native-close-qa.json). This does not prove the cause; it prevents attributing the delay solely to the remaster.
+One-second full CIM polling then produced long observation durations and failed runs requiring test-owned cleanup. Those results must not be counted as passes: dense batch (historical raw evidence retained locally). A first kernel-polling batch still failed because portable run 1 completed its absence checks late: kernel initial batch (historical raw evidence retained locally). A contemporaneous unchanged v0.1.0 control also failed the portable deadline: baseline control (historical raw evidence retained locally). This does not prove the cause; it prevents attributing the delay solely to the remaster.
 
 Final acceptance uses kernel process-handle polling at 50 ms intervals followed by targeted CIM queries over owned PID/parent closure, repeating discovery for late descendants, and identity checks after releasing observer handles. This avoids repeatedly enumerating unrelated machine processes during shutdown. The historical full-machine long-run sampling schedule remains available. A late observation still fails; the 10-second deadline is unchanged. No production shutdown handler, GPU setting or runtime version was changed.
 
-Final fresh [native acceptance](../artifacts/scene-native-close-qa.json): **6/6 passed**, measured at `2026-10-03T13:07:55Z`. Unpacked kernel upper bounds: 573/566/381 ms; final CIM absence: 2259/1941/1469 ms. Portable kernel upper bounds: 4598/2981/5962 ms; final CIM absence: 6814/5061/7414 ms. All owned main/wrapper/renderer/GPU/utility processes exited, all identity queries returned zero remaining rows, and none of these six passing runs used force cleanup. Raw samples remain in local `artifacts/qa/exit-scene-owned-acceptance-*`.
+Final fresh native acceptance (historical raw evidence retained locally): **6/6 passed**, measured at `2026-10-03T13:07:55Z`. Unpacked kernel upper bounds: 573/566/381 ms; final CIM absence: 2259/1941/1469 ms. Portable kernel upper bounds: 4598/2981/5962 ms; final CIM absence: 6814/5061/7414 ms. All owned main/wrapper/renderer/GPU/utility processes exited, all identity queries returned zero remaining rows, and none of these six passing runs used force cleanup. Raw samples remain in local `artifacts/qa/exit-scene-owned-acceptance-*`.
 
 ## Build delivery and limitations
 

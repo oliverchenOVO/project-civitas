@@ -1,15 +1,38 @@
-# Architecture — implemented Phase 1
+# Architecture
 
-`packages/domain` defines plain entity, event and command types. `packages/simulation` owns the sole canonical CityState: creation, daily systems, commands, event ledger and save/replay validation. `packages/shared` supplies ordered serialization and browser/Node-compatible SHA-256. `packages/application` owns CityController, real-time speed, subscriptions and simulation orchestration. `packages/narrative` reads DomainEvent through NarrativeProvider and TemplateNarrativeProvider. `apps/desktop` composes React, PixiJS, Recharts and Electron. `packages/ui` reserves the extraction boundary for future shared components; current components live with the desktop renderer.
+CIVITAS separates canonical simulation truth from observation, investigation and presentation. Current main includes Phase 2A and 3D development; the stable v0.2.0 binary implements the earlier observatory milestone.
 
-Imports flow from the renderer to application to simulation to domain. Domain/simulation never import React, Electron, PixiJS, narrative, Zustand or wall-clock APIs. Controller uses performance.now only for diagnostics outside canonical truth. Simulation state is a controller-owned object, not a Zustand store; Zustand contains navigation, selection, notice and citizen filter. useSyncExternalStore publishes revision changes for React.
+![Architecture overview](media/architecture-overview.svg)
 
-Pixi maps actual buildings, units, companies and household residents; schematic positions/layout are presentation, not physical movement or simulated traffic. No city screenshot is shipped as the map. There is no second mock city, backend or API dependency. Charts show only actual 30-day snapshots; insufficient history displays a factual empty state.
+## Boundaries
 
-Entity stores retain historical citizens, bankrupt companies and events. IDs come from one monotonic deterministic counter. WeakMap lookup caches are ephemeral references into stores, rebuilt after collection growth, and excluded from saves/hashes. Arrays determine system traversal and tie-breaking uses ordinal IDs. A versioned fixed system pipeline supplies all simulation progression.
+| Layer | Responsibility |
+| --- | --- |
+| `apps/desktop` | React UI, Three.js / PixiJS scene presentation, navigation and Electron shell |
+| `packages/application` | Controller, historical observations, queries, scenarios and workspace persistence |
+| `packages/simulation` | Sole canonical CityState, daily systems, commands, event ledger and replay |
+| `packages/domain` | Plain entity, event and command types |
+| `packages/shared` | Canonical ordered serialization and browser / Node SHA-256 |
+| `packages/narrative` | Deterministic event templates that describe existing events |
 
-Electron uses contextIsolation, sandboxed preload, no renderer Node access, denied window creation/navigation and two sender-validated IPC operations. Saving writes a temporary sibling file then renames it; loading checks the size and the renderer validates full structure, integrity and invariants before replacing the live city. Browser-mode download/upload shares the exact persistence implementation.
+Imports flow from presentation to application to simulation to domain. Domain and simulation do not import React, Electron, Three.js, PixiJS, narrative, Zustand or wall-clock APIs. The controller owns canonical state; Zustand stores presentation state such as navigation, selection, notices and filters. Controller wall-clock timing is diagnostic only.
 
-Phase 1 deliberately runs on one thread. Benchmark evidence justified indexed lookups; workers, Rust and WASM were not introduced. The UI limits Max to 30 deterministic ticks per 500 ms batch. Exact ticks and commands, rather than real duration, define replay inputs.
+## Deterministic truth
 
-Windows packaging stages the compiled renderer and Electron entrypoints into `.desktop-runtime`, with a dependency-free runtime manifest. Runtime third-party code is already bundled by Vite; development dependencies are not copied into the application. The packager uses the installed official Electron distribution to avoid temporary archive directory rename failures on this host. Staging/output directories are ignored by Git.
+A versioned daily system pipeline progresses the city. Scoped RNG draws, stable IDs and deterministic tie-breaking govern outcomes. Entity stores preserve historical citizens, companies and events. Ephemeral indexes and lookup caches are excluded from saves and hashes. The same simulation version, seed and command history reproduce the same canonical truth.
+
+Simulation creates reality. Narrative describes recorded events and never changes simulation truth. Current operation is offline and requires no LLM API.
+
+## Observation and investigation
+
+Historical sidecars store actual observations; they do not recreate missing past values from the present. Statistics link to contributing events and entity histories. Explicit `causeEventIds` support bounded recorded causal graphs; associated events are labeled separately. A/B scenarios fork an accepted checkpoint into independent command histories, preserving the baseline.
+
+Current v3 saves verify structure, integrity and invariants before replacing a live workspace. Genuine released v1/v2 fixtures verify migration. Migrated human-development history begins at its explicit availability boundary; old history is not rerun under new simulation rules. See [save and replay](SAVE_AND_REPLAY.md).
+
+## Presentation and desktop shell
+
+The schematic city projects actual buildings, residences, companies and household residents. Building height, district styling, camera, roofs, rivers and streets are presentation, not simulated GIS, traffic or physical movement. Selection and investigation overlays reference real entities. Camera changes do not advance simulation state or RNG.
+
+Electron uses context isolation, a sandboxed preload, no renderer Node access, denied window creation/navigation and sender-validated persistence IPC. Saving writes a temporary sibling file and renames it; loading enforces a size limit before full renderer-side validation. Browser-mode download/upload shares the persistence implementation.
+
+Windows packaging stages the compiled renderer and Electron entrypoints into a dependency-free `.desktop-runtime` directory. Vite bundles runtime dependencies; development libraries are excluded from the packaged application. Current build outputs are local development candidates and are ignored by Git. Native shutdown acceptance remains unresolved; see the [engineering report](reports/SHUTDOWN_CLOSURE_REPORT.md).

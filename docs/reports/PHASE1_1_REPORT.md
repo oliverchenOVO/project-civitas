@@ -16,7 +16,7 @@ Observation periods contain days **1–365**, then 366–730, etc., with 12 pres
 
 Company snapshots contain employees, observed revenue, payroll, profit and cash. Household snapshots contain cash, debt, observed income/expenses, housing cost and membership count. These financial fields are **instantaneous monthly observation points**, not invented monthly transaction totals. The existing event ledger is retained for life and financial evidence between observations.
 
-Real century measurement: a city starting with 1000 people advanced 36,500 days. History grew from **6,824,970 bytes at 10 years** to **76,563,528 bytes at 100 years**, while daily retention stayed at 400. The final population was 104 and the ledger had 168,672 events; this is the existing model's outcome, not a claim of a stable real-world population. Compressed v2 save: **14,138,575 bytes**; simulation plus observation collection **16.89 s**, save **5.75 s**, load **7.07 s**. Truth/history round-trip, next-day continuation and compressed tamper rejection passed. The artifact's 1201 monthly/101 annual records include the additional continuation-test day; exactly 100 completed years have 1200/100 periods. [Century evidence](../artifacts/observatory-century.json).
+Real century measurement: a city starting with 1000 people advanced 36,500 days. History grew from **6,824,970 bytes at 10 years** to **76,563,528 bytes at 100 years**, while daily retention stayed at 400. The final population was 104 and the ledger had 168,672 events; this is the existing model's outcome, not a claim of a stable real-world population. Compressed v2 save: **14,138,575 bytes**; simulation plus observation collection **16.89 s**, save **5.75 s**, load **7.07 s**. Truth/history round-trip, next-day continuation and compressed tamper rejection passed. The artifact's 1201 monthly/101 annual records include the additional continuation-test day; exactly 100 completed years have 1200/100 periods. Century evidence (historical raw evidence retained locally).
 
 ## Indexes and causal queries
 
@@ -36,21 +36,21 @@ Focus on Map preserves the investigation context and resolves real company footp
 
 The Phase 1A river/bridges/streets/district geometry and all original layer/hover/click behavior remain intact. Native tests cover 1536×1024 and 1280×800; responsive tests cover 390×844 with no body overflow. Final screenshots are actual rendered application captures, inspected as local images. An attempted interactive IAB rebind after interruption was rejected by browser policy; no workaround was attempted. Packaged native QA and the explicitly requested responsive automation independently provide the recorded evidence.
 
-![Metric explanation](design/phase1-1-metric.png)
+![Metric explanation](../design/phase1-1-metric.webp)
 
-[Recorded metric evidence](design/phase1-1-evidence.png).
+[Recorded metric evidence](../design/phase1-1-evidence.webp).
 
-![Citizen Life](design/phase1-1-life.png)
+![Citizen Life](../design/phase1-1-life.webp)
 
-![Household observations](design/phase1-1-household.png)
+![Household observations](../design/phase1-1-household.webp)
 
-![Recorded causes and effects](design/phase1-1-causality.png)
+![Recorded causes and effects](../design/phase1-1-causality.webp)
 
-![Annual review](design/phase1-1-review.png)
+![Annual review](../design/phase1-1-review.webp)
 
-![Scenario comparison](design/phase1-1-scenarios.png)
+![Scenario comparison](../design/phase1-1-scenarios.webp)
 
-[1000-person affected scene](design/phase1-1-map-1000.png) · [390×844 metric detail](design/phase1-1-mobile.png).
+[1000-person affected scene](../design/phase1-1-map-1000.webp) · [390×844 metric detail](../design/phase1-1-mobile.webp).
 
 ## City History and Year in Review
 
@@ -87,9 +87,9 @@ The migration table's v1 handler uses the unchanged simulation loader and initia
 | Windows package | Portable and unpacked 0.2.0 built; Electron 38.8.6 / Chromium 140.0.7339.249 / Node 22.22.0 retained |
 | Strict native normal-close gate | **6/6 passed**, all owned processes absent within 10 s, no force cleanup |
 
-Property failures report the seed and command sequence for reproduction; this is bounded deterministic generation, not an exhaustive state-space proof. [Property results](../artifacts/property-tests.json), [observatory QA](../artifacts/observatory-qa.json), [scene QA](../artifacts/phase1-1-scene-qa.json), [desktop QA](../artifacts/desktop-qa.json), [packed/hash regression](../artifacts/observatory-regression.json), [stability](../artifacts/stability.json).
+Property failures report the seed and command sequence for reproduction; this is bounded deterministic generation, not an exhaustive state-space proof. Property results (historical raw evidence retained locally), observatory QA (historical raw evidence retained locally), scene QA (historical raw evidence retained locally), desktop QA (historical raw evidence retained locally), packed/hash regression (historical raw evidence retained locally), stability (historical raw evidence retained locally).
 
-The unchanged simulation's 100/250/500/1000-person 10-year benchmark took **271 / 455 / 973 / 3142 ms** respectively. Runtime variation is not attributed to a new economic rule. [Benchmark](../artifacts/benchmark.json).
+The unchanged simulation's 100/250/500/1000-person 10-year benchmark took **271 / 455 / 973 / 3142 ms** respectively. Runtime variation is not attributed to a new economic rule. Benchmark (historical raw evidence retained locally).
 
 | Initial population | Unchanged final canonical SHA-256 |
 |---|---|
@@ -109,15 +109,15 @@ Separate 1000-person/10-year observation query benchmark: 30,543 events; collect
 | Base scene data projection | 3.37166 | 3.65180 |
 | 300-reference affected parcel projection | 0.40372 | 0.42000 |
 
-These are measured representative Node queries, not worst-case latency promises. [Query evidence](../artifacts/observatory-benchmark.json). Native packaged scene, 20 updates per phase: base **10.295 ms**, affected layer alone **1.080 ms**, base plus affected **10.765 ms**. Base uses days 1–20; the affected phase uses actual recorded unemployment-related references after an observed year, so it is not a same-day A/B timing experiment. CPU timings exclude GPU rasterization and are not FPS.
+These are measured representative Node queries, not worst-case latency promises. Query evidence (historical raw evidence retained locally). Native packaged scene, 20 updates per phase: base **10.295 ms**, affected layer alone **1.080 ms**, base plus affected **10.765 ms**. Base uses days 1–20; the affected phase uses actual recorded unemployment-related references after an observed year, so it is not a same-day A/B timing experiment. CPU timings exclude GPU rasterization and are not FPS.
 
 ## Native exit and QA corrections
 
-Final [WM_CLOSE acceptance](../artifacts/observatory-native-close-qa.json), `2026-10-03T15:04:20Z`: unpacked kernel upper bounds **705 / 680 / 616 ms**, final CIM absence **2680 / 2454 / 2631 ms**; portable kernel upper bounds **2693 / 4626 / 3058 ms**, final CIM absence **4139 / 6313 / 4234 ms**. All six main/wrapper/renderer/GPU/utility ownership closures exited voluntarily; identity queries returned zero remaining processes after observer handles were released. Raw process observations remain in local `artifacts/qa/exit-observatory-acceptance-*`.
+Final WM_CLOSE acceptance (historical raw evidence retained locally), `2026-10-03T15:04:20Z`: unpacked kernel upper bounds **705 / 680 / 616 ms**, final CIM absence **2680 / 2454 / 2631 ms**; portable kernel upper bounds **2693 / 4626 / 3058 ms**, final CIM absence **4139 / 6313 / 4234 ms**. All six main/wrapper/renderer/GPU/utility ownership closures exited voluntarily; identity queries returned zero remaining processes after observer handles were released. Raw process observations remain in local `artifacts/qa/exit-observatory-acceptance-*`.
 
 The original kernel polling/CIM identity harness and 10-second deadline are unchanged. A force kill cannot count as success. Phase 1A's historical sporadic portable latency and its unproven root cause remain documented in [the earlier report](SCENE_REMASTER_REPORT.md); this bounded gate does not establish that every contended environment is fixed.
 
-Two intermediate test failures are preserved transparently. The interrupted preview service caused `ERR_CONNECTION_REFUSED` only at responsive QA after eleven native checks; it was restarted and the complete final workflow passed. Existing desktop QA initially read the prior save because its old success toast was still visible; the harness now dismisses that prior notice before waiting for the new native save completion. The mismatch was not accepted or hidden. [Preview failure](../artifacts/observatory-qa-preview-interruption.json), [stale-notice failure](../artifacts/observatory-desktop-qa-stale-notice.json). The causal-row selector was also narrowed to the event's own ID rather than any descendant cause reference, and the final real-company cause/effects workflow passed.
+Two intermediate test failures are preserved transparently. The interrupted preview service caused `ERR_CONNECTION_REFUSED` only at responsive QA after eleven native checks; it was restarted and the complete final workflow passed. Existing desktop QA initially read the prior save because its old success toast was still visible; the harness now dismisses that prior notice before waiting for the new native save completion. The mismatch was not accepted or hidden. Preview failure (historical raw evidence retained locally), stale-notice failure (historical raw evidence retained locally). The causal-row selector was also narrowed to the event's own ID rather than any descendant cause reference, and the final real-company cause/effects workflow passed.
 
 ## Delivery, Git and release
 
@@ -165,12 +165,12 @@ The renderer uses instanced buildings/resident markers and merged static geometr
 | Native 1000-person scene, 20 days | Mean CPU data/instance/overlay update **6.12 ms**, **22 draw calls**; excludes GPU time and is not an FPS measurement |
 | Strict native WM_CLOSE gate | **Not passed**; see the exit evidence below |
 
-Browser plugin was unavailable; testing used the project's native Playwright Electron harness plus Edge responsive checks. Evidence: [3D QA](../artifacts/scene-3d-qa.json), [desktop QA](../artifacts/desktop-qa.json), [observatory QA](../artifacts/observatory-qa.json), [payload/baseline comparison](../artifacts/scene-3d-regression.json). The older 0.2.0 evidence is preserved at `v0.2.0`.
+Browser plugin was unavailable; testing used the project's native Playwright Electron harness plus Edge responsive checks. Evidence: 3D QA (historical raw evidence retained locally), desktop QA (historical raw evidence retained locally), observatory QA (historical raw evidence retained locally), payload/baseline comparison (historical raw evidence retained locally). The older 0.2.0 evidence is preserved at `v0.2.0`.
 
-Two intermediate UI failures remain recorded: an early hover test used projected coordinates before the demanded frame rendered; the harness now waits for a new frame and chooses a canvas target unobscured by controls. Fullscreen Escape initially did not exit in packaged Electron; the explicit application handler fixed it and the final complete scene QA passed. [Initial selection evidence](../artifacts/scene-3d-qa-initial.json), [fullscreen evidence](../artifacts/scene-3d-qa-fullscreen.json).
+Two intermediate UI failures remain recorded: an early hover test used projected coordinates before the demanded frame rendered; the harness now waits for a new frame and chooses a canvas target unobscured by controls. Fullscreen Escape initially did not exit in packaged Electron; the explicit application handler fixed it and the final complete scene QA passed. Initial selection evidence (historical raw evidence retained locally), fullscreen evidence (historical raw evidence retained locally).
 
-The native close investigation must **not** be reported as 6/6 accepted. In the [first six-run gate](../artifacts/scene-3d-native-close-qa-initial.json), all processes exited voluntarily, but one portable final identity-absence check completed at **11,117 ms**, outside the strict ten-second gate (kernel exit at 9,077 ms). A [confirmation run](../artifacts/scene-3d-native-close-qa.json) passed all three unpacked cases and two of three portable cases; portable case 2 still had its wrapper, main and GPU process observed at timeout and required separate test-owned cleanup. That case is a failure and cleanup is not counted as success. No deadline was relaxed, and no lifecycle workaround was added. This confirms the previously documented sporadic portable latency remains unresolved; it does not establish a Three.js root cause. The unpacked executable is the recommended entry for this local delivery. Raw observations are retained in `artifacts/qa/exit-spatial-acceptance-*` and `exit-spatial-confirmation-*` locally.
+The native close investigation must **not** be reported as 6/6 accepted. In the first six-run gate (historical raw evidence retained locally), all processes exited voluntarily, but one portable final identity-absence check completed at **11,117 ms**, outside the strict ten-second gate (kernel exit at 9,077 ms). A confirmation run (historical raw evidence retained locally) passed all three unpacked cases and two of three portable cases; portable case 2 still had its wrapper, main and GPU process observed at timeout and required separate test-owned cleanup. That case is a failure and cleanup is not counted as success. No deadline was relaxed, and no lifecycle workaround was added. This confirms the previously documented sporadic portable latency remains unresolved; it does not establish a Three.js root cause. The unpacked executable is the recommended entry for this local delivery. Raw observations are retained in `artifacts/qa/exit-spatial-acceptance-*` and `exit-spatial-confirmation-*` locally.
 
-Verified screenshots: [90° top](design/scene-3d-top.png), [45° oblique](design/scene-3d-oblique.png), [0° horizontal](design/scene-3d-horizontal.png), [1000 residents](design/scene-3d-city-1000.png), [fullscreen](design/scene-3d-fullscreen.png), [390×844 mobile](design/scene-3d-mobile.png).
+Verified screenshots: [90° top](../design/scene-3d-top.webp), [45° oblique](../design/scene-3d-oblique.webp), [0° horizontal](../design/scene-3d-horizontal.webp), [1000 residents](../design/scene-3d-city-1000.webp), [fullscreen](../design/scene-3d-fullscreen.webp), [390×844 mobile](../design/scene-3d-mobile.webp).
 
 Local portable `release/0.2.1/CIVITAS-0.2.1-Windows-portable.exe`: **85,639,586 bytes**, SHA-256 `37b7b33984084eab4b2ea5db508994194229a7dfabe1adf92782e02800d9f5aa`. Unpacked entry `release/0.2.1/win-unpacked/Project CIVITAS.exe` needs its companion folder. Electron 38.8.6 / Chromium 140.0.7339.249 / Node 22.22.0 remain unchanged. The 0.2.0 portable still has SHA-256 `f8d4974482ff0ee77bccc206e2ce452cadd6ced34009681c42739ed84552f697`. No new remote release or push is claimed. The local 3D delivery is tracked by `v0.2.1`; its stricter portable exit limitation is recorded above.

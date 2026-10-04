@@ -1,63 +1,143 @@
 # Project CIVITAS
 
-一座只能透過制度影響、會留下可驗證歷史的微型城市。Phase 1 是離線運作的 deterministic agent society simulation；不需要 API key、LLM、Unity 或 Blender。
+> **Every statistic has a story.**
 
-## 使用
+**A deterministic living-city simulation and civic observatory.**
 
-Phase 2A 本機候選版：`release/0.3.0/CIVITAS-0.3.0-Windows-portable.exe`。
-也可執行 `release/0.3.0/win-unpacked/Project CIVITAS.exe`，並保留同資料夾其他檔案。已發布 v0.2.0 與歷史成品保留；新版尚未發布。
+Project CIVITAS is a deterministic living-city simulation where hundreds of autonomous citizens study, work, form households, change careers, move through social classes, and respond to public policy over decades. Investigate the people behind the numbers: when unemployment rises, follow recorded firing events to the companies, citizens and households involved, then inspect the recorded causal chain.
 
-Phase 2A 的模型、長期重播與功能已實作，但最終桌面／原生關閉 gate 尚未通過：視窗關閉後，部分 Windows 程序超過 10 秒仍未完全退出。候選版不能視為正式驗收完成；失敗證據與可重現的最小 Electron 對照見 [驗收報告](docs/PHASE2A_REPORT.md)。
+![Current development: an actual oblique 3D city with City Pulse](docs/media/hero-city.webp)
 
-1. 用右上角「＋」輸入種子，選擇 100／250／500／1000 人。
-2. 透過 1x／5x／20x／Max 推進；「前進一天」可逐日觀察。
-3. 點城市建築、居民清單或事件中的實體，開啟真實生活與企業歷史。
-4. 「政府」調整稅、福利、最低工資、公共教育、職訓及高等教育補助，或增加住宅。
-5. 「存檔」儲存 `.civitas`；重開程式後「載入」即可繼續。
-6. 左下角「診斷與重播」可驗證相同種子與命令是否重建相同 SHA-256。
-7. 點 City Pulse 指標，再按 Explain，查看真正的居民、企業與相關事件；事件可追查已記錄的原因與後果。
-8. 「城市歷史」查看年度回顧；「Focus on Map」回到實體目前可定位的位置，「Back」恢復調查脈絡。
-9. 「情境比較」從目前城市建立 A/B 分支，調整 B 政策，推進 30 日／1 年／5 年／10 年／20 年並驗證雙分支重播。
-10. 地圖左下方可連續調整 0°–90° 仰角，或使用俯視／斜視／水平按鈕。拖曳旋轉、右鍵平移、滾輪縮放；觸控可雙指操作。選取實體後可「靠近選取」，返回城市會恢復相機位置。「全螢幕」可用退出按鈕或 Esc 離開。聚焦地圖後，方向鍵控制角度，＋／－縮放，R 重設。
-11. 居民檔案的「教育／職涯／流動」顯示技能、任職資格證據及家庭起點。左側「人力發展」可查教育、職業、階層與同群樣本。
+[**Watch Demo**](docs/media/civitas-demo.mp4) · [**Stable Windows Build — v0.2.0**](https://github.com/oliverchenOVO/project-civitas/releases/tag/v0.2.0) · [**Architecture**](docs/ARCHITECTURE.md)
 
-候選版採用 simulation 0.2.0、save v3。v1／v2 舊存檔先驗證原始完整性再升級；人力發展資料從載入日開始，起始推導能力有標記。舊分支各自從升級 checkpoint 續跑；要比較相同新版起點，請重新 Fork。成年起始居民沒有可觀測的童年，不能捏造代際結果。
+*Screenshots and demo show current Phase 2A / 3D development. These features are not all included in the stable v0.2.0 binary.*
 
-## 開發
+## Highlights
 
-Node 24、pnpm 11.19.0。所有依賴鎖在 `pnpm-lock.yaml`。
+- **Deterministic simulation:** the same simulation version, seed and command history reproduce the same city.
+- **Living citizens:** education, skills, careers, income, households, housing and social mobility in current development.
+- **Recorded causality:** statistics → events → companies → citizens → households. Recorded causal edges are distinguished from associations.
+- **Scenario experiments:** fork one city into independent A/B policy histories and compare outcomes.
+- **Interactive civic observatory:** inspect real simulation entities in 2D / 3D views across the stable and current milestones.
 
-```powershell
-pnpm install --frozen-lockfile
-pnpm dev
-# 另一個終端機
-pnpm build
-pnpm desktop
+## Why CIVITAS?
+
+Most city simulations tell you what happened. CIVITAS lets you investigate why.
+
+```text
+Unemployment
+    ↓
+Recorded firing events
+    ↓
+Companies → Citizens → Households
+    ↓
+Recorded causes / effects
 ```
 
-Web 開發預览位址為 `http://127.0.0.1:5173/`；Web 存檔以下載／上傳方式提供，桌面版使用原生檔案選擇器。
+Every entity link opens an actual simulation entity. Historical values come from recorded observations and events. Missing history is shown as unavailable; an association is not presented as a proven cause.
 
-```powershell
+## Human development — current Phase 2A candidate
+
+Current development includes education, skills, occupations, promotions, wage progression, household economic class, intergenerational mobility and education-policy experiments. A citizen's qualifications expose actual education, skill and experience thresholds; observed childhood and age-25 reviews support intergenerational comparisons.
+
+![Current development: a citizen's career and qualification evidence](docs/media/citizen-life.webp)
+
+This work is implemented and remains under final desktop-runtime acceptance. It is **not** part of the stable v0.2.0 download.
+
+<details>
+<summary>Explore recorded causality, scenario comparison and map evidence</summary>
+
+![Recorded causal graph from actual firing and household events](docs/media/causality.webp)
+
+![Current development: persisted policy A/B outcomes](docs/media/scenario.webp)
+
+![Current development: real affected entities in the 3D investigation overlay](docs/media/city-overlay.webp)
+
+</details>
+
+## Architecture
+
+![Architecture overview](docs/media/architecture-overview.svg)
+
+The simulation creates reality. Narrative may describe it, but does not decide it. LLMs do not determine simulation truth; the current application uses deterministic event templates and requires no LLM service or API key.
+
+The React observatory queries application history and real domain entities. The simulation owns canonical state, scoped RNG streams and the event ledger. Camera movement, schematic geography and rendering remain outside simulation truth. See [architecture](docs/ARCHITECTURE.md), [determinism](docs/DETERMINISM.md) and [save / replay](docs/SAVE_AND_REPLAY.md).
+
+## Engineering evidence
+
+Seeded execution, scoped RNG streams, canonical hashing, deterministic replay, integrity-checked save migration, scenario checkpoints, property tests, long-run simulation, Windows packaging and data-driven 3D rendering.
+
+**Current Phase 2A development validation:**
+
+| Validation | Recorded result |
+| --- | --- |
+| Automated correctness | 110 tests passed |
+| Stability | 100 seeds × 250 citizens × five years; zero technical failures |
+| Persistence / replay | 250 / 1000 initial citizens × 30 years, save/load/replay and continuation |
+| Demographic stress | 1000 initial citizens × 100 years, invariants and persistence/replay checks |
+| Desktop release acceptance | **Blocked by intermittent native shutdown** |
+
+These are current development results, not stable v0.2.0 acceptance figures. [Compact public evidence](artifacts/README.md) includes exact truth hashes and limitations. [Phase 2A report](docs/reports/PHASE2A_REPORT.md) records functional success and failed desktop gates separately.
+
+## Technology
+
+TypeScript · React · Electron · Three.js · PixiJS · Zustand · Zod · Vitest · Playwright · pnpm
+
+## Run locally
+
+Use Node 24 and pnpm 11. Dependencies are locked in `pnpm-lock.yaml`.
+
+```bash
+pnpm install --frozen-lockfile
 pnpm typecheck
 pnpm lint
 pnpm test
-pnpm benchmark
-pnpm stability
-pnpm package:win
-pnpm exec vite preview --host 127.0.0.1 --port 4173 --strictPort # 另一個終端機
-pnpm qa:desktop # 需先打包，並保持 4173 的 production preview 運作
-pnpm qa:scene
-pnpm qa:observatory
-pnpm benchmark:human
-pnpm exec tsx scripts/human-development-qa.ts
-pnpm benchmark:observatory
-pnpm exec tsx scripts/observatory-longrun.ts
-pwsh -NoProfile -File scripts/native-close-qa.ps1 -AppVersion 0.3.0 -CasePrefix human-acceptance -ReportName phase2a-native-close-qa.json
+pnpm build
 ```
 
-基準與種子掃描寫入 `artifacts/`，實際桌面 QA 與螢幕圖寫入 `artifacts/qa/`。請見 [Phase 2A 驗收報告](docs/PHASE2A_REPORT.md)、[Phase 1.1 與 3D 更新驗收報告](docs/PHASE1_1_REPORT.md)、[Phase 1A 場景報告](docs/SCENE_REMASTER_REPORT.md) 與 [Phase 1 報告](docs/PHASE1_REPORT.md)。3D 地圖圖層可切換居民、住宅及企業；點位表示真實住所，建築高度、地標與街景外觀是視覺示意，並非新增樓層或交通模擬資料。
+Run `pnpm dev` for the browser observatory, or `pnpm desktop` after building for the Electron application. Windows packaging requires Windows x64 and PowerShell 7:
 
-## 原則
+```bash
+pnpm package:win
+```
 
-Simulation creates reality. Narrative only describes reality.
-貨幣使用整數分，統計由實體推導；新聞、人生履歷與企業歷史都查詢同一個事件帳本。新增系統不能跳過 deterministic、存檔續跑與重播測試。
+Packaging current main produces an **unaccepted development candidate**. Use the stable release link above for the accepted milestone.
+
+## Releases
+
+### v0.2.0 — Observatory, History & Causality
+
+**Latest stable release.** Historical metrics, recorded causal investigation, citizen life history, household/company history, map evidence, Year in Review, A/B policy scenarios and v2 saves.
+
+[Release notes and Windows download](https://github.com/oliverchenOVO/project-civitas/releases/tag/v0.2.0) · [Stable milestone report](docs/reports/PHASE1_1_REPORT.md)
+
+Current development: **Human Development & Social Mobility**, plus the interactive 3D presentation. No v0.3.0 release or preview has been published.
+
+## Project status
+
+**Active development.** The latest stable milestone is **v0.2.0 — Observatory, History & Causality**. Current main extends CIVITAS with human development, education, careers, intergenerational mobility, deeper demographic behavior and an interactive 3D city presentation. Phase 2A functionality is implemented and remains under final desktop-runtime acceptance.
+
+## Known limitations
+
+CIVITAS is an active research-style simulation project rather than a production commercial game.
+
+- Human-development models use intentionally coarse education and occupation categories.
+- Long-term demographic behavior is simulated but is not calibrated to represent a real city.
+- The 3D city is a deterministic schematic visualization rather than GIS geography.
+- On the primary Windows development machine, Electron process shutdown can intermittently exceed the project's strict 10-second native-process QA threshold after heavier sessions. The investigation also recorded intermittent failures in minimal and cold-close controls.
+- Simulation correctness, save integrity and deterministic replay have not been affected in the recorded validation.
+- Windows builds are unsigned.
+
+See the [Shutdown Closure report](docs/reports/SHUTDOWN_CLOSURE_REPORT.md) for engineering details. No runtime workaround is claimed.
+
+## Reports
+
+[Phase 1](docs/reports/PHASE1_REPORT.md) · [Scene Remaster](docs/reports/SCENE_REMASTER_REPORT.md) · [Phase 1.1 / 3D](docs/reports/PHASE1_1_REPORT.md) · [Phase 2A](docs/reports/PHASE2A_REPORT.md) · [Publication audit](docs/PUBLIC_RELEASE_AUDIT.md)
+
+## License
+
+Copyright © 2026 oliverchenOVO. All rights reserved.
+
+Public source repository for portfolio and academic review only. Modification, redistribution, commercialization, sublicensing and derivative works are not permitted without explicit written permission. This is not an open-source license. Third-party dependencies retain their own licenses.
+
+See [LICENSE](LICENSE) and [CONTRIBUTING](CONTRIBUTING.md). External feature contributions are not currently accepted.

@@ -55,11 +55,11 @@ JSON 存檔保存完整狀態：實體、政策、RNG streams、ID 計數器、�
 | 500 | 10 | 1380 | 2646 | 20035 | 530 | 22 | 0 | 77 |
 | 1000 | 10 | 3581 | 1019 | 35918 | 1054 | 42 | 0 | 32 |
 
-完整 hash 與原始數值見 [`artifacts/benchmark.json`](../artifacts/benchmark.json)，表格見 [`artifacts/benchmark.md`](../artifacts/benchmark.md)。250 人十年終態：`1997a1eb7452025de74d2a5b63e8167ec952e63b0e2617c24a29cbeebbece1cd`。
+完整 hash 與原始數值見 `artifacts/raw/public-preparation-baseline/benchmark.json` (historical raw evidence retained locally)，表格見 `artifacts/raw/public-preparation-baseline/benchmark.md` (historical raw evidence retained locally)。250 人十年終態：`1997a1eb7452025de74d2a5b63e8167ec952e63b0e2617c24a29cbeebbece1cd`。
 
 先量測發現大量線性實體查找造成瓶頸，才改為 ephemeral WeakMap 索引；優化前後當時的四組 canonical hash 完全相同。後續修正初始年齡及職缺規則後重新量測，以上為最後模型數值。沒有引入 Worker、WASM 或 Rust。
 
-種子掃描：`CIVITAS-STABILITY-0` 到 `CIVITAS-STABILITY-99`，每城初始 250 人，執行五年（1825 日），每年驗證不變量並記錄終態 hash。100/100 完成、0 technical failures、0 collapse flags。崩潰旗標定義為人口低於 25 或活躍企業為零；這是有限樣本驗證，不代表任何政策／任意 seed 都必然穩定。完整逐種子人口、企業、事件、錯誤與 hash 見 [`stability.json`](../artifacts/stability.json) 及 [`stability.md`](../artifacts/stability.md)。
+種子掃描：`CIVITAS-STABILITY-0` 到 `CIVITAS-STABILITY-99`，每城初始 250 人，執行五年（1825 日），每年驗證不變量並記錄終態 hash。100/100 完成、0 technical failures、0 collapse flags。崩潰旗標定義為人口低於 25 或活躍企業為零；這是有限樣本驗證，不代表任何政策／任意 seed 都必然穩定。完整逐種子人口、企業、事件、錯誤與 hash 見 `stability.json` (historical raw evidence retained locally) 及 `stability.md` (historical raw evidence retained locally)。
 
 ## 真實 Windows 與視覺 QA
 
@@ -69,19 +69,19 @@ JSON 存檔保存完整狀態：實體、政策、RNG streams、ID 計數器、�
 
 本輪桌面 QA 使用正常 `ElectronApplication.close()`，驗證其程序 exit code 0，移除強殺結尾。另由 `scripts/native-close-qa.ps1` 不掛 inspector，對真正原生視窗送 WM_CLOSE，精確追蹤 main、renderer、GPU、utility 與 portable wrapper，驗證全部自行退出。hidden startup 的視窗由 Win32 枚舉識別。
 
-**Exit blocker resolved：**真實目錄版與 portable 各三次，6/6 啟動、原生視窗關閉與全程序退出通過；無 force kill。kernel 退出確認上界：目錄版 1228 / 720 / 643 ms，portable 4291 / 2085 / 5870 ms；釋放診斷 handles 後 CIM 完全消失確認：2171 / 1589 / 1350、5530 / 3260 / 7150 ms，均在 10 秒內。這些是包含輪詢／查詢的確認上界，並非精準退出瞬間。結果見 [native-close-qa.json](../artifacts/native-close-qa.json)。
+**Exit blocker resolved：**真實目錄版與 portable 各三次，6/6 啟動、原生視窗關閉與全程序退出通過；無 force kill。kernel 退出確認上界：目錄版 1228 / 720 / 643 ms，portable 4291 / 2085 / 5870 ms；釋放診斷 handles 後 CIM 完全消失確認：2171 / 1589 / 1350、5530 / 3260 / 7150 ms，均在 10 秒內。這些是包含輪詢／查詢的確認上界，並非精準退出瞬間。結果見 native-close-qa.json (historical raw evidence retained locally)。
 
-本輪共 22/22 受控退出測試通過。Electron 38.8.6 已是同 major 最新 patch；相鄰 39.8.10 也通過。normal / GPU off、console / detached / Playwright launcher、raw / packaged minimal 與 app.exit 對照均通過。正式 Electron 版本、GPU、安全設定與產品程式完全未改，保留 window-all-closed → app.quit()。歷史 60 秒失敗未重現，根因仍未知；CIM 可保留已退出程序物件的觀察不足以解釋歷史 WaitForExit 逾時。完整方法、lifecycle、active handles 與根因界線見 [EXIT_GATE_INVESTIGATION.md](EXIT_GATE_INVESTIGATION.md) 和 [固定摘要](../artifacts/exit-investigation-summary.json)。歷史失敗 [quit-probe.json](../artifacts/quit-probe.json) 及原 rc tag 保留。
+本輪共 22/22 受控退出測試通過。Electron 38.8.6 已是同 major 最新 patch；相鄰 39.8.10 也通過。normal / GPU off、console / detached / Playwright launcher、raw / packaged minimal 與 app.exit 對照均通過。正式 Electron 版本、GPU、安全設定與產品程式完全未改，保留 window-all-closed → app.quit()。歷史 60 秒失敗未重現，根因仍未知；CIM 可保留已退出程序物件的觀察不足以解釋歷史 WaitForExit 逾時。完整方法、lifecycle、active handles 與根因界線見 [EXIT_GATE_INVESTIGATION.md](EXIT_GATE_INVESTIGATION.md) 和 固定摘要 (historical raw evidence retained locally)。歷史失敗 quit-probe.json (historical raw evidence retained locally) 及原 rc tag 保留。
 
 發布沿用本輪實際驗收的同一 portable 檔案；fresh build 的全部 50 個 production payload 檔案與成品 app.asar 逐 byte 相同。四組 benchmark 及全部 100 seed 的 canonical hash 未改。候選時已通過 package:win，本輪無 production/runtime 改動，沒有重新封裝換成未驗收檔案。
 
-最終桌面／responsive QA：**13 項操作檢查通過、0 console errors**；結果見 [`desktop-qa.json`](../artifacts/desktop-qa.json)。手機檢查使用 Edge headless 開啟 **built production preview** `http://127.0.0.1:4173/`。早期 dev server 的 load 等待逾時與缺少 favicon 的 404 均已修正；失敗測試不計入通過結果。Edge test browser 亦透過正常 browser.close / browserServer.close 結束。另曾用 Codex Browser/IAB 操作真實搜尋、居民檔案、步進及政策；原生驗收依使用者要求採 Playwright Electron。
+最終桌面／responsive QA：**13 項操作檢查通過、0 console errors**；結果見 `desktop-qa.json` (historical raw evidence retained locally)。手機檢查使用 Edge headless 開啟 **built production preview** `http://127.0.0.1:4173/`。早期 dev server 的 load 等待逾時與缺少 favicon 的 404 均已修正；失敗測試不計入通過結果。Edge test browser 亦透過正常 browser.close / browserServer.close 結束。另曾用 Codex Browser/IAB 操作真實搜尋、居民檔案、步進及政策；原生驗收依使用者要求採 Playwright Electron。
 
 實際 logical viewport：1536×1024、1280×800，額外 390×844 responsive。Windows 顯示縮放 125%，原生截圖像素分別為 1920×1280 與 1600×1000。已用 `view_image` 檢查設計概念及同一輪最新實作截圖：城市、居民選取、企業選取、企業表、政策、新聞、1000 人與手機城市／政府。主區域與右欄分別捲動，表格在自己的容器中捲動；沒有 body 水平溢出、主要按鈕遮擋、空白 renderer 或假統計。
 
 ### 設計對照 ledger
 
-概念：[`observatory-concept.png`](design/observatory-concept.png)。正式設計約定見 [`DESIGN_SYSTEM.md`](design/DESIGN_SYSTEM.md)。以下是相同檢查回合的至少五項對照，包含有意差異。
+概念：[`observatory-concept.png`](../design/observatory-concept.webp)。正式設計約定見 [`DESIGN_SYSTEM.md`](../design/DESIGN_SYSTEM.md)。以下是相同檢查回合的至少五項對照，包含有意差異。
 
 | 對照點 | 概念 → 實作及檢查 |
 |---|---|

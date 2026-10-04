@@ -12,7 +12,7 @@
 
 ## 方法與固定證據
 
-[`exit-investigation-summary.json`](../artifacts/exit-investigation-summary.json) 保存 22 次測試的結果、PID/PPID、角色、建立時間、時間取樣、lifecycle、資源與版本比較；[`native-close-qa.json`](../artifacts/native-close-qa.json) 保存六次正式驗收。完整本機原始 command line、executable path、JSONL 與取樣位於 ignored `artifacts/qa/exit-*/`，彙整拓撲及 runtime matrix 為 `artifacts/qa/exit-process-tree.json`、`artifacts/qa/electron-exit-matrix.json`，不提交暫存 runtime 或巨型紀錄。
+`exit-investigation-summary.json` (historical raw evidence retained locally) 保存 22 次測試的結果、PID/PPID、角色、建立時間、時間取樣、lifecycle、資源與版本比較；`native-close-qa.json` (historical raw evidence retained locally) 保存六次正式驗收。完整本機原始 command line、executable path、JSONL 與取樣位於 ignored `artifacts/qa/exit-*/`，彙整拓撲及 runtime matrix 為 `artifacts/qa/exit-process-tree.json`、`artifacts/qa/electron-exit-matrix.json`，不提交暫存 runtime 或巨型紀錄。
 
 以 root PID 與 creation time 遞迴辨識 main、renderer、GPU、utility、portable wrapper；本輪未觀察到 crashpad handler。關閉真正的 `Chrome_WidgetWin_1` / `Project CIVITAS` 原生視窗，記錄 t+0/1/3/5/10/30/60 秒。minimal、unpacked、portable 三組完整基線均於 10 秒內退出，並持續取樣至 60 秒；unpacked 基線 main PID 50908 在 t+3 仍執行、t+5 已退出，無後續孤兒程序。
 
@@ -56,7 +56,7 @@ portable 的 root 是 wrapper，main 是解壓後的 Electron 程序。兩者與
 
 `pnpm typecheck`、`pnpm lint`、`pnpm test`、`pnpm benchmark`、`pnpm stability`、`pnpm build`、`pnpm qa:desktop` 通過。36 tests、100 seeds 無失敗；四組十年 benchmark 與全部 100 seed 的 canonical hash 和候選版本完全相同。250 人十年 save/load/replay 測試約 1.658 秒。桌面 13 項操作通過、0 console errors，正常 close exit code 0；存讀檔／完整 replay hash 相符。
 
-benchmark 本輪 100/250/500/1000 人分別為 507/618/1380/3581 ms，候選量測為 296/503/1038/3999 ms。單輪 wall time 有變動，尤其短測試相對比例較大；1000 人沒有退步，產品 simulation 未改，不能將這些單輪差值推論為產品效能修正或退化。正式數值見 [`benchmark.json`](../artifacts/benchmark.json)。
+benchmark 本輪 100/250/500/1000 人分別為 507/618/1380/3581 ms，候選量測為 296/503/1038/3999 ms。單輪 wall time 有變動，尤其短測試相對比例較大；1000 人沒有退步，產品 simulation 未改，不能將這些單輪差值推論為產品效能修正或退化。正式數值見 `benchmark.json` (historical raw evidence retained locally)。
 
 本輪無 production/runtime 改動，正式發布沿用**實際通過六次驗收的同一成品**，沒有重新封裝再換成未驗收檔案。`scripts/verify-exit-regression.cjs` 驗證既有 app.asar 中全部 50 個 production 檔案與本輪 fresh build 逐 byte 相同，並驗證上述 deterministic hash；結果納入固定摘要。候選版本已完成 package:win；本輪沒有聲稱重新執行封裝。
 
@@ -79,4 +79,4 @@ node scripts/verify-exit-regression.cjs
 node scripts/summarize-exit-investigation.cjs
 ```
 
-歷史失敗紀錄仍見 [`quit-probe.json`](../artifacts/quit-probe.json) 與 immutable rc tag；它們是歷史 evidence，不代表當前驗收失敗。若未來再現，應先保留 exact PID、kernel state 與 lifecycle，再調查原因，不能以本輪成功倒推歷史根因。
+歷史失敗紀錄仍見 `quit-probe.json` (historical raw evidence retained locally) 與 immutable rc tag；它們是歷史 evidence，不代表當前驗收失敗。若未來再現，應先保留 exact PID、kernel state 與 lifecycle，再調查原因，不能以本輪成功倒推歷史根因。
