@@ -1,0 +1,53 @@
+{
+  "scope": "Public portfolio preparation only; native release acceptance remains blocked",
+  "baseHead": "ffa55808f7a3ba1a8188434cacb562fa4f7bc34f",
+  "verification": {
+    "typecheck": "passed",
+    "lint": "passed",
+    "automatedTests": {
+      "passed": 110,
+      "total": 110,
+      "failed": 0
+    },
+    "build": "passed",
+    "localMarkdownLinks": "passed; zero missing or ignored-only link targets",
+    "readmePreview": {
+      "desktop": [
+        1440,
+        1000
+      ],
+      "mobile": [
+        390,
+        844
+      ],
+      "allSixImagesLoaded": true,
+      "consoleErrors": 0,
+      "horizontalOverflow": false,
+      "detailsInteraction": true,
+      "scope": "Local GitHub-compatible Markdown preview; not a live GitHub page"
+    }
+  },
+  "security": {
+    "currentTrackedStrongSecretFindings": 0,
+    "historyStrongSecretFindings": 0,
+    "historyBlobsScanned": 421,
+    "workingOwnTextFilesScanned": 646,
+    "workingOwnStrongSecretFindings": 0,
+    "envFilesFound": 0,
+    "keyContainersFound": 0,
+    "limitations": "Targeted regex and inventory scanning plus visual/manual review; not a proof against every unknown secret encoding."
+  },
+  "sourceRuntimeAndFixturesChanged": [],
+  "stableRelease": "v0.2.0",
+  "newReleasePublished": false,
+  "visibility": "private",
+  "demo": {
+    "mp4Seconds": 50,
+    "animatedWebpSeconds": 20,
+    "source": "Actual app UI, real loaded workspaces and recorded policy branches"
+  },
+  "historicalAuthorAttribution": "Owner explicitly permits existing Git author name/email; public documents use GitHub username only",
+  "oldTagsRewritten": false,
+  "longSuiteRerun": false,
+  "longSuiteReason": "No source/runtime/configuration/fixture changes; only gitignore and portfolio materials. Existing long-run evidence preserved."
+}

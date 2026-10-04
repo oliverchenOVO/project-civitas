@@ -8,6 +8,6 @@ System traversal uses stored arrays. Deterministic ties use ordinal string IDs r
 
 Each 10-year benchmark records the final SHA-256. Tests verify repeat generation, scoped RNG isolation/persistence, same seed/commands, exact command replay, saved continuation and long-run reference/financial integrity. Seed sweep runs 100 fixed seeds × five years, with complete invariant audits annually and at final year. A failing state throws instead of silently being repaired.
 
-Lookup optimization was validated against four pre-optimization hashes with no result changes. `artifacts/benchmark-baseline.json` preserves those original measurements; subsequent correctness adjustments to initial vacancies, parent/child age ordering and migrant ages required the final benchmark to be regenerated. Do not compare a changed-rule world to the earlier baseline hash as if it were the same ruleset.
+Lookup optimization was validated against four pre-optimization hashes with no result changes. `artifacts/raw/public-preparation-baseline/benchmark-baseline.json` preserves those original measurements; subsequent correctness adjustments to initial vacancies, parent/child age ordering and migrant ages required the final benchmark to be regenerated. Do not compare a changed-rule world to the earlier baseline hash as if it were the same ruleset.
 
 Speed only changes ticks per UI batch (500 ms). Max is bounded to 30 days per batch. Thus equally many executed ticks with commands at equally numbered days yields the same city, regardless of chosen speed or elapsed real time.

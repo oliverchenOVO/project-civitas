@@ -8,5 +8,6 @@ This directory contains compact public validation summaries. All Phase 2A values
 | [stability-summary.json](public/stability-summary.json) | 100 seeds, five-year technical failures, collapse flags and population range. |
 | [validation-summary.json](public/validation-summary.json) | Tests, 30-year persistence/replay, century validation, migration and release boundary. |
 | [shutdown-summary.json](public/shutdown-summary.json) | Failed and successful repetitions, incomplete runs and unresolved native acceptance. |
+| [preparation-checks.json](public/preparation-checks.json) | Security review, cleanup verification, README desktop/mobile checks and unchanged runtime boundary. |
 
 Large raw QA logs, local process traces, temporary packaged builds and local test saves are excluded from the current public-facing tree. Original evidence, including failures, is retained locally under ignored directories; local legacy diagnostic inputs may also remain at their previous ignored paths. Historical Git objects are preserved and are covered by the publication audit.

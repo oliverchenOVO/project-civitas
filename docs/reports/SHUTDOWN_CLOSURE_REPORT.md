@@ -1,28 +1,29 @@
-# Phase 2A native shutdown closure — 2026-10-04
+# Phase 2A — Native Shutdown Closure
 
-Status: investigation closed with native acceptance BLOCKED; no release authorization gate has passed. Phase 2B remains outside scope. Production remains Electron 38.8.6, simulation 0.2.0 and saveVersion 3. Models, migration and replay implementation have not been changed.
+**Engineering status: native shutdown acceptance remains BLOCKED. Root cause is undetermined.** This portfolio pass changes no runtime, simulation, save or replay behavior. Main remains on Electron 38.8.6, simulation 0.2.0 and saveVersion 3. The isolated Electron 44 experiment was not merged. v0.3.0 was not released.
 
-## History
+## Three distinct observations
 
-- Phase 1, 2026-10-03 09:53 UTC: six native close repetitions passed on Electron 38.8.6.
-- Phase 1A, 13:07 UTC: six accepted native closes passed. Earlier portable/dense-WMI failures remain historical evidence.
-- Phase 1.1 / v0.2.0, 15:04 UTC: six closes passed on the same runtime.
-- v0.2.1 3D investigation, 16:10 UTC: intermittent portable failures appeared.
-- Phase 2A: unpacked and portable failures; some portable launches never obtained a window. Minimal Electron reached quit/process exit with empty Node handles while tracked kernel objects remained unsignaled.
+Electron reaching `quit` / `process exit`, a signaled Windows process kernel object, and absence from CIM enumeration are recorded independently. A complete lifecycle or exit code 0 is not substituted for a signaled kernel object. The acceptance criterion uses real WM_CLOSE and voluntary termination of all owned processes within ten seconds; forced cleanup after a measured failure is never a pass.
 
-The historical source/result SHA manifest is `artifacts/raw/public-preparation-baseline/shutdown-closure-history.json`. The original `exit-investigation.ps1` acceptance algorithm is unchanged. The new diagnostic `shutdown-closure.ps1` retains the native WM_CLOSE / ten-second / kernel polling criterion, adds independent lifecycle/kernel/CIM state, launch failure preservation, launcher controls and read-only Job/thread evidence. Observer handles are released before CIM absence is evaluated. Failed-case cleanup is explicitly marked and never a pass.
+The minimal probe excludes CIVITAS, React, PixiJS, 3D, simulation, IPC and application-specific timers. It logs BrowserWindow close/closed, window-all-closed, before-quit, will-quit, quit, process exit and active resources / handles / requests.
 
-## Exact environment
+## Historical timeline
 
-Windows 11 Home 25H2 x64 build 26200.9457. Original Electron 38.8.6 / Chromium 140.0.7339.249 / bundled Node 22.22.0. CLI Node 24.13.0, electron-builder 26.15.3 and Playwright 1.63.0. Read-only environment data is in `artifacts/raw/public-preparation-baseline/shutdown-closure-environment.json`.
+| Milestone / observation | Recorded outcome |
+| --- | --- |
+| Phase 1, Electron 38.8.6 | Six accepted native closes passed |
+| Phase 1A | Six accepted closes passed; earlier portable / dense-WMI failures retained |
+| Phase 1.1 / v0.2.0 | Six accepted closes passed on the same runtime |
+| 3D investigation / Phase 2A | Intermittent unpacked, portable and minimal failures; some launches obtained no owned window |
 
-The original candidate is preserved at `release/0.3.0/CIVITAS-0.3.0-Windows-portable.exe`, 85,645,026 bytes, SHA-256 `e1a8570ade13912697bd40a165df06a7f4868d407fc4a21dfa97a4c4a0e7577d`.
+Historical failed evidence remains available in ignored local archives and original Git history. A later successful run does not erase an earlier failure.
 
-## Controlled matrix
+## Controlled minimal and launcher matrix
 
-Each listed group has five repetitions with real WM_CLOSE and the ten-second gate. All failure counts include voluntary kernel termination failures, even when lifecycle events completed.
+Each group below has five repetitions under the same native WM_CLOSE, ten-second criterion and owned process-tree observation.
 
-| Minimal runtime / control | Pass | Fail |
+| Minimal runtime / control | Passed | Failed |
 | --- | ---: | ---: |
 | 37.10.3, Start-Process | 5 | 0 |
 | 38.8.6, Start-Process | 5 | 0 |
@@ -33,56 +34,37 @@ Each listed group has five repetitions with real WM_CLOSE and the ten-second gat
 | 38.8.6, Playwright | 5 | 0 |
 | 38.8.6, GPU off | 5 | 0 |
 | 38.8.6, sandbox off | 5 | 0 |
-| 38.8.6, fresh packaged minimal | 5 | 0 |
+| 38.8.6, packaged minimal | 5 | 0 |
 
-37–39 are historical diagnostic comparisons, not currently supported Electron branches. A currently supported older branch 43.7.7 download failed with ECONNRESET; it was not tested. Latest stable 44.5.1 is Chromium 152.0.7977.130 / Node 24.21.0. Runtime dates and support policy were checked against the official Electron release index and timeline.
+The 39.8.10 failure reached the full lifecycle with empty Node active handles, while main, renderer, GPU and utility kernel objects remained unsignaled. Main remained enumerated after observer handles were released. This is stronger evidence than a stale-CIM-only observation.
 
-The 39.8.10 minimal failure had complete lifecycle events but unsignaled main process, GPU 48828, renderer 61624 and utility 73708 at the deadline. Main 62120 remained enumerated by CIM after releasing observer handles, at 11996ms. Cleanup followed the measured failure. No application timers, CIVITAS, IPC, React, Pixi or 3D are present in that probe.
+37–39 were historical diagnostic comparisons, not currently supported branches. A 43.7.7 download failed and was not tested. The 44.5.1 runtime was Chromium 152.0.7977.130 / bundled Node 24.21.0; original 38.8.6 was Chromium 140.0.7339.249 / bundled Node 22.22.0. The recorded host was Windows 11 25H2; electron-builder was 26.15.3 and Playwright 1.63.0. Runtime information was checked against the [official releases](https://releases.electronjs.org/releases.json) and [release policy](https://www.electronjs.org/docs/latest/tutorial/electron-timelines).
 
-| Product case | Pass | Fail |
-| --- | ---: | ---: |
-| Original 38.8.6 unpacked, cold close | 5 | 0 |
-| Exact original portable, cold close | 5 | 0 |
-| Original unpacked, 1000 residents / 20 days / 3D, WM_CLOSE through tracked Playwright ownership | 3 | 2 |
-| Isolated raw 44.5.1 + byte-identical original app.asar, same warm workload / WM_CLOSE | 5 | 0 |
+## Product evidence and rejected upgrade
 
-Old warm run 1 left main 8812 and renderer 57920 unsignaled, as well as QA ownership processes 44596/76288 (Node), 72020 (CMD), 60476 (esbuild). Run 3 left main 13216, renderer 13732, GPU 75444, utility 37996, and QA ownership processes 15664/72020 (Node), 75184 (CMD). PIDs describe recorded runs, not claims that they still exist after cleanup. Per-run creation timestamps prevent PID reuse from being confused with the same process.
+| Case | Passed / completed | Interpretation |
+| --- | --- | --- |
+| Original unpacked, cold close | 5/5 | Passed this group |
+| Exact original portable, cold close | 5/5 | Passed this group |
+| Original unpacked, 1000 residents / 20 days / 3D | 3/5 | Two native WM_CLOSE failures |
+| Isolated raw 44.5.1 + byte-identical original app.asar, same warm workload | 5/5 | Promising control, insufficient for acceptance |
+| Formal packaged Electron 44 unpacked | 4/5 | Main, renderer, GPU and utility remained unsignaled in one run |
+| Formal packaged Electron 44 portable, first group | 1/3 | Two close failures; launch four had no owned window; fifth never started |
+| Installed-worktree 44 minimal repeat | 5/5 | Minimal success does not establish product acceptance |
+| Formal 44 portable, separate follow-up | 5/5 | Demonstrates intermittency; does not erase first-group failures |
 
-## Limits of the evidence
+The formal upgrade acceptance completed only eight of ten expected repetitions and failed overall. Portable failures included both wrapper and extracted Electron main / descendants. The experiment changed only Electron and required lock entries; full upgraded regression was not started after the mandatory native prerequisite failed. Main and the original candidate remain unchanged.
 
-Portable-only ownership cannot explain a failing unpacked product or a failing raw minimal runtime. Product models/React/3D are not necessary for the minimal failure. Complete quit events, exit code 0 and empty Node active handles do not establish a signaled kernel process object. A stale CIM-only explanation does not explain the recorded unsignaled owned handles.
+## What the evidence does and does not show
 
-Job membership was observed in both successful and failed processes. The observer job flags were 0x2800 (BREAKAWAY_OK plus KILL_ON_JOB_CLOSE), with no configured active process or memory limit. This does not prove Job ownership causes the stall. Playwright launches through a CMD shell and waits for process close/stdio ownership; actual product main/GPU/utility kernel failures mean the driver alone does not explain every failure. GPU on/off and sandbox controls both passing provide no basis for a production workaround. No relevant Application Error/WER/Defender event correlation was found in the queried interval (`artifacts/raw/public-preparation-baseline/shutdown-closure-os-events.json`); antivirus or driver causality is undetermined. OS thread queries were recorded where available; inaccessible terminated-looking process objects are not interpreted as a proven wait stack.
+A portable-only explanation is insufficient because unpacked and raw minimal cases also failed. CIVITAS models and rendering are not necessary to reproduce the minimal failure. Playwright launches through shell / pipe ownership, but actual main / GPU / utility kernel failures cannot be explained solely by a test-driver wait.
 
-## Isolated upgrade experiment
+Read-only Job membership appeared in both successful and failed runs; this does not establish causation. GPU and sandbox controls do not support a production workaround. No relevant Application Error, WER or Defender event correlation was found in the queried interval. Driver, antivirus, Job, pipe and descendant-teardown causes remain unproven. Practical thread observations were captured where available; inaccessible process objects were not treated as a proven wait stack.
 
-`experiment/shutdown-electron44` is a separate Git worktree at `<isolated-worktree>`. The app worktree tool could not resolve a Git repository from the parent chat directory, so the repository's native `git worktree add` was used. Only Electron and its necessary lock entries are changed in the experiment. The original primary checkout and candidate remain unchanged. No merge is permitted before native and full regression gates pass.
+## Public limitation and next evidence
 
-## Second-host reproduction
+On the primary Windows development machine, Electron process shutdown can intermittently exceed the project's strict ten-second native-process QA threshold after heavier sessions. Minimal and cold-close controls also recorded intermittent failures. Simulation correctness, save integrity and deterministic replay have not been affected in the recorded validation.
 
-A self-contained cold-case QA kit is at `artifacts/qa/shutdown-closure/CIVITAS-native-shutdown-repro.zip`, SHA-256 `717d39b884cbffb593ea67b78bf12f753e5620b3c1526abc1b59f445eb776854`, 507,892,125 bytes. It includes the exact original portable, unpacked, current raw runtime and fresh packaged minimal probe, a PowerShell runner and optional warm-workload driver. Four cold groups run five times each, recording OS build, artifact SHA and all exit states. Warm reproduction additionally requires Node 24 and the pinned Playwright/tsx dependencies described in its README.
+A local reproduction kit preserves the exact original candidate, unpacked build, raw runtime and packaged minimal probe. It runs four five-repetition cold groups and offers the same five-run warm workload. The next discriminating experiment is another Windows x64 host or clean VM using identical bytes, recording OS build, artifact SHA, kernel latencies and CIM after observer-handle release. No second host was tested; preparing the kit is not a second-host pass or environment-specific diagnosis.
 
-No second machine or VM has been tested. No VM runner was found through the read-only command inventory. Preparing this kit is not an environment-specific diagnosis or a second-host pass.
-
-Sources: https://releases.electronjs.org/releases.json ; https://www.electronjs.org/docs/latest/tutorial/electron-timelines ; https://learn.microsoft.com/en-us/windows/win32/api/jobapi/nf-jobapi-isprocessinjob ; https://learn.microsoft.com/en-us/windows/win32/api/synchapi/nf-synchapi-waitforsingleobject
-
-## Final decision: PHASE 2A NATIVE SHUTDOWN GATE STILL BLOCKED
-
-The formal isolated Electron 44.5.1 build did not pass consistent shutdown. Portable artifact: 100,393,569 bytes, SHA-256 `9f6371192f44abfd01519cfb83234319927c4fd0e463f162b7de2c95b567046d`. Experiment dependency-only commit: `02a89ed7b4fea17467548777823c89f5bb7e77e3`; it is not merged into main.
-
-Existing native acceptance produced 8 of 10 required completed runs:
-
-- Unpacked: 4/5 passed. Run 3 left main 48276, renderer 76700, GPU 44608, utility 20684 unsignaled at 10 seconds, despite recorded exit codes 0.
-- Portable: 1/3 completed closes passed. Run 1 left wrapper 21572, main 74172, renderer 41476, GPU 5632, utility 50544 unsignaled. Run 2 left wrapper 47336, main 31996, renderer 24964 unsignaled. Run 4 could not obtain an owned native window within the launch budget; run 5 did not start after that harness exception. Neither missing run is a pass.
-- Raw minimal in the installed worktree: 5/5 passed.
-- A separate five-run portable follow-up using the diagnostic harness passed 5/5. This follow-up establishes intermittency; it does not erase the original failures or satisfy consistent shutdown for this candidate.
-
-All PID lists refer to the measured failed deadline, before identity-checked cleanup; they are not a claim those PIDs are presently running. Actual kernel state is the acceptance criterion. Product lifecycle logging was not added, so product `lifecycleComplete` is unknown; minimal lifecycle evidence remains separate and complete. Raw formal/follow-up evidence is preserved in `artifacts/shutdown-electron44-*-raw.json` and in the combined matrix; the incomplete acceptance summary is `artifacts/raw/public-preparation-baseline/shutdown-electron44-native-close.json`.
-
-The main checkout still uses Electron 38.8.6. Its new diagnostics passed typecheck, lint and 110/110 tests. The existing 100-seed, 30-year, century, migration and scenario evidence remains preserved. Electron 44 full regression was not started because its mandatory native prerequisite failed; this experiment is not an accepted runtime change. No simulation/model/save/replay code has been altered, no runtime upgrade merged, no v0.3.0 tag created, no release published and no Phase 2B started.
-
-Next precise experiment: run the prepared original-candidate QA archive on another Windows x64 host or clean Windows VM, with the four five-run cold cases and the optional five-run 1000-resident/20-day warm WM_CLOSE case. Record OS build, exact artifact SHA, kernel exit latencies and CIM results after observer-handle release. Repeat the identical cases on this host under the same launch ownership and compare. If failure remains host-specific, collect a Windows process/thread wait trace around a failing close; Job, pipe, driver and antivirus causes remain unproven. No available second host was provided during this task, and no installed VM runner was found, so external verification remains pending.
-
-## Public evidence boundary
-
-This report preserves historical successful and failed observations. Local raw logs and the reproduction kit are not public downloads. See [compact shutdown counts](../../artifacts/public/shutdown-summary.json) and [validation evidence](../../artifacts/README.md). The portfolio pass changes no shutdown behavior.
+See [compact shutdown counts](../../artifacts/public/shutdown-summary.json), [public validation evidence](../../artifacts/README.md) and the [Phase 2A report](PHASE2A_REPORT.md). Original process dumps, local account paths and private reproduction bundles are excluded from the current tracked tree. Existing tags and historical evidence objects remain unchanged.
