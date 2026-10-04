@@ -1,0 +1,37 @@
+{
+  "milestone": "Current Phase 2A development; native desktop acceptance incomplete",
+  "simulationVersion": "0.2.0",
+  "saveVersion": 3,
+  "automatedTests": {
+    "passed": 110,
+    "total": 110,
+    "source": "Previously recorded 110-test acceptance run; current cleanup checks are reported separately."
+  },
+  "persistenceReplay30Years": [
+    {
+      "initialPopulation": 250,
+      "truth": "e7a39a641818d49d6a382d36709525d348d1ba7554b26bc6ff0180b06265f3f9",
+      "saveBytes": 2188147,
+      "historyBytes": 6655973,
+      "passed": true
+    },
+    {
+      "initialPopulation": 1000,
+      "truth": "db29f49475a3f789dc041b00044c4a49c1002c0bc1837ce5798a6966890a2aa6",
+      "saveBytes": 8271775,
+      "historyBytes": 22778541,
+      "passed": true
+    }
+  ],
+  "century": {
+    "years": 100,
+    "initialPopulation": 1000,
+    "truth": "6908153f9f94509ffe0200f1072dd29b5fd561fd2427f56b8c33bbde535615b3",
+    "saveReplayContinuationPassed": true
+  },
+  "migration": "Genuine released v1/v2 fixture bytes, integrity/schema validation and v3 migration tested.",
+  "scenarios": "Recorded independent A/B command histories with checkpoint/truth/history replay verification.",
+  "nativeShutdownAcceptance": false,
+  "stableRelease": "v0.2.0",
+  "currentCandidate": "0.3.0, unreleased"
+}

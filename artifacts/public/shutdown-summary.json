@@ -1,0 +1,134 @@
+{
+  "status": "BLOCKED; root cause undetermined",
+  "timeoutSeconds": 10,
+  "productionElectron": "38.8.6",
+  "experimentElectron": "44.5.1; not merged",
+  "cases": [
+    {
+      "case": "closure-civitas-portable",
+      "completed": 5,
+      "passed": 5,
+      "failed": 0
+    },
+    {
+      "case": "closure-civitas-unpacked",
+      "completed": 5,
+      "passed": 5,
+      "failed": 0
+    },
+    {
+      "case": "closure-civitas-warm-wm",
+      "completed": 5,
+      "passed": 3,
+      "failed": 2
+    },
+    {
+      "case": "closure-current-smoke",
+      "completed": 1,
+      "passed": 1,
+      "failed": 0
+    },
+    {
+      "case": "closure-e44-candidate-portable",
+      "completed": 3,
+      "passed": 1,
+      "failed": 2
+    },
+    {
+      "case": "closure-e44-candidate-unpacked",
+      "completed": 5,
+      "passed": 4,
+      "failed": 1
+    },
+    {
+      "case": "closure-e44-worktree-minimal",
+      "completed": 5,
+      "passed": 5,
+      "failed": 0
+    },
+    {
+      "case": "closure-e44-worktree-portable",
+      "completed": 5,
+      "passed": 5,
+      "failed": 0
+    },
+    {
+      "case": "closure-runtime44-warm-wm",
+      "completed": 5,
+      "passed": 5,
+      "failed": 0
+    },
+    {
+      "case": "closure-v37-start",
+      "completed": 5,
+      "passed": 5,
+      "failed": 0
+    },
+    {
+      "case": "closure-v38-console",
+      "completed": 5,
+      "passed": 5,
+      "failed": 0
+    },
+    {
+      "case": "closure-v38-detached",
+      "completed": 5,
+      "passed": 5,
+      "failed": 0
+    },
+    {
+      "case": "closure-v38-gpu-off",
+      "completed": 5,
+      "passed": 5,
+      "failed": 0
+    },
+    {
+      "case": "closure-v38-packaged-minimal",
+      "completed": 5,
+      "passed": 5,
+      "failed": 0
+    },
+    {
+      "case": "closure-v38-playwright",
+      "completed": 5,
+      "passed": 5,
+      "failed": 0
+    },
+    {
+      "case": "closure-v38-sandbox-off",
+      "completed": 5,
+      "passed": 5,
+      "failed": 0
+    },
+    {
+      "case": "closure-v38-start",
+      "completed": 5,
+      "passed": 5,
+      "failed": 0
+    },
+    {
+      "case": "closure-v39-start",
+      "completed": 5,
+      "passed": 4,
+      "failed": 1
+    },
+    {
+      "case": "closure-v44-start",
+      "completed": 5,
+      "passed": 5,
+      "failed": 0
+    }
+  ],
+  "formalElectron44Gate": {
+    "expected": 10,
+    "completed": 8,
+    "unpackedPassed": 4,
+    "unpackedCompleted": 5,
+    "portablePassed": 1,
+    "portableCompleted": 3,
+    "additionalIncomplete": 2,
+    "passed": false
+  },
+  "interpretation": "Successful later repetitions do not erase earlier failures. Kernel process termination, lifecycle and CIM enumeration are distinct observations. No forced cleanup is accepted as a pass.",
+  "secondHostTested": false
+}

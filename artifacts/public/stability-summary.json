@@ -1,0 +1,14 @@
+{
+  "milestone": "Current Phase 2A development",
+  "seedCount": 100,
+  "initialPopulation": 250,
+  "yearsPerSeed": 5,
+  "technicalFailures": 0,
+  "collapseCases": 0,
+  "finalPopulation": {
+    "min": 253,
+    "max": 273,
+    "mean": 262.75
+  },
+  "scope": "Five-year checks do not establish calibrated century demographics."
+}
