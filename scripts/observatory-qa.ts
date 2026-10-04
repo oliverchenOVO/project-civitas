@@ -8,6 +8,7 @@ import { createCity, advance } from '../packages/simulation/src/index';
 import { verifyScenarios } from '../packages/application/src/scenarios';
 import { stateHash } from '../packages/shared/src/canonical';
 import { closeBrowserTestSurface, closeNativeTestApp } from './native-test-close';
+import { QA_PREVIEW_URL } from './qa-preview';
 
 const version = JSON.parse(readFileSync('package.json', 'utf8')).version;
 const out = path.resolve('artifacts/qa/phase1-1');
@@ -283,7 +284,7 @@ try {
   try {
     const mobile = await browser.newPage({ viewport: { width: 390, height: 844 } });
     watch(mobile);
-    await mobile.goto('http://127.0.0.1:4173/');
+    await mobile.goto(QA_PREVIEW_URL);
     await mobile.getByRole('button', { name: '解釋失業率', exact: true }).click();
     await mobile.getByRole('heading', { name: '勞動人口失業率', exact: true }).waitFor();
     assert.equal(await mobile.evaluate(() => document.body.scrollWidth > innerWidth), false);

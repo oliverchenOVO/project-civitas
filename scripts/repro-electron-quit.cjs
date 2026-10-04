@@ -29,6 +29,7 @@ log('startup', {
   isPackaged: app.isPackaged,
   gpuDisabled: process.env.CIVITAS_EXIT_GPU_OFF === '1',
   exitMode: process.env.CIVITAS_EXIT_MODE || 'quit',
+  sandbox: process.env.CIVITAS_PROBE_SANDBOX !== '0',
 });
 if (process.env.CIVITAS_EXIT_GPU_OFF === '1') app.disableHardwareAcceleration();
 for (const event of ['before-quit', 'will-quit', 'quit']) {
@@ -37,13 +38,12 @@ for (const event of ['before-quit', 'will-quit', 'quit']) {
 process.on('beforeExit', (code) => log('node-beforeExit', { code, ...resources() }));
 process.on('exit', (code) => log('node-exit', { code, ...resources() }));
 app.whenReady().then(() => {
-  const window = new BrowserWindow({ title: 'Project CIVITAS' });
+  const window = new BrowserWindow({
+    title: 'Project CIVITAS',
+    webPreferences: { sandbox: process.env.CIVITAS_PROBE_SANDBOX !== '0' },
+  });
   window.on('close', () => {
     log('close', resources());
-    // Diagnostic timers must never keep the process alive.
-    for (const delay of [100, 1000, 5000, 9000, 59000]) {
-      setTimeout(() => log(`post-close-${delay}ms`, resources()), delay).unref();
-    }
   });
   window.on('closed', () => log('closed', resources()));
   window.webContents.on('did-finish-load', () => log('loaded', resources()));

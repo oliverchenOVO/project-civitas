@@ -1,0 +1,5205 @@
+{
+  "collectedAt": "2026-10-04T06:13:53.481Z",
+  "criterion": "Real owned native window; WM_CLOSE; all tracked kernel handles signaled; owned identities absent after observer handle release; within 10000ms; no forced cleanup. Lifecycle is a separate observation, not a substitute.",
+  "environment": {
+    "collectedAt": "2026-10-04T04:19:07.0728683Z",
+    "os": {
+      "caption": "Microsoft Windows 11 家庭版 中文版",
+      "version": "10.0.26200",
+      "build": "26200",
+      "ubr": 9457,
+      "displayVersion": "25H2",
+      "architecture": "64 位",
+      "lastBootUtc": "2026-10-02T09:02:04.5000000Z"
+    },
+    "memory": {
+      "totalKiB": 50014072,
+      "freeKiB": 24657884
+    },
+    "observerPid": 68504,
+    "observerJob": {
+      "querySucceeded": true,
+      "inJob": true,
+      "limitsQuerySucceeded": true,
+      "limitsQueryError": 0,
+      "limitFlags": 10240,
+      "activeProcessLimit": 0,
+      "processMemoryLimit": 0,
+      "jobMemoryLimit": 0,
+      "accountingQuerySucceeded": true,
+      "activeProcesses": 3
+    },
+    "candidate": {
+      "path": "F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\release\\0.3.0\\CIVITAS-0.3.0-Windows-portable.exe",
+      "bytes": 85645026,
+      "sha256": "e1a8570ade13912697bd40a165df06a7f4868d407fc4a21dfa97a4c4a0e7577d"
+    },
+    "electronPackage": "38.8.6",
+    "builderPackage": "26.15.3",
+    "probeSha256": "bd7c97f014c0562f83c1379b5bac7ef2a8d9cbfac42bb507a482811cd11b3b43",
+    "harnessSha256": "b9234f8e3876100ab54848bd55b4cfe5e2dad8aa5a4e70b34bba7d543ad74c51"
+  },
+  "probeSha256": "bd7c97f014c0562f83c1379b5bac7ef2a8d9cbfac42bb507a482811cd11b3b43",
+  "harnessSha256": "ae8528073cb27948c697eb8f440f3575a95027c347e5548facff35b022beed6a",
+  "productionRuntimeChanged": false,
+  "cases": [
+    {
+      "case": "closure-civitas-portable",
+      "target": "Portable",
+      "launcher": "StartProcess",
+      "gpuOff": false,
+      "sandboxOff": false,
+      "versions": null,
+      "packaged": null,
+      "executable": "F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\release\\0.3.0\\CIVITAS-0.3.0-Windows-portable.exe",
+      "executableSha256": "e1a8570ade13912697bd40a165df06a7f4868d407fc4a21dfa97a4c4a0e7577d",
+      "completed": 5,
+      "passed": 5,
+      "failed": 0,
+      "rawPath": "artifacts\\qa\\exit-closure-civitas-portable\\result.json",
+      "rawSha256": "5723747f9b0cb31d41c21a367f5a81148403340c1e59f595a045633946e2e4a1",
+      "runs": [
+        {
+          "iteration": 1,
+          "rootPid": 77296,
+          "mainPid": 64380,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": null,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 2640,
+          "finalCimAbsenceCheckMs": 3689,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 45720,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 55236,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 64380,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 76072,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 77296,
+              "role": "portable-wrapper",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 2,
+          "rootPid": 10800,
+          "mainPid": 61360,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": null,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 1325,
+          "finalCimAbsenceCheckMs": 2627,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 10800,
+              "role": "portable-wrapper",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 47156,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 61360,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 63704,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 75720,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 3,
+          "rootPid": 13432,
+          "mainPid": 75668,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": null,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 3131,
+          "finalCimAbsenceCheckMs": 4791,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 13432,
+              "role": "portable-wrapper",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 54328,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 70176,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 75668,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 77488,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 4,
+          "rootPid": 40776,
+          "mainPid": 75628,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": null,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 3009,
+          "finalCimAbsenceCheckMs": 4367,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 40776,
+              "role": "portable-wrapper",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 52256,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 60440,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 72808,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 75628,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 5,
+          "rootPid": 71296,
+          "mainPid": 54336,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": null,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 5662,
+          "finalCimAbsenceCheckMs": 7637,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 54336,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 65260,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 71148,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 71296,
+              "role": "portable-wrapper",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 72944,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "closure-civitas-unpacked",
+      "target": "Unpacked",
+      "launcher": "StartProcess",
+      "gpuOff": false,
+      "sandboxOff": false,
+      "versions": null,
+      "packaged": null,
+      "executable": "F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\release\\0.3.0\\win-unpacked\\Project CIVITAS.exe",
+      "executableSha256": "747d6514780d125bf3dce8610eb2591c365f0119aa0936ada69b25a6d6823ea1",
+      "completed": 5,
+      "passed": 5,
+      "failed": 0,
+      "rawPath": "artifacts\\qa\\exit-closure-civitas-unpacked\\result.json",
+      "rawSha256": "a33b123947ac329e66c966a7364a72d86c87033c507c389b4326db74990e1a57",
+      "runs": [
+        {
+          "iteration": 1,
+          "rootPid": 51732,
+          "mainPid": 51732,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": null,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 474,
+          "finalCimAbsenceCheckMs": 1667,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 42360,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 51732,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 55292,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 71240,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 2,
+          "rootPid": 60720,
+          "mainPid": 60720,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": null,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 449,
+          "finalCimAbsenceCheckMs": 1820,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 11112,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 19936,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 41272,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 60720,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 3,
+          "rootPid": 68852,
+          "mainPid": 68852,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": null,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 425,
+          "finalCimAbsenceCheckMs": 1707,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 58720,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 68852,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 69960,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 74152,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 4,
+          "rootPid": 76600,
+          "mainPid": 76600,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": null,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 431,
+          "finalCimAbsenceCheckMs": 1541,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 49984,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 66792,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 76600,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 76944,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 5,
+          "rootPid": 40204,
+          "mainPid": 40204,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": null,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 371,
+          "finalCimAbsenceCheckMs": 1342,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 40204,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 49148,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 62900,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 75680,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "closure-civitas-warm-wm",
+      "target": "Unpacked",
+      "launcher": "Playwright",
+      "gpuOff": false,
+      "sandboxOff": false,
+      "versions": null,
+      "packaged": null,
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "executableSha256": "d14ba95cdce1ef7dc9ad3ac74949ca5db38b27378ee30f30a23cf26f9e875a11",
+      "completed": 5,
+      "passed": 3,
+      "failed": 2,
+      "rawPath": "artifacts\\qa\\exit-closure-civitas-warm-wm\\result.json",
+      "rawSha256": "223ba8595aac7dcb85fec3bdc0b0cd934d15e950032f991e064a37ae0e01d602",
+      "runs": [
+        {
+          "iteration": 1,
+          "rootPid": 44596,
+          "mainPid": 8812,
+          "launched": true,
+          "passed": false,
+          "lifecycleComplete": null,
+          "kernelExited": false,
+          "cimAbsent": false,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": null,
+          "finalCimAbsenceCheckMs": 12519,
+          "forceCleanupPerformed": true,
+          "remainingProcesses": [
+            {
+              "pid": 8812,
+              "ppid": 72020,
+              "role": "browser-main",
+              "name": "Project CIVITAS.exe",
+              "executablePath": "F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\release\\0.3.0\\win-unpacked\\Project CIVITAS.exe",
+              "commandLine": "\"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\release\\0.3.0\\win-unpacked\\Project CIVITAS.exe\"  \"--inspect=0\" \"--remote-debugging-port=0\"",
+              "startTime": "2026-10-04T06:02:22.0572110Z",
+              "cimPresent": true,
+              "kernelSignaled": false,
+              "exitCode": 0,
+              "alive": true,
+              "exitObservedAt": null,
+              "inJob": true,
+              "jobQuerySucceeded": true
+            },
+            {
+              "pid": 44596,
+              "ppid": 49452,
+              "role": "qa-launcher",
+              "name": "node.exe",
+              "executablePath": "C:\\Program Files\\nodejs\\node.exe",
+              "commandLine": "\"C:\\Program Files\\nodejs\\node.exe\" \"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\node_modules\\tsx\\dist\\cli.mjs\" \"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\scripts\\exit-playwright-launch.ts\" \"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\release\\0.3.0\\win-unpacked\\Project CIVITAS.exe\" stress",
+              "startTime": "2026-10-04T06:02:20.6556760Z",
+              "cimPresent": true,
+              "kernelSignaled": false,
+              "exitCode": 259,
+              "alive": true,
+              "exitObservedAt": null,
+              "inJob": true,
+              "jobQuerySucceeded": true
+            },
+            {
+              "pid": 57920,
+              "ppid": 8812,
+              "role": "renderer",
+              "name": "Project CIVITAS.exe",
+              "executablePath": "F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\release\\0.3.0\\win-unpacked\\Project CIVITAS.exe",
+              "commandLine": "\"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\release\\0.3.0\\win-unpacked\\Project CIVITAS.exe\" --type=renderer --user-data-dir=\"C:\\Users\\oliver\\AppData\\Roaming\\project-civitas\" --app-path=\"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\release\\0.3.0\\win-unpacked\\resources\\app.asar\" --enable-sandbox --remote-debugging-port=0 --video-capture-use-gpu-memory-buffer --lang=zh-CN --device-scale-factor=1.25 --num-raster-threads=4 --enable-main-frame-before-activation --renderer-client-id=4 --time-ticks-at-unix-epoch=-1790931723805544 --launch-time-ticks=162019927051 --field-trial-handle=2764,i,2111403728882437361,14660086411409721144,262144 --enable-features=EnableTransparentHwndEnlargement,PdfUseShowSaveFilePicker --disable-features=ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation,WinDelaySpellcheckServiceInit --variations-seed-version --mojo-platform-channel-handle=3640 /prefetch:1",
+              "startTime": "2026-10-04T06:02:23.7431420Z",
+              "cimPresent": true,
+              "kernelSignaled": false,
+              "exitCode": 0,
+              "alive": true,
+              "exitObservedAt": null,
+              "inJob": true,
+              "jobQuerySucceeded": true
+            },
+            {
+              "pid": 60476,
+              "ppid": 76288,
+              "role": "browser-main",
+              "name": "esbuild.exe",
+              "executablePath": "F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\node_modules\\.pnpm\\@esbuild+win32-x64@0.28.2\\node_modules\\@esbuild\\win32-x64\\esbuild.exe",
+              "commandLine": "\"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\node_modules\\.pnpm\\@esbuild+win32-x64@0.28.2\\node_modules\\@esbuild\\win32-x64\\esbuild.exe\" --service=0.28.2 --ping",
+              "startTime": "2026-10-04T06:02:21.2044210Z",
+              "cimPresent": true,
+              "kernelSignaled": false,
+              "exitCode": 259,
+              "alive": true,
+              "exitObservedAt": null,
+              "inJob": true,
+              "jobQuerySucceeded": true
+            },
+            {
+              "pid": 72020,
+              "ppid": 76288,
+              "role": "console-wrapper",
+              "name": "cmd.exe",
+              "executablePath": "C:\\WINDOWS\\system32\\cmd.exe",
+              "commandLine": "C:\\WINDOWS\\system32\\cmd.exe /d /s /c \"\"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\release\\0.3.0\\win-unpacked\\Project CIVITAS.exe\" \"--inspect=0\" \"--remote-debugging-port=0\"\"",
+              "startTime": "2026-10-04T06:02:22.0277830Z",
+              "cimPresent": true,
+              "kernelSignaled": false,
+              "exitCode": 259,
+              "alive": true,
+              "exitObservedAt": null,
+              "inJob": true,
+              "jobQuerySucceeded": true
+            },
+            {
+              "pid": 76288,
+              "ppid": 44596,
+              "role": "qa-launcher",
+              "name": "node.exe",
+              "executablePath": "C:\\Program Files\\nodejs\\node.exe",
+              "commandLine": "\"C:\\Program Files\\nodejs\\node.exe\" --require \"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\node_modules\\.pnpm\\tsx@4.23.15\\node_modules\\tsx\\dist\\preflight.cjs\" --import file:///F:/CodeX%E9%96%8B%E7%99%BC%E5%B0%8F%E6%9D%B1%E6%9D%B1/AI%20%E5%9F%8E%E5%B8%82%EF%BC%9A%E4%B8%80%E5%BA%A7%E6%9C%83%E8%87%AA%E5%B7%B1%E6%B4%BB%E8%91%97%E7%9A%84%E5%BE%AE%E5%9E%8B%E5%9F%8E%E5%B8%82/node_modules/.pnpm/tsx@4.23.15/node_modules/tsx/dist/loader.mjs \"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\scripts\\exit-playwright-launch.ts\" \"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\release\\0.3.0\\win-unpacked\\Project CIVITAS.exe\" stress",
+              "startTime": "2026-10-04T06:02:20.8503530Z",
+              "cimPresent": true,
+              "kernelSignaled": false,
+              "exitCode": 259,
+              "alive": true,
+              "exitObservedAt": null,
+              "inJob": true,
+              "jobQuerySucceeded": true
+            }
+          ],
+          "cimRowsBeforeCleanup": [
+            {
+              "ProcessId": 44596,
+              "ParentProcessId": 49452,
+              "Name": "node.exe",
+              "CreationDate": "2026-10-04T14:02:20.655676+08:00",
+              "CommandLine": "\"C:\\Program Files\\nodejs\\node.exe\" \"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\node_modules\\tsx\\dist\\cli.mjs\" \"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\scripts\\exit-playwright-launch.ts\" \"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\release\\0.3.0\\win-unpacked\\Project CIVITAS.exe\" stress",
+              "ThreadCount": 17,
+              "HandleCount": 238
+            },
+            {
+              "ProcessId": 76288,
+              "ParentProcessId": 44596,
+              "Name": "node.exe",
+              "CreationDate": "2026-10-04T14:02:20.850353+08:00",
+              "CommandLine": "\"C:\\Program Files\\nodejs\\node.exe\" --require \"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\node_modules\\.pnpm\\tsx@4.23.15\\node_modules\\tsx\\dist\\preflight.cjs\" --import file:///F:/CodeX%E9%96%8B%E7%99%BC%E5%B0%8F%E6%9D%B1%E6%9D%B1/AI%20%E5%9F%8E%E5%B8%82%EF%BC%9A%E4%B8%80%E5%BA%A7%E6%9C%83%E8%87%AA%E5%B7%B1%E6%B4%BB%E8%91%97%E7%9A%84%E5%BE%AE%E5%9E%8B%E5%9F%8E%E5%B8%82/node_modules/.pnpm/tsx@4.23.15/node_modules/tsx/dist/loader.mjs \"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\scripts\\exit-playwright-launch.ts\" \"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\release\\0.3.0\\win-unpacked\\Project CIVITAS.exe\" stress",
+              "ThreadCount": 18,
+              "HandleCount": 279
+            },
+            {
+              "ProcessId": 60476,
+              "ParentProcessId": 76288,
+              "Name": "esbuild.exe",
+              "CreationDate": "2026-10-04T14:02:21.204421+08:00",
+              "CommandLine": "\"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\node_modules\\.pnpm\\@esbuild+win32-x64@0.28.2\\node_modules\\@esbuild\\win32-x64\\esbuild.exe\" --service=0.28.2 --ping",
+              "ThreadCount": 8,
+              "HandleCount": 149
+            },
+            {
+              "ProcessId": 72020,
+              "ParentProcessId": 76288,
+              "Name": "cmd.exe",
+              "CreationDate": "2026-10-04T14:02:22.027783+08:00",
+              "CommandLine": "C:\\WINDOWS\\system32\\cmd.exe /d /s /c \"\"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\release\\0.3.0\\win-unpacked\\Project CIVITAS.exe\" \"--inspect=0\" \"--remote-debugging-port=0\"\"",
+              "ThreadCount": 4,
+              "HandleCount": 127
+            },
+            {
+              "ProcessId": 8812,
+              "ParentProcessId": 72020,
+              "Name": "Project CIVITAS.exe",
+              "CreationDate": "2026-10-04T14:02:22.057211+08:00",
+              "CommandLine": "\"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\release\\0.3.0\\win-unpacked\\Project CIVITAS.exe\"  \"--inspect=0\" \"--remote-debugging-port=0\"",
+              "ThreadCount": 4,
+              "HandleCount": 555
+            },
+            {
+              "ProcessId": 57920,
+              "ParentProcessId": 8812,
+              "Name": "Project CIVITAS.exe",
+              "CreationDate": "2026-10-04T14:02:23.743142+08:00",
+              "CommandLine": null,
+              "ThreadCount": 1,
+              "HandleCount": 0
+            }
+          ],
+          "threadEvidenceBeforeCleanup": [
+            {
+              "pid": 8812,
+              "error": "Cannot find a process with the process identifier 8812."
+            },
+            {
+              "pid": 44596,
+              "cpuSeconds": 0.203125,
+              "threads": [
+                {
+                  "id": 76284,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                },
+                {
+                  "id": 40292,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                },
+                {
+                  "id": 69824,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                },
+                {
+                  "id": 65708,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                },
+                {
+                  "id": 68740,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                },
+                {
+                  "id": 58252,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                },
+                {
+                  "id": 51716,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                },
+                {
+                  "id": 66808,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                },
+                {
+                  "id": 68828,
+                  "state": "Wait",
+                  "waitReason": "Unknown"
+                },
+                {
+                  "id": 38756,
+                  "state": "Wait",
+                  "waitReason": "Unknown"
+                },
+                {
+                  "id": 35448,
+                  "state": "Wait",
+                  "waitReason": "Unknown"
+                },
+                {
+                  "id": 49240,
+                  "state": "Wait",
+                  "waitReason": "Unknown"
+                },
+                {
+                  "id": 64836,
+                  "state": "Wait",
+                  "waitReason": "Unknown"
+                },
+                {
+                  "id": 71976,
+                  "state": "Wait",
+                  "waitReason": "Unknown"
+                },
+                {
+                  "id": 67168,
+                  "state": "Wait",
+                  "waitReason": "Unknown"
+                },
+                {
+                  "id": 77556,
+                  "state": "Wait",
+                  "waitReason": "Unknown"
+                },
+                {
+                  "id": 75016,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                }
+              ]
+            },
+            {
+              "pid": 57920,
+              "error": "Cannot find a process with the process identifier 57920."
+            },
+            {
+              "pid": 60476,
+              "cpuSeconds": 0.046875,
+              "threads": [
+                {
+                  "id": 52560,
+                  "state": "Wait",
+                  "waitReason": "Executive"
+                },
+                {
+                  "id": 60680,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                },
+                {
+                  "id": 37004,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                },
+                {
+                  "id": 76920,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                },
+                {
+                  "id": 48940,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                },
+                {
+                  "id": 69676,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                },
+                {
+                  "id": 43568,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                },
+                {
+                  "id": 71388,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                }
+              ]
+            },
+            {
+              "pid": 72020,
+              "cpuSeconds": 0.0625,
+              "threads": [
+                {
+                  "id": 3544,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                },
+                {
+                  "id": 73368,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                },
+                {
+                  "id": 29732,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                },
+                {
+                  "id": 66516,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                }
+              ]
+            },
+            {
+              "pid": 76288,
+              "cpuSeconds": 2.4375,
+              "threads": [
+                {
+                  "id": 34344,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                },
+                {
+                  "id": 65604,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                },
+                {
+                  "id": 42932,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                },
+                {
+                  "id": 14560,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                },
+                {
+                  "id": 58448,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                },
+                {
+                  "id": 43876,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                },
+                {
+                  "id": 49756,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                },
+                {
+                  "id": 59368,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                },
+                {
+                  "id": 72968,
+                  "state": "Wait",
+                  "waitReason": "Unknown"
+                },
+                {
+                  "id": 58528,
+                  "state": "Wait",
+                  "waitReason": "Unknown"
+                },
+                {
+                  "id": 17212,
+                  "state": "Wait",
+                  "waitReason": "Unknown"
+                },
+                {
+                  "id": 75024,
+                  "state": "Wait",
+                  "waitReason": "Unknown"
+                },
+                {
+                  "id": 23960,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                },
+                {
+                  "id": 76876,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                },
+                {
+                  "id": 31524,
+                  "state": "Wait",
+                  "waitReason": "Unknown"
+                },
+                {
+                  "id": 67384,
+                  "state": "Wait",
+                  "waitReason": "Unknown"
+                },
+                {
+                  "id": 32660,
+                  "state": "Wait",
+                  "waitReason": "Unknown"
+                },
+                {
+                  "id": 74416,
+                  "state": "Wait",
+                  "waitReason": "Unknown"
+                }
+              ]
+            }
+          ],
+          "processJobs": [
+            {
+              "pid": 8812,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 20000,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 31000,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 44596,
+              "role": "qa-launcher",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 57920,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 60476,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 72020,
+              "role": "console-wrapper",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 76288,
+              "role": "qa-launcher",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 2,
+          "rootPid": 46532,
+          "mainPid": 55184,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": null,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 2556,
+          "finalCimAbsenceCheckMs": 5013,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 25740,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 41020,
+              "role": "qa-launcher",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 46532,
+              "role": "qa-launcher",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 55184,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 64956,
+              "role": "console-wrapper",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 65304,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 72692,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 3,
+          "rootPid": 15664,
+          "mainPid": 13216,
+          "launched": true,
+          "passed": false,
+          "lifecycleComplete": null,
+          "kernelExited": false,
+          "cimAbsent": false,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": null,
+          "finalCimAbsenceCheckMs": 13623,
+          "forceCleanupPerformed": true,
+          "remainingProcesses": [
+            {
+              "pid": 13216,
+              "ppid": 75184,
+              "role": "browser-main",
+              "name": "Project CIVITAS.exe",
+              "executablePath": "F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\release\\0.3.0\\win-unpacked\\Project CIVITAS.exe",
+              "commandLine": "\"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\release\\0.3.0\\win-unpacked\\Project CIVITAS.exe\"  \"--inspect=0\" \"--remote-debugging-port=0\"",
+              "startTime": "2026-10-04T06:03:26.1692800Z",
+              "cimPresent": true,
+              "kernelSignaled": false,
+              "exitCode": 259,
+              "alive": true,
+              "exitObservedAt": null,
+              "inJob": true,
+              "jobQuerySucceeded": true
+            },
+            {
+              "pid": 13732,
+              "ppid": 13216,
+              "role": "renderer",
+              "name": "Project CIVITAS.exe",
+              "executablePath": "F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\release\\0.3.0\\win-unpacked\\Project CIVITAS.exe",
+              "commandLine": "\"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\release\\0.3.0\\win-unpacked\\Project CIVITAS.exe\" --type=renderer --user-data-dir=\"C:\\Users\\oliver\\AppData\\Roaming\\project-civitas\" --app-path=\"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\release\\0.3.0\\win-unpacked\\resources\\app.asar\" --enable-sandbox --remote-debugging-port=0 --video-capture-use-gpu-memory-buffer --lang=zh-CN --device-scale-factor=1.25 --num-raster-threads=4 --enable-main-frame-before-activation --renderer-client-id=4 --time-ticks-at-unix-epoch=-1790931723805544 --launch-time-ticks=162083217092 --field-trial-handle=2704,i,7782508776156471596,17775325495520030688,262144 --enable-features=EnableTransparentHwndEnlargement,PdfUseShowSaveFilePicker --disable-features=ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation,WinDelaySpellcheckServiceInit --variations-seed-version --mojo-platform-channel-handle=3596 /prefetch:1",
+              "startTime": "2026-10-04T06:03:27.0356030Z",
+              "cimPresent": true,
+              "kernelSignaled": false,
+              "exitCode": 0,
+              "alive": true,
+              "exitObservedAt": null,
+              "inJob": true,
+              "jobQuerySucceeded": true
+            },
+            {
+              "pid": 15664,
+              "ppid": 49452,
+              "role": "qa-launcher",
+              "name": "node.exe",
+              "executablePath": "C:\\Program Files\\nodejs\\node.exe",
+              "commandLine": "\"C:\\Program Files\\nodejs\\node.exe\" \"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\node_modules\\tsx\\dist\\cli.mjs\" \"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\scripts\\exit-playwright-launch.ts\" \"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\release\\0.3.0\\win-unpacked\\Project CIVITAS.exe\" stress",
+              "startTime": "2026-10-04T06:03:24.2449630Z",
+              "cimPresent": true,
+              "kernelSignaled": false,
+              "exitCode": 259,
+              "alive": true,
+              "exitObservedAt": null,
+              "inJob": true,
+              "jobQuerySucceeded": true
+            },
+            {
+              "pid": 37996,
+              "ppid": 13216,
+              "role": "utility",
+              "name": "Project CIVITAS.exe",
+              "executablePath": "F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\release\\0.3.0\\win-unpacked\\Project CIVITAS.exe",
+              "commandLine": "\"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\release\\0.3.0\\win-unpacked\\Project CIVITAS.exe\" --type=utility --utility-sub-type=network.mojom.NetworkService --lang=zh-CN --service-sandbox-type=none --user-data-dir=\"C:\\Users\\oliver\\AppData\\Roaming\\project-civitas\" --field-trial-handle=2704,i,7782508776156471596,17775325495520030688,262144 --enable-features=EnableTransparentHwndEnlargement,PdfUseShowSaveFilePicker --disable-features=ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation,WinDelaySpellcheckServiceInit --variations-seed-version --mojo-platform-channel-handle=3136 /prefetch:11",
+              "startTime": "2026-10-04T06:03:26.9493420Z",
+              "cimPresent": true,
+              "kernelSignaled": false,
+              "exitCode": 0,
+              "alive": true,
+              "exitObservedAt": null,
+              "inJob": true,
+              "jobQuerySucceeded": true
+            },
+            {
+              "pid": 72020,
+              "ppid": 15664,
+              "role": "qa-launcher",
+              "name": "node.exe",
+              "executablePath": "C:\\Program Files\\nodejs\\node.exe",
+              "commandLine": "\"C:\\Program Files\\nodejs\\node.exe\" --require \"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\node_modules\\.pnpm\\tsx@4.23.15\\node_modules\\tsx\\dist\\preflight.cjs\" --import file:///F:/CodeX%E9%96%8B%E7%99%BC%E5%B0%8F%E6%9D%B1%E6%9D%B1/AI%20%E5%9F%8E%E5%B8%82%EF%BC%9A%E4%B8%80%E5%BA%A7%E6%9C%83%E8%87%AA%E5%B7%B1%E6%B4%BB%E8%91%97%E7%9A%84%E5%BE%AE%E5%9E%8B%E5%9F%8E%E5%B8%82/node_modules/.pnpm/tsx@4.23.15/node_modules/tsx/dist/loader.mjs \"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\scripts\\exit-playwright-launch.ts\" \"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\release\\0.3.0\\win-unpacked\\Project CIVITAS.exe\" stress",
+              "startTime": "2026-10-04T06:03:24.5800170Z",
+              "cimPresent": true,
+              "kernelSignaled": false,
+              "exitCode": 259,
+              "alive": true,
+              "exitObservedAt": null,
+              "inJob": true,
+              "jobQuerySucceeded": true
+            },
+            {
+              "pid": 75184,
+              "ppid": 72020,
+              "role": "console-wrapper",
+              "name": "cmd.exe",
+              "executablePath": "C:\\WINDOWS\\system32\\cmd.exe",
+              "commandLine": "C:\\WINDOWS\\system32\\cmd.exe /d /s /c \"\"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\release\\0.3.0\\win-unpacked\\Project CIVITAS.exe\" \"--inspect=0\" \"--remote-debugging-port=0\"\"",
+              "startTime": "2026-10-04T06:03:26.0885050Z",
+              "cimPresent": true,
+              "kernelSignaled": false,
+              "exitCode": 259,
+              "alive": true,
+              "exitObservedAt": null,
+              "inJob": true,
+              "jobQuerySucceeded": true
+            },
+            {
+              "pid": 75444,
+              "ppid": 13216,
+              "role": "gpu-process",
+              "name": "Project CIVITAS.exe",
+              "executablePath": "F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\release\\0.3.0\\win-unpacked\\Project CIVITAS.exe",
+              "commandLine": "\"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\release\\0.3.0\\win-unpacked\\Project CIVITAS.exe\" --type=gpu-process --user-data-dir=\"C:\\Users\\oliver\\AppData\\Roaming\\project-civitas\" --gpu-preferences=SAAAAAAAAADgAAAIAAAAAAAAAAAAAGAAAQAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAABAAAAAAAAAACAAAAAAAAAAIAAAAAAAAAA== --field-trial-handle=2704,i,7782508776156471596,17775325495520030688,262144 --enable-features=EnableTransparentHwndEnlargement,PdfUseShowSaveFilePicker --disable-features=ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation,WinDelaySpellcheckServiceInit --variations-seed-version --mojo-platform-channel-handle=2700 /prefetch:2",
+              "startTime": "2026-10-04T06:03:26.8758790Z",
+              "cimPresent": true,
+              "kernelSignaled": false,
+              "exitCode": 0,
+              "alive": true,
+              "exitObservedAt": null,
+              "inJob": true,
+              "jobQuerySucceeded": true
+            }
+          ],
+          "cimRowsBeforeCleanup": [
+            {
+              "ProcessId": 15664,
+              "ParentProcessId": 49452,
+              "Name": "node.exe",
+              "CreationDate": "2026-10-04T14:03:24.244963+08:00",
+              "CommandLine": "\"C:\\Program Files\\nodejs\\node.exe\" \"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\node_modules\\tsx\\dist\\cli.mjs\" \"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\scripts\\exit-playwright-launch.ts\" \"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\release\\0.3.0\\win-unpacked\\Project CIVITAS.exe\" stress",
+              "ThreadCount": 16,
+              "HandleCount": 238
+            },
+            {
+              "ProcessId": 72020,
+              "ParentProcessId": 15664,
+              "Name": "node.exe",
+              "CreationDate": "2026-10-04T14:03:24.580017+08:00",
+              "CommandLine": "\"C:\\Program Files\\nodejs\\node.exe\" --require \"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\node_modules\\.pnpm\\tsx@4.23.15\\node_modules\\tsx\\dist\\preflight.cjs\" --import file:///F:/CodeX%E9%96%8B%E7%99%BC%E5%B0%8F%E6%9D%B1%E6%9D%B1/AI%20%E5%9F%8E%E5%B8%82%EF%BC%9A%E4%B8%80%E5%BA%A7%E6%9C%83%E8%87%AA%E5%B7%B1%E6%B4%BB%E8%91%97%E7%9A%84%E5%BE%AE%E5%9E%8B%E5%9F%8E%E5%B8%82/node_modules/.pnpm/tsx@4.23.15/node_modules/tsx/dist/loader.mjs \"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\scripts\\exit-playwright-launch.ts\" \"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\release\\0.3.0\\win-unpacked\\Project CIVITAS.exe\" stress",
+              "ThreadCount": 17,
+              "HandleCount": 270
+            },
+            {
+              "ProcessId": 75184,
+              "ParentProcessId": 72020,
+              "Name": "cmd.exe",
+              "CreationDate": "2026-10-04T14:03:26.088505+08:00",
+              "CommandLine": "C:\\WINDOWS\\system32\\cmd.exe /d /s /c \"\"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\release\\0.3.0\\win-unpacked\\Project CIVITAS.exe\" \"--inspect=0\" \"--remote-debugging-port=0\"\"",
+              "ThreadCount": 3,
+              "HandleCount": 127
+            },
+            {
+              "ProcessId": 13216,
+              "ParentProcessId": 75184,
+              "Name": "Project CIVITAS.exe",
+              "CreationDate": "2026-10-04T14:03:26.16928+08:00",
+              "CommandLine": "\"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\release\\0.3.0\\win-unpacked\\Project CIVITAS.exe\"  \"--inspect=0\" \"--remote-debugging-port=0\"",
+              "ThreadCount": 57,
+              "HandleCount": 1075
+            },
+            {
+              "ProcessId": 75444,
+              "ParentProcessId": 13216,
+              "Name": "Project CIVITAS.exe",
+              "CreationDate": "2026-10-04T14:03:26.875879+08:00",
+              "CommandLine": "\"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\release\\0.3.0\\win-unpacked\\Project CIVITAS.exe\" --type=gpu-process --user-data-dir=\"C:\\Users\\oliver\\AppData\\Roaming\\project-civitas\" --gpu-preferences=SAAAAAAAAADgAAAIAAAAAAAAAAAAAGAAAQAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAABAAAAAAAAAACAAAAAAAAAAIAAAAAAAAAA== --field-trial-handle=2704,i,7782508776156471596,17775325495520030688,262144 --enable-features=EnableTransparentHwndEnlargement,PdfUseShowSaveFilePicker --disable-features=ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation,WinDelaySpellcheckServiceInit --variations-seed-version --mojo-platform-channel-handle=2700 /prefetch:2",
+              "ThreadCount": 31,
+              "HandleCount": 661
+            },
+            {
+              "ProcessId": 37996,
+              "ParentProcessId": 13216,
+              "Name": "Project CIVITAS.exe",
+              "CreationDate": "2026-10-04T14:03:26.949342+08:00",
+              "CommandLine": "\"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\release\\0.3.0\\win-unpacked\\Project CIVITAS.exe\" --type=utility --utility-sub-type=network.mojom.NetworkService --lang=zh-CN --service-sandbox-type=none --user-data-dir=\"C:\\Users\\oliver\\AppData\\Roaming\\project-civitas\" --field-trial-handle=2704,i,7782508776156471596,17775325495520030688,262144 --enable-features=EnableTransparentHwndEnlargement,PdfUseShowSaveFilePicker --disable-features=ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation,WinDelaySpellcheckServiceInit --variations-seed-version --mojo-platform-channel-handle=3136 /prefetch:11",
+              "ThreadCount": 1,
+              "HandleCount": 189
+            },
+            {
+              "ProcessId": 13732,
+              "ParentProcessId": 13216,
+              "Name": "Project CIVITAS.exe",
+              "CreationDate": "2026-10-04T14:03:27.035603+08:00",
+              "CommandLine": "\"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\release\\0.3.0\\win-unpacked\\Project CIVITAS.exe\" --type=renderer --user-data-dir=\"C:\\Users\\oliver\\AppData\\Roaming\\project-civitas\" --app-path=\"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\release\\0.3.0\\win-unpacked\\resources\\app.asar\" --enable-sandbox --remote-debugging-port=0 --video-capture-use-gpu-memory-buffer --lang=zh-CN --device-scale-factor=1.25 --num-raster-threads=4 --enable-main-frame-before-activation --renderer-client-id=4 --time-ticks-at-unix-epoch=-1790931723805544 --launch-time-ticks=162083217092 --field-trial-handle=2704,i,7782508776156471596,17775325495520030688,262144 --enable-features=EnableTransparentHwndEnlargement,PdfUseShowSaveFilePicker --disable-features=ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation,WinDelaySpellcheckServiceInit --variations-seed-version --mojo-platform-channel-handle=3596 /prefetch:1",
+              "ThreadCount": 13,
+              "HandleCount": 379
+            }
+          ],
+          "threadEvidenceBeforeCleanup": [
+            {
+              "pid": 13216,
+              "cpuSeconds": 2.25,
+              "threads": [
+                {
+                  "id": 72300,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                },
+                {
+                  "id": 56692,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                },
+                {
+                  "id": 18748,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                },
+                {
+                  "id": 62628,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                },
+                {
+                  "id": 64288,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                },
+                {
+                  "id": 64340,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                },
+                {
+                  "id": 69700,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                },
+                {
+                  "id": 7192,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                },
+                {
+                  "id": 38808,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                },
+                {
+                  "id": 54532,
+                  "state": "Ready",
+                  "waitReason": null
+                },
+                {
+                  "id": 55936,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                },
+                {
+                  "id": 22264,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                },
+                {
+                  "id": 41980,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                },
+                {
+                  "id": 76904,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                },
+                {
+                  "id": 47756,
+                  "state": "Wait",
+                  "waitReason": "Unknown"
+                },
+                {
+                  "id": 41548,
+                  "state": "Wait",
+                  "waitReason": "Unknown"
+                },
+                {
+                  "id": 66420,
+                  "state": "Wait",
+                  "waitReason": "Unknown"
+                },
+                {
+                  "id": 57292,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                },
+                {
+                  "id": 57044,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                },
+                {
+                  "id": 51688,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                },
+                {
+                  "id": 49364,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                },
+                {
+                  "id": 46136,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                },
+                {
+                  "id": 51540,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                },
+                {
+                  "id": 71684,
+                  "state": "Wait",
+                  "waitReason": "ExecutionDelay"
+                },
+                {
+                  "id": 67436,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                },
+                {
+                  "id": 71776,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                },
+                {
+                  "id": 37768,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                },
+                {
+                  "id": 35624,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                },
+                {
+                  "id": 64496,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                },
+                {
+                  "id": 64212,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                },
+                {
+                  "id": 33128,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                },
+                {
+                  "id": 76864,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                },
+                {
+                  "id": 61920,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                },
+                {
+                  "id": 62428,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                },
+                {
+                  "id": 9032,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                },
+                {
+                  "id": 40476,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                },
+                {
+                  "id": 66332,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                },
+                {
+                  "id": 66352,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                },
+                {
+                  "id": 55352,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                },
+                {
+                  "id": 59460,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                },
+                {
+                  "id": 70836,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                },
+                {
+                  "id": 17664,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                },
+                {
+                  "id": 19640,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                },
+                {
+                  "id": 51264,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                },
+                {
+                  "id": 40852,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                },
+                {
+                  "id": 53276,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                },
+                {
+                  "id": 49464,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                },
+                {
+                  "id": 51848,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                },
+                {
+                  "id": 50360,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                },
+                {
+                  "id": 42964,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                },
+                {
+                  "id": 52780,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                },
+                {
+                  "id": 45772,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                },
+                {
+                  "id": 54056,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                },
+                {
+                  "id": 30716,
+                  "state": "Wait",
+                  "waitReason": "Unknown"
+                },
+                {
+                  "id": 76064,
+                  "state": "Wait",
+                  "waitReason": "Unknown"
+                },
+                {
+                  "id": 67608,
+                  "state": "Wait",
+                  "waitReason": "Unknown"
+                },
+                {
+                  "id": 72896,
+                  "state": "Wait",
+                  "waitReason": "Unknown"
+                }
+              ]
+            },
+            {
+              "pid": 13732,
+              "error": "Cannot find a process with the process identifier 13732."
+            },
+            {
+              "pid": 15664,
+              "cpuSeconds": 0.203125,
+              "threads": [
+                {
+                  "id": 60208,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                },
+                {
+                  "id": 70228,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                },
+                {
+                  "id": 47112,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                },
+                {
+                  "id": 68396,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                },
+                {
+                  "id": 69956,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                },
+                {
+                  "id": 65344,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                },
+                {
+                  "id": 57432,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                },
+                {
+                  "id": 40264,
+                  "state": "Wait",
+                  "waitReason": "Unknown"
+                },
+                {
+                  "id": 48852,
+                  "state": "Wait",
+                  "waitReason": "Unknown"
+                },
+                {
+                  "id": 6512,
+                  "state": "Wait",
+                  "waitReason": "Unknown"
+                },
+                {
+                  "id": 59916,
+                  "state": "Wait",
+                  "waitReason": "Unknown"
+                },
+                {
+                  "id": 42932,
+                  "state": "Wait",
+                  "waitReason": "Unknown"
+                },
+                {
+                  "id": 35608,
+                  "state": "Wait",
+                  "waitReason": "Unknown"
+                },
+                {
+                  "id": 34344,
+                  "state": "Wait",
+                  "waitReason": "Unknown"
+                },
+                {
+                  "id": 76876,
+                  "state": "Wait",
+                  "waitReason": "Unknown"
+                },
+                {
+                  "id": 65604,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                }
+              ]
+            },
+            {
+              "pid": 37996,
+              "error": "Cannot find a process with the process identifier 37996."
+            },
+            {
+              "pid": 72020,
+              "cpuSeconds": 2.734375,
+              "threads": [
+                {
+                  "id": 37004,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                },
+                {
+                  "id": 47056,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                },
+                {
+                  "id": 56512,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                },
+                {
+                  "id": 61964,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                },
+                {
+                  "id": 5572,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                },
+                {
+                  "id": 39560,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                },
+                {
+                  "id": 64388,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                },
+                {
+                  "id": 73888,
+                  "state": "Wait",
+                  "waitReason": "Unknown"
+                },
+                {
+                  "id": 57920,
+                  "state": "Wait",
+                  "waitReason": "Unknown"
+                },
+                {
+                  "id": 43672,
+                  "state": "Wait",
+                  "waitReason": "Unknown"
+                },
+                {
+                  "id": 52504,
+                  "state": "Wait",
+                  "waitReason": "Unknown"
+                },
+                {
+                  "id": 44288,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                },
+                {
+                  "id": 15172,
+                  "state": "Wait",
+                  "waitReason": "Unknown"
+                },
+                {
+                  "id": 67920,
+                  "state": "Wait",
+                  "waitReason": "Unknown"
+                },
+                {
+                  "id": 66252,
+                  "state": "Wait",
+                  "waitReason": "Unknown"
+                },
+                {
+                  "id": 21856,
+                  "state": "Wait",
+                  "waitReason": "Unknown"
+                },
+                {
+                  "id": 60584,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                }
+              ]
+            },
+            {
+              "pid": 75184,
+              "cpuSeconds": 0.109375,
+              "threads": [
+                {
+                  "id": 7376,
+                  "state": "Wait",
+                  "waitReason": "UserRequest"
+                },
+                {
+                  "id": 46700,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                },
+                {
+                  "id": 75320,
+                  "state": "Wait",
+                  "waitReason": "EventPairLow"
+                }
+              ]
+            },
+            {
+              "pid": 75444,
+              "error": "Cannot find a process with the process identifier 75444."
+            }
+          ],
+          "processJobs": [
+            {
+              "pid": 13216,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 13732,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 15664,
+              "role": "qa-launcher",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 37996,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 72020,
+              "role": "qa-launcher",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 75184,
+              "role": "console-wrapper",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 75444,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 4,
+          "rootPid": 28148,
+          "mainPid": 48992,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": null,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 3827,
+          "finalCimAbsenceCheckMs": 5589,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 28148,
+              "role": "qa-launcher",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 46816,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 47488,
+              "role": "console-wrapper",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 48312,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 48992,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 58936,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 62040,
+              "role": "qa-launcher",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 5,
+          "rootPid": 74656,
+          "mainPid": 71020,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": null,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 3756,
+          "finalCimAbsenceCheckMs": 5514,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 45416,
+              "role": "qa-launcher",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 53904,
+              "role": "console-wrapper",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 56028,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 71020,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 74656,
+              "role": "qa-launcher",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 76396,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 77592,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "closure-current-smoke",
+      "target": "Minimal",
+      "launcher": "StartProcess",
+      "gpuOff": false,
+      "sandboxOff": false,
+      "versions": {
+        "node": "22.22.0",
+        "acorn": "8.15.0",
+        "ada": "2.9.2",
+        "amaro": "1.1.4",
+        "ares": "1.34.6",
+        "brotli": "1.0.9",
+        "cjs_module_lexer": "2.1.0",
+        "cldr": "44.1",
+        "icu": "74.2",
+        "llhttp": "9.3.0",
+        "modules": "139",
+        "napi": "10",
+        "nbytes": "0.1.1",
+        "ncrypto": "0.0.1",
+        "nghttp2": "1.64.0",
+        "openssl": "0.0.0",
+        "simdjson": "3.13.0",
+        "simdutf": "7.3.3",
+        "sqlite": "3.50.4",
+        "tz": "2025b",
+        "undici": "6.23.0",
+        "unicode": "15.1",
+        "uv": "1.51.0",
+        "uvwasi": "0.0.23",
+        "v8": "14.0.365.10-electron.0",
+        "zlib": "1.3.1",
+        "zstd": "1.5.8",
+        "electron": "38.8.6",
+        "chrome": "140.0.7339.249"
+      },
+      "packaged": false,
+      "executable": "F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\node_modules\\electron\\dist\\electron.exe",
+      "executableSha256": "62c62d170a95aa4a3eb3df05f0d56a3654ab4344f7452e21dea1334afed7100f",
+      "completed": 1,
+      "passed": 1,
+      "failed": 0,
+      "rawPath": "artifacts\\qa\\exit-closure-current-smoke\\result.json",
+      "rawSha256": "79eb4433dcca3617dab0fa28a1da230b33dce8417131fcd5dd73dbead9f70bdd",
+      "runs": [
+        {
+          "iteration": 1,
+          "rootPid": 11112,
+          "mainPid": 11112,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 631,
+          "finalCimAbsenceCheckMs": 1683,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 11112,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 49684,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 61400,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 66060,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "closure-runtime44-warm-wm",
+      "target": "RuntimeExperiment",
+      "launcher": "Playwright",
+      "gpuOff": false,
+      "sandboxOff": false,
+      "versions": null,
+      "packaged": null,
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "executableSha256": "d14ba95cdce1ef7dc9ad3ac74949ca5db38b27378ee30f30a23cf26f9e875a11",
+      "completed": 5,
+      "passed": 5,
+      "failed": 0,
+      "rawPath": "artifacts\\qa\\exit-closure-runtime44-warm-wm\\result.json",
+      "rawSha256": "26e2914fb0dc94b26fb0e4210e80a142ca0cff396c2d6d71acd1c44d9fffb3a2",
+      "runs": [
+        {
+          "iteration": 1,
+          "rootPid": 37096,
+          "mainPid": 64436,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": null,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 2034,
+          "finalCimAbsenceCheckMs": 3865,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 30604,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 36136,
+              "role": "qa-transpiler",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 37096,
+              "role": "qa-launcher",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 51552,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 64436,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 64496,
+              "role": "qa-launcher",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 70636,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 77140,
+              "role": "console-wrapper",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 2,
+          "rootPid": 30448,
+          "mainPid": 54868,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": null,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 1694,
+          "finalCimAbsenceCheckMs": 3964,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 24884,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 30448,
+              "role": "qa-launcher",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 38300,
+              "role": "qa-launcher",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 47368,
+              "role": "console-wrapper",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 54868,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 66008,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 76188,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 3,
+          "rootPid": 51912,
+          "mainPid": 45780,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": null,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 679,
+          "finalCimAbsenceCheckMs": 4134,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 22116,
+              "role": "qa-launcher",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 44588,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 45780,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 46384,
+              "role": "console-wrapper",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 46936,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 51912,
+              "role": "qa-launcher",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 73128,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 4,
+          "rootPid": 67852,
+          "mainPid": 13948,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": null,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 1186,
+          "finalCimAbsenceCheckMs": 3180,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 13948,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 24884,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 43112,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 51408,
+              "role": "qa-launcher",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 53568,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 57660,
+              "role": "console-wrapper",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 67852,
+              "role": "qa-launcher",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 5,
+          "rootPid": 25752,
+          "mainPid": 74308,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": null,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 568,
+          "finalCimAbsenceCheckMs": 2046,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 25752,
+              "role": "qa-launcher",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 34752,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 44496,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 53692,
+              "role": "console-wrapper",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 55060,
+              "role": "qa-launcher",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 59760,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 74308,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "closure-v37-start",
+      "target": "Minimal",
+      "launcher": "StartProcess",
+      "gpuOff": false,
+      "sandboxOff": false,
+      "versions": {
+        "node": "22.21.1",
+        "acorn": "8.15.0",
+        "ada": "2.9.2",
+        "amaro": "1.1.4",
+        "ares": "1.34.5",
+        "brotli": "1.0.9",
+        "cjs_module_lexer": "2.1.0",
+        "cldr": "44.1",
+        "icu": "74.2",
+        "llhttp": "9.3.0",
+        "modules": "136",
+        "napi": "10",
+        "nbytes": "0.1.1",
+        "ncrypto": "0.0.1",
+        "nghttp2": "1.64.0",
+        "openssl": "0.0.0",
+        "simdjson": "3.13.0",
+        "simdutf": "7.0.0",
+        "sqlite": "3.50.4",
+        "tz": "2025b",
+        "undici": "6.22.0",
+        "unicode": "15.1",
+        "uv": "1.51.0",
+        "uvwasi": "0.0.23",
+        "v8": "13.8.258.32-electron.0",
+        "zlib": "1.3.1",
+        "zstd": "1.5.8",
+        "electron": "37.10.3",
+        "chrome": "138.0.7204.251"
+      },
+      "packaged": false,
+      "executable": "F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\artifacts\\qa\\runtimes\\37.10.3\\electron.exe",
+      "executableSha256": "8d205e25b40da3ada4a08c92f32bfbd8e8d38edb4bfe443deea77fc9de685bac",
+      "completed": 5,
+      "passed": 5,
+      "failed": 0,
+      "rawPath": "artifacts\\qa\\exit-closure-v37-start\\result.json",
+      "rawSha256": "bbebd35e3206543f1064379fa61f463510588c919181db6953fc4a024160a0ff",
+      "runs": [
+        {
+          "iteration": 1,
+          "rootPid": 52620,
+          "mainPid": 52620,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 387,
+          "finalCimAbsenceCheckMs": 1941,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 7176,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 32048,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 52620,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 67692,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 2,
+          "rootPid": 68512,
+          "mainPid": 68512,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 328,
+          "finalCimAbsenceCheckMs": 1460,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 34132,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 66128,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 68512,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 73156,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 3,
+          "rootPid": 43816,
+          "mainPid": 43816,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 311,
+          "finalCimAbsenceCheckMs": 1242,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 8676,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 43672,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 43816,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 74092,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 4,
+          "rootPid": 55156,
+          "mainPid": 55156,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 384,
+          "finalCimAbsenceCheckMs": 1421,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 23296,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 43840,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 45980,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 55156,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 5,
+          "rootPid": 24272,
+          "mainPid": 24272,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 562,
+          "finalCimAbsenceCheckMs": 1703,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 24272,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 34076,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 37668,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 77332,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "closure-v38-console",
+      "target": "Minimal",
+      "launcher": "Console",
+      "gpuOff": false,
+      "sandboxOff": false,
+      "versions": {
+        "node": "22.22.0",
+        "acorn": "8.15.0",
+        "ada": "2.9.2",
+        "amaro": "1.1.4",
+        "ares": "1.34.6",
+        "brotli": "1.0.9",
+        "cjs_module_lexer": "2.1.0",
+        "cldr": "44.1",
+        "icu": "74.2",
+        "llhttp": "9.3.0",
+        "modules": "139",
+        "napi": "10",
+        "nbytes": "0.1.1",
+        "ncrypto": "0.0.1",
+        "nghttp2": "1.64.0",
+        "openssl": "0.0.0",
+        "simdjson": "3.13.0",
+        "simdutf": "7.3.3",
+        "sqlite": "3.50.4",
+        "tz": "2025b",
+        "undici": "6.23.0",
+        "unicode": "15.1",
+        "uv": "1.51.0",
+        "uvwasi": "0.0.23",
+        "v8": "14.0.365.10-electron.0",
+        "zlib": "1.3.1",
+        "zstd": "1.5.8",
+        "electron": "38.8.6",
+        "chrome": "140.0.7339.249"
+      },
+      "packaged": false,
+      "executable": "F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\node_modules\\electron\\dist\\electron.exe",
+      "executableSha256": "62c62d170a95aa4a3eb3df05f0d56a3654ab4344f7452e21dea1334afed7100f",
+      "completed": 5,
+      "passed": 5,
+      "failed": 0,
+      "rawPath": "artifacts\\qa\\exit-closure-v38-console\\result.json",
+      "rawSha256": "73ed0b38288ba83bf8581fdf049d0439ef14b9257cd9419ead9caa68380f9a4f",
+      "runs": [
+        {
+          "iteration": 1,
+          "rootPid": 74336,
+          "mainPid": 74336,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 335,
+          "finalCimAbsenceCheckMs": 1282,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 1844,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 51260,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 53600,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 74336,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 2,
+          "rootPid": 56020,
+          "mainPid": 56020,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 371,
+          "finalCimAbsenceCheckMs": 1300,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 41944,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 56020,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 57664,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 60808,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 3,
+          "rootPid": 44924,
+          "mainPid": 44924,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 364,
+          "finalCimAbsenceCheckMs": 1286,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 2152,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 41600,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 44924,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 72588,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 4,
+          "rootPid": 71440,
+          "mainPid": 71440,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 368,
+          "finalCimAbsenceCheckMs": 1259,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 3504,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 21164,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 71440,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 74588,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 5,
+          "rootPid": 28596,
+          "mainPid": 28596,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 376,
+          "finalCimAbsenceCheckMs": 1301,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 28596,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 46884,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 48680,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 66516,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "closure-v38-detached",
+      "target": "Minimal",
+      "launcher": "Detached",
+      "gpuOff": false,
+      "sandboxOff": false,
+      "versions": {
+        "node": "22.22.0",
+        "acorn": "8.15.0",
+        "ada": "2.9.2",
+        "amaro": "1.1.4",
+        "ares": "1.34.6",
+        "brotli": "1.0.9",
+        "cjs_module_lexer": "2.1.0",
+        "cldr": "44.1",
+        "icu": "74.2",
+        "llhttp": "9.3.0",
+        "modules": "139",
+        "napi": "10",
+        "nbytes": "0.1.1",
+        "ncrypto": "0.0.1",
+        "nghttp2": "1.64.0",
+        "openssl": "0.0.0",
+        "simdjson": "3.13.0",
+        "simdutf": "7.3.3",
+        "sqlite": "3.50.4",
+        "tz": "2025b",
+        "undici": "6.23.0",
+        "unicode": "15.1",
+        "uv": "1.51.0",
+        "uvwasi": "0.0.23",
+        "v8": "14.0.365.10-electron.0",
+        "zlib": "1.3.1",
+        "zstd": "1.5.8",
+        "electron": "38.8.6",
+        "chrome": "140.0.7339.249"
+      },
+      "packaged": false,
+      "executable": "F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\node_modules\\electron\\dist\\electron.exe",
+      "executableSha256": "62c62d170a95aa4a3eb3df05f0d56a3654ab4344f7452e21dea1334afed7100f",
+      "completed": 5,
+      "passed": 5,
+      "failed": 0,
+      "rawPath": "artifacts\\qa\\exit-closure-v38-detached\\result.json",
+      "rawSha256": "78ba0697088ee4ac8536a8ea821ac72f68e0b380578467cf65d1e6e6bfb98df1",
+      "runs": [
+        {
+          "iteration": 1,
+          "rootPid": 3304,
+          "mainPid": 3304,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 405,
+          "finalCimAbsenceCheckMs": 1576,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 3304,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 39812,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 42620,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 54668,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 2,
+          "rootPid": 71184,
+          "mainPid": 71184,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 426,
+          "finalCimAbsenceCheckMs": 1382,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 10188,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 35540,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 64752,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 71184,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 3,
+          "rootPid": 51060,
+          "mainPid": 51060,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 429,
+          "finalCimAbsenceCheckMs": 1621,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 45464,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 48336,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 48400,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 51060,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 4,
+          "rootPid": 13928,
+          "mainPid": 13928,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 548,
+          "finalCimAbsenceCheckMs": 1647,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 9284,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 13928,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 46176,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 61628,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 5,
+          "rootPid": 55552,
+          "mainPid": 55552,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 499,
+          "finalCimAbsenceCheckMs": 1673,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 37668,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 42724,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 43044,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 55552,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "closure-v38-gpu-off",
+      "target": "Minimal",
+      "launcher": "StartProcess",
+      "gpuOff": true,
+      "sandboxOff": false,
+      "versions": {
+        "node": "22.22.0",
+        "acorn": "8.15.0",
+        "ada": "2.9.2",
+        "amaro": "1.1.4",
+        "ares": "1.34.6",
+        "brotli": "1.0.9",
+        "cjs_module_lexer": "2.1.0",
+        "cldr": "44.1",
+        "icu": "74.2",
+        "llhttp": "9.3.0",
+        "modules": "139",
+        "napi": "10",
+        "nbytes": "0.1.1",
+        "ncrypto": "0.0.1",
+        "nghttp2": "1.64.0",
+        "openssl": "0.0.0",
+        "simdjson": "3.13.0",
+        "simdutf": "7.3.3",
+        "sqlite": "3.50.4",
+        "tz": "2025b",
+        "undici": "6.23.0",
+        "unicode": "15.1",
+        "uv": "1.51.0",
+        "uvwasi": "0.0.23",
+        "v8": "14.0.365.10-electron.0",
+        "zlib": "1.3.1",
+        "zstd": "1.5.8",
+        "electron": "38.8.6",
+        "chrome": "140.0.7339.249"
+      },
+      "packaged": false,
+      "executable": "F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\node_modules\\electron\\dist\\electron.exe",
+      "executableSha256": "62c62d170a95aa4a3eb3df05f0d56a3654ab4344f7452e21dea1334afed7100f",
+      "completed": 5,
+      "passed": 5,
+      "failed": 0,
+      "rawPath": "artifacts\\qa\\exit-closure-v38-gpu-off\\result.json",
+      "rawSha256": "5dd7440087f87778ddd6d585848df293e4d7910bb7e97dee4a5e2b102688e2d3",
+      "runs": [
+        {
+          "iteration": 1,
+          "rootPid": 64224,
+          "mainPid": 64224,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 272,
+          "finalCimAbsenceCheckMs": 1251,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 35504,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 53028,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 55364,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 64224,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 2,
+          "rootPid": 38216,
+          "mainPid": 38216,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 339,
+          "finalCimAbsenceCheckMs": 1317,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 38216,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 54944,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 67132,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 71352,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 3,
+          "rootPid": 76052,
+          "mainPid": 76052,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 310,
+          "finalCimAbsenceCheckMs": 1219,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 52180,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 64024,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 66416,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 76052,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 4,
+          "rootPid": 77372,
+          "mainPid": 77372,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 374,
+          "finalCimAbsenceCheckMs": 1280,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 9896,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 28604,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 43656,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 77372,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 5,
+          "rootPid": 66668,
+          "mainPid": 66668,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 302,
+          "finalCimAbsenceCheckMs": 1154,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 15928,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 38164,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 56068,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 66668,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "closure-v38-packaged-minimal",
+      "target": "PackagedMinimal",
+      "launcher": "StartProcess",
+      "gpuOff": false,
+      "sandboxOff": false,
+      "versions": {
+        "node": "22.22.0",
+        "acorn": "8.15.0",
+        "ada": "2.9.2",
+        "amaro": "1.1.4",
+        "ares": "1.34.6",
+        "brotli": "1.0.9",
+        "cjs_module_lexer": "2.1.0",
+        "cldr": "44.1",
+        "icu": "74.2",
+        "llhttp": "9.3.0",
+        "modules": "139",
+        "napi": "10",
+        "nbytes": "0.1.1",
+        "ncrypto": "0.0.1",
+        "nghttp2": "1.64.0",
+        "openssl": "0.0.0",
+        "simdjson": "3.13.0",
+        "simdutf": "7.3.3",
+        "sqlite": "3.50.4",
+        "tz": "2025b",
+        "undici": "6.23.0",
+        "unicode": "15.1",
+        "uv": "1.51.0",
+        "uvwasi": "0.0.23",
+        "v8": "14.0.365.10-electron.0",
+        "zlib": "1.3.1",
+        "zstd": "1.5.8",
+        "electron": "38.8.6",
+        "chrome": "140.0.7339.249"
+      },
+      "packaged": true,
+      "executable": "F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\artifacts\\qa\\shutdown-closure\\minimal-packaged\\Exit Probe.exe",
+      "executableSha256": "62c62d170a95aa4a3eb3df05f0d56a3654ab4344f7452e21dea1334afed7100f",
+      "completed": 5,
+      "passed": 5,
+      "failed": 0,
+      "rawPath": "artifacts\\qa\\exit-closure-v38-packaged-minimal\\result.json",
+      "rawSha256": "954fe58033bf354a69b7def805512ee254f4f6f51bd83a105fe73130ad74eca8",
+      "runs": [
+        {
+          "iteration": 1,
+          "rootPid": 24780,
+          "mainPid": 24780,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 468,
+          "finalCimAbsenceCheckMs": 1891,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 13184,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 24780,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 44812,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 72232,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 2,
+          "rootPid": 67688,
+          "mainPid": 67688,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 434,
+          "finalCimAbsenceCheckMs": 1899,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 56708,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 67688,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 68908,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 71520,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 3,
+          "rootPid": 27956,
+          "mainPid": 27956,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 513,
+          "finalCimAbsenceCheckMs": 1731,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 10688,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 27956,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 45640,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 74776,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 4,
+          "rootPid": 41320,
+          "mainPid": 41320,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 394,
+          "finalCimAbsenceCheckMs": 1504,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 16884,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 41320,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 47608,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 51156,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 5,
+          "rootPid": 10824,
+          "mainPid": 10824,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 310,
+          "finalCimAbsenceCheckMs": 1234,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 7592,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 10824,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 18716,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 76124,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "closure-v38-playwright",
+      "target": "Minimal",
+      "launcher": "Playwright",
+      "gpuOff": false,
+      "sandboxOff": false,
+      "versions": {
+        "node": "22.22.0",
+        "acorn": "8.15.0",
+        "ada": "2.9.2",
+        "amaro": "1.1.4",
+        "ares": "1.34.6",
+        "brotli": "1.0.9",
+        "cjs_module_lexer": "2.1.0",
+        "cldr": "44.1",
+        "icu": "74.2",
+        "llhttp": "9.3.0",
+        "modules": "139",
+        "napi": "10",
+        "nbytes": "0.1.1",
+        "ncrypto": "0.0.1",
+        "nghttp2": "1.64.0",
+        "openssl": "0.0.0",
+        "simdjson": "3.13.0",
+        "simdutf": "7.3.3",
+        "sqlite": "3.50.4",
+        "tz": "2025b",
+        "undici": "6.23.0",
+        "unicode": "15.1",
+        "uv": "1.51.0",
+        "uvwasi": "0.0.23",
+        "v8": "14.0.365.10-electron.0",
+        "zlib": "1.3.1",
+        "zstd": "1.5.8",
+        "electron": "38.8.6",
+        "chrome": "140.0.7339.249"
+      },
+      "packaged": false,
+      "executable": "C:\\Program Files\\nodejs\\node.exe",
+      "executableSha256": "d14ba95cdce1ef7dc9ad3ac74949ca5db38b27378ee30f30a23cf26f9e875a11",
+      "completed": 5,
+      "passed": 5,
+      "failed": 0,
+      "rawPath": "artifacts\\qa\\exit-closure-v38-playwright\\result.json",
+      "rawSha256": "0a8baabd9877ecc7a414897506c757414b81144d9c5b5242c845eac1d5c40ef9",
+      "runs": [
+        {
+          "iteration": 1,
+          "rootPid": 70684,
+          "mainPid": 73824,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 589,
+          "finalCimAbsenceCheckMs": 1842,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 36860,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 47992,
+              "role": "qa-launcher",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 52124,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 64108,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 68308,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 70684,
+              "role": "qa-launcher",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 73824,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 2,
+          "rootPid": 56436,
+          "mainPid": 64432,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 768,
+          "finalCimAbsenceCheckMs": 1773,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 29528,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 42688,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 55284,
+              "role": "qa-launcher",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 56436,
+              "role": "qa-launcher",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 57784,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 59560,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 64432,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 3,
+          "rootPid": 55004,
+          "mainPid": 69752,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 633,
+          "finalCimAbsenceCheckMs": 1679,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 3684,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 5324,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 23008,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 53700,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 55004,
+              "role": "qa-launcher",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 69752,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 76848,
+              "role": "qa-launcher",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 4,
+          "rootPid": 47336,
+          "mainPid": 7728,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 440,
+          "finalCimAbsenceCheckMs": 1542,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 5948,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 7728,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 32252,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 37164,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 47336,
+              "role": "qa-launcher",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 62200,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 71576,
+              "role": "qa-launcher",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 5,
+          "rootPid": 64052,
+          "mainPid": 1660,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 374,
+          "finalCimAbsenceCheckMs": 1367,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 1660,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 23676,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 24700,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 57984,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 59652,
+              "role": "qa-launcher",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 64052,
+              "role": "qa-launcher",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 64292,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "closure-v38-sandbox-off",
+      "target": "Minimal",
+      "launcher": "StartProcess",
+      "gpuOff": false,
+      "sandboxOff": true,
+      "versions": {
+        "node": "22.22.0",
+        "acorn": "8.15.0",
+        "ada": "2.9.2",
+        "amaro": "1.1.4",
+        "ares": "1.34.6",
+        "brotli": "1.0.9",
+        "cjs_module_lexer": "2.1.0",
+        "cldr": "44.1",
+        "icu": "74.2",
+        "llhttp": "9.3.0",
+        "modules": "139",
+        "napi": "10",
+        "nbytes": "0.1.1",
+        "ncrypto": "0.0.1",
+        "nghttp2": "1.64.0",
+        "openssl": "0.0.0",
+        "simdjson": "3.13.0",
+        "simdutf": "7.3.3",
+        "sqlite": "3.50.4",
+        "tz": "2025b",
+        "undici": "6.23.0",
+        "unicode": "15.1",
+        "uv": "1.51.0",
+        "uvwasi": "0.0.23",
+        "v8": "14.0.365.10-electron.0",
+        "zlib": "1.3.1",
+        "zstd": "1.5.8",
+        "electron": "38.8.6",
+        "chrome": "140.0.7339.249"
+      },
+      "packaged": false,
+      "executable": "F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\node_modules\\electron\\dist\\electron.exe",
+      "executableSha256": "62c62d170a95aa4a3eb3df05f0d56a3654ab4344f7452e21dea1334afed7100f",
+      "completed": 5,
+      "passed": 5,
+      "failed": 0,
+      "rawPath": "artifacts\\qa\\exit-closure-v38-sandbox-off\\result.json",
+      "rawSha256": "e6e1423271bf387d27199e9f7947ef2a6c7c85d41b6d2f4146e1c7f004b637fa",
+      "runs": [
+        {
+          "iteration": 1,
+          "rootPid": 29684,
+          "mainPid": 29684,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 348,
+          "finalCimAbsenceCheckMs": 1329,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 9316,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 29684,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 46032,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 49948,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 2,
+          "rootPid": 65248,
+          "mainPid": 65248,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 433,
+          "finalCimAbsenceCheckMs": 1395,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 58408,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 65248,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 69588,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 71968,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 3,
+          "rootPid": 14012,
+          "mainPid": 14012,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 370,
+          "finalCimAbsenceCheckMs": 1412,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 14012,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 44888,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 69196,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 75676,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 4,
+          "rootPid": 68224,
+          "mainPid": 68224,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 379,
+          "finalCimAbsenceCheckMs": 1344,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 34268,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 58100,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 58904,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 68224,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 5,
+          "rootPid": 17704,
+          "mainPid": 17704,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 388,
+          "finalCimAbsenceCheckMs": 1303,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 17704,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 30324,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 35848,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 51496,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "closure-v38-start",
+      "target": "Minimal",
+      "launcher": "StartProcess",
+      "gpuOff": false,
+      "sandboxOff": false,
+      "versions": {
+        "node": "22.22.0",
+        "acorn": "8.15.0",
+        "ada": "2.9.2",
+        "amaro": "1.1.4",
+        "ares": "1.34.6",
+        "brotli": "1.0.9",
+        "cjs_module_lexer": "2.1.0",
+        "cldr": "44.1",
+        "icu": "74.2",
+        "llhttp": "9.3.0",
+        "modules": "139",
+        "napi": "10",
+        "nbytes": "0.1.1",
+        "ncrypto": "0.0.1",
+        "nghttp2": "1.64.0",
+        "openssl": "0.0.0",
+        "simdjson": "3.13.0",
+        "simdutf": "7.3.3",
+        "sqlite": "3.50.4",
+        "tz": "2025b",
+        "undici": "6.23.0",
+        "unicode": "15.1",
+        "uv": "1.51.0",
+        "uvwasi": "0.0.23",
+        "v8": "14.0.365.10-electron.0",
+        "zlib": "1.3.1",
+        "zstd": "1.5.8",
+        "electron": "38.8.6",
+        "chrome": "140.0.7339.249"
+      },
+      "packaged": false,
+      "executable": "F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\node_modules\\electron\\dist\\electron.exe",
+      "executableSha256": "62c62d170a95aa4a3eb3df05f0d56a3654ab4344f7452e21dea1334afed7100f",
+      "completed": 5,
+      "passed": 5,
+      "failed": 0,
+      "rawPath": "artifacts\\qa\\exit-closure-v38-start\\result.json",
+      "rawSha256": "759d94162f514cdd44787631f8ddf57b3a8c665bf520c9f611c35eb1c367bb68",
+      "runs": [
+        {
+          "iteration": 1,
+          "rootPid": 77616,
+          "mainPid": 77616,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 344,
+          "finalCimAbsenceCheckMs": 1254,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 3336,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 11364,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 50996,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 77616,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 2,
+          "rootPid": 64056,
+          "mainPid": 64056,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 317,
+          "finalCimAbsenceCheckMs": 1209,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 37520,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 47960,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 54456,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 64056,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 3,
+          "rootPid": 48684,
+          "mainPid": 48684,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 310,
+          "finalCimAbsenceCheckMs": 1170,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 26396,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 26760,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 48684,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 53920,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 4,
+          "rootPid": 8804,
+          "mainPid": 8804,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 305,
+          "finalCimAbsenceCheckMs": 1107,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 8804,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 32780,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 41692,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 49044,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 5,
+          "rootPid": 6372,
+          "mainPid": 6372,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 440,
+          "finalCimAbsenceCheckMs": 1329,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 6372,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 54568,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 63160,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 77744,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "closure-v39-start",
+      "target": "Minimal",
+      "launcher": "StartProcess",
+      "gpuOff": false,
+      "sandboxOff": false,
+      "versions": {
+        "node": "22.22.1",
+        "acorn": "8.15.0",
+        "ada": "2.9.2",
+        "amaro": "1.1.5",
+        "ares": "1.34.6",
+        "brotli": "1.0.9",
+        "cjs_module_lexer": "2.2.0",
+        "cldr": "44.1",
+        "icu": "74.2",
+        "llhttp": "9.3.0",
+        "modules": "140",
+        "napi": "10",
+        "nbytes": "0.1.1",
+        "ncrypto": "0.0.1",
+        "nghttp2": "1.64.0",
+        "openssl": "0.0.0",
+        "simdjson": "4.2.4",
+        "simdutf": "7.3.3",
+        "sqlite": "3.51.2",
+        "tz": "2025b",
+        "undici": "6.23.0",
+        "unicode": "15.1",
+        "uv": "1.51.0",
+        "uvwasi": "0.0.23",
+        "v8": "14.2.231.22-electron.0",
+        "zlib": "1.3.1",
+        "zstd": "1.5.8",
+        "electron": "39.8.10",
+        "chrome": "142.0.7444.265"
+      },
+      "packaged": false,
+      "executable": "F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\artifacts\\qa\\runtimes\\39.8.10\\electron.exe",
+      "executableSha256": "9ba4530b08adeae75c13324a95b0fc8e87c5aa2889cfdc894474f8684b9f6c59",
+      "completed": 5,
+      "passed": 4,
+      "failed": 1,
+      "rawPath": "artifacts\\qa\\exit-closure-v39-start\\result.json",
+      "rawSha256": "499b96218ae9f063dcc8be26472326b8bda4436996d3a8b756480072ff961927",
+      "runs": [
+        {
+          "iteration": 1,
+          "rootPid": 55536,
+          "mainPid": 55536,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 1060,
+          "finalCimAbsenceCheckMs": 1903,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 25076,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 31284,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 33664,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 55536,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 2,
+          "rootPid": 5100,
+          "mainPid": 5100,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 369,
+          "finalCimAbsenceCheckMs": 1346,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 5100,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 47728,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 58996,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 60496,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 3,
+          "rootPid": 57540,
+          "mainPid": 57540,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 377,
+          "finalCimAbsenceCheckMs": 1548,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 17376,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 54112,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 57540,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 58684,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 4,
+          "rootPid": 43572,
+          "mainPid": 43572,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 436,
+          "finalCimAbsenceCheckMs": 1568,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 43572,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 43668,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 61204,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 64604,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 5,
+          "rootPid": 62120,
+          "mainPid": 62120,
+          "launched": true,
+          "passed": false,
+          "lifecycleComplete": false,
+          "kernelExited": false,
+          "cimAbsent": false,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": null,
+          "finalCimAbsenceCheckMs": 11996,
+          "forceCleanupPerformed": true,
+          "remainingProcesses": [
+            {
+              "pid": 48828,
+              "ppid": 62120,
+              "role": "gpu-process",
+              "name": "electron.exe",
+              "executablePath": "F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\artifacts\\qa\\runtimes\\39.8.10\\electron.exe",
+              "commandLine": "\"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\artifacts\\qa\\runtimes\\39.8.10\\electron.exe\" --type=gpu-process --user-data-dir=\"C:\\Users\\oliver\\AppData\\Roaming\\Electron\" --gpu-preferences=SAAAAAAAAADgAAAEAAAAAAAAAAAAAGAAAQAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAQAAAAAAAAABAAAAAAAAAACAAAAAAAAAAIAAAAAAAAAA== --field-trial-handle=2592,i,846496577587089058,11667176658037271578,262144 --enable-features=EnableTransparentHwndEnlargement,PdfUseShowSaveFilePicker --disable-features=LocalNetworkAccessChecks,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation --variations-seed-version --trace-process-track-uuid=3190708988185955192 --mojo-platform-channel-handle=2588 /prefetch:2",
+              "startTime": "2026-10-04T04:15:16.8361800Z",
+              "cimPresent": true,
+              "kernelSignaled": false,
+              "exitCode": 259,
+              "alive": true,
+              "exitObservedAt": null,
+              "inJob": true,
+              "jobQuerySucceeded": true
+            },
+            {
+              "pid": 61624,
+              "ppid": 62120,
+              "role": "renderer",
+              "name": "electron.exe",
+              "executablePath": "F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\artifacts\\qa\\runtimes\\39.8.10\\electron.exe",
+              "commandLine": "\"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\artifacts\\qa\\runtimes\\39.8.10\\electron.exe\" --type=renderer --user-data-dir=\"C:\\Users\\oliver\\AppData\\Roaming\\Electron\" --app-path=\"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\scripts\" --enable-sandbox --video-capture-use-gpu-memory-buffer --lang=zh-CN --device-scale-factor=1.25 --num-raster-threads=4 --enable-main-frame-before-activation --renderer-client-id=4 --time-ticks-at-unix-epoch=-1790931723805545 --launch-time-ticks=155593116225 --field-trial-handle=2592,i,846496577587089058,11667176658037271578,262144 --enable-features=EnableTransparentHwndEnlargement,PdfUseShowSaveFilePicker --disable-features=LocalNetworkAccessChecks,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation --variations-seed-version --trace-process-track-uuid=3190708990060038890 --mojo-platform-channel-handle=3456 /prefetch:1",
+              "startTime": "2026-10-04T04:15:16.9292480Z",
+              "cimPresent": true,
+              "kernelSignaled": false,
+              "exitCode": 259,
+              "alive": true,
+              "exitObservedAt": null,
+              "inJob": true,
+              "jobQuerySucceeded": true
+            },
+            {
+              "pid": 62120,
+              "ppid": 6960,
+              "role": "browser-main",
+              "name": "electron.exe",
+              "executablePath": "F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\artifacts\\qa\\runtimes\\39.8.10\\electron.exe",
+              "commandLine": "\"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\artifacts\\qa\\runtimes\\39.8.10\\electron.exe\" \"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\scripts\\repro-electron-quit.cjs\"",
+              "startTime": "2026-10-04T04:15:16.2317850Z",
+              "cimPresent": true,
+              "kernelSignaled": false,
+              "exitCode": 259,
+              "alive": true,
+              "exitObservedAt": null,
+              "inJob": true,
+              "jobQuerySucceeded": true
+            },
+            {
+              "pid": 73708,
+              "ppid": 62120,
+              "role": "utility",
+              "name": "electron.exe",
+              "executablePath": "F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\artifacts\\qa\\runtimes\\39.8.10\\electron.exe",
+              "commandLine": "\"F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\artifacts\\qa\\runtimes\\39.8.10\\electron.exe\" --type=utility --utility-sub-type=network.mojom.NetworkService --lang=zh-CN --service-sandbox-type=none --user-data-dir=\"C:\\Users\\oliver\\AppData\\Roaming\\Electron\" --field-trial-handle=2592,i,846496577587089058,11667176658037271578,262144 --enable-features=EnableTransparentHwndEnlargement,PdfUseShowSaveFilePicker --disable-features=LocalNetworkAccessChecks,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation --variations-seed-version --trace-process-track-uuid=3190708989122997041 --mojo-platform-channel-handle=2760 /prefetch:11",
+              "startTime": "2026-10-04T04:15:16.8724770Z",
+              "cimPresent": true,
+              "kernelSignaled": false,
+              "exitCode": 259,
+              "alive": true,
+              "exitObservedAt": null,
+              "inJob": true,
+              "jobQuerySucceeded": true
+            }
+          ],
+          "cimRowsBeforeCleanup": [
+            {
+              "ProcessId": 62120,
+              "ParentProcessId": 6960,
+              "Name": "electron.exe",
+              "CreationDate": "2026-10-04T12:15:16.231785+08:00",
+              "CommandLine": null,
+              "ThreadCount": 14,
+              "HandleCount": 859
+            }
+          ],
+          "threadEvidenceBeforeCleanup": [
+            {
+              "pid": 48828,
+              "error": "Cannot find a process with the process identifier 48828."
+            },
+            {
+              "pid": 61624,
+              "error": "Cannot find a process with the process identifier 61624."
+            },
+            {
+              "pid": 62120,
+              "error": "Cannot find a process with the process identifier 62120."
+            },
+            {
+              "pid": 73708,
+              "error": "Cannot find a process with the process identifier 73708."
+            }
+          ],
+          "processJobs": [
+            {
+              "pid": 48828,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 61624,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 62120,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 73708,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "closure-v44-start",
+      "target": "Minimal",
+      "launcher": "StartProcess",
+      "gpuOff": false,
+      "sandboxOff": false,
+      "versions": {
+        "node": "24.21.0",
+        "acorn": "8.18.0",
+        "ada": "4.0.0",
+        "amaro": "1.1.11",
+        "ares": "1.34.8",
+        "brotli": "1.2.0",
+        "cldr": "48.0",
+        "icu": "78.2",
+        "llhttp": "9.4.3",
+        "merve": "1.2.2",
+        "modules": "149",
+        "napi": "10",
+        "nbytes": "0.1.4",
+        "ncrypto": "0.0.1",
+        "nghttp2": "1.70.0",
+        "nghttp3": "",
+        "ngtcp2": "",
+        "openssl": "0.0.0",
+        "simdjson": "4.6.7",
+        "simdutf": "7.7.0",
+        "sqlite": "3.53.4",
+        "tz": "2025c",
+        "undici": "7.29.1",
+        "unicode": "17.0",
+        "uv": "1.52.1",
+        "uvwasi": "0.0.23",
+        "v8": "15.2.124.28-electron.0",
+        "zlib": "1.3.2.1-motley",
+        "zstd": "1.6.0",
+        "electron": "44.5.1",
+        "chrome": "152.0.7977.130"
+      },
+      "packaged": false,
+      "executable": "F:\\CodeX開發小東東\\AI 城市：一座會自己活著的微型城市\\artifacts\\qa\\runtimes\\44.5.1\\electron.exe",
+      "executableSha256": "49b61a030a520fc36a4b8fa5cce53fb4e935a7bdbbe4b80e9222f598e49cc7fa",
+      "completed": 5,
+      "passed": 5,
+      "failed": 0,
+      "rawPath": "artifacts\\qa\\exit-closure-v44-start\\result.json",
+      "rawSha256": "3b515192b5747ef6c32c5f7ccff01b3c6a64a915bda58979a2e2ab5ee8772532",
+      "runs": [
+        {
+          "iteration": 1,
+          "rootPid": 62536,
+          "mainPid": 62536,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 1161,
+          "finalCimAbsenceCheckMs": 3874,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 35100,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 37864,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 48240,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 62536,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 2,
+          "rootPid": 34804,
+          "mainPid": 34804,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 624,
+          "finalCimAbsenceCheckMs": 1841,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 34804,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 39352,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 46828,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 63684,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 3,
+          "rootPid": 34280,
+          "mainPid": 34280,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 644,
+          "finalCimAbsenceCheckMs": 2407,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 34280,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 62744,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 66216,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 75252,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 4,
+          "rootPid": 48952,
+          "mainPid": 48952,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 619,
+          "finalCimAbsenceCheckMs": 1712,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 13836,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 47488,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 48952,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 77616,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 5,
+          "rootPid": 54828,
+          "mainPid": 54828,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 449,
+          "finalCimAbsenceCheckMs": 1298,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 54828,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 61248,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 66352,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 69916,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

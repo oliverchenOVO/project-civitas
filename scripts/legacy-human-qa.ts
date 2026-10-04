@@ -6,6 +6,7 @@ import { loadObservatory } from '../packages/application/src/save';
 import { qualification } from '../packages/domain/src/occupations';
 import type { Occupation } from '../packages/domain/src/index';
 import { closeBrowserTestSurface, closeNativeTestApp } from './native-test-close';
+import { QA_PREVIEW_URL } from './qa-preview';
 
 const version = JSON.parse(readFileSync('package.json', 'utf8')).version;
 const fixture = path.resolve('tests/fixtures/phase1-save-v2.json');
@@ -48,7 +49,7 @@ try {
   try {
     const mobile = await browser.newPage({ viewport: { width: 390, height: 844 } });
     mobile.on('pageerror', (e) => errors.push(e.message));
-    await mobile.goto('http://127.0.0.1:4173/');
+    await mobile.goto(QA_PREVIEW_URL);
     await mobile.getByRole('button', { name: /^人力發展/ }).click();
     await mobile.getByLabel('社會流動同群', { exact: true }).selectOption('tertiary');
     assert.equal(await mobile.evaluate(() => document.body.scrollWidth > innerWidth), false);

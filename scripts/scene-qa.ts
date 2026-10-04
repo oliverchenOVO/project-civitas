@@ -5,6 +5,7 @@ import assert from 'node:assert/strict';
 import { loadObservatory } from '../packages/application/src/save';
 import { stateHash } from '../packages/shared/src/canonical';
 import { closeBrowserTestSurface, closeNativeTestApp } from './native-test-close';
+import { QA_PREVIEW_URL } from './qa-preview';
 const version = JSON.parse(readFileSync('package.json', 'utf8')).version;
 const out = path.resolve('artifacts/qa/3d');
 mkdirSync(out, { recursive: true });
@@ -179,7 +180,7 @@ try {
   try {
     const mobile = await browser.newPage({ viewport: { width: 390, height: 844 } });
     watch(mobile);
-    await mobile.goto('http://127.0.0.1:4173/');
+    await mobile.goto(QA_PREVIEW_URL);
     await mobile.locator('.map-host[data-scene-ready="true"]').waitFor();
     await angle(mobile, '水平 0°', 0);
     assert.equal(await mobile.evaluate(() => document.body.scrollWidth > innerWidth), false);

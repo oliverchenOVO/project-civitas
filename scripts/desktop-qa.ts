@@ -14,6 +14,7 @@ const loadCity = async (text: string) => (await loadObservatory(text)).state;
 import { advance } from '../packages/simulation/src/index';
 import { stateHash } from '../packages/shared/src/canonical';
 import { closeBrowserTestSurface, closeNativeTestApp } from './native-test-close';
+import { QA_PREVIEW_URL } from './qa-preview';
 const out = path.resolve('artifacts/qa');
 mkdirSync(out, { recursive: true });
 const savePath = path.join(out, 'qa-city.civitas');
@@ -208,7 +209,7 @@ try {
     watch(mobile);
     mobile.setDefaultTimeout(30000);
     console.log('QA: mobile navigation');
-    await mobile.goto('http://127.0.0.1:4173/', { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await mobile.goto(QA_PREVIEW_URL, { waitUntil: 'domcontentloaded', timeout: 30000 });
     console.log('QA: mobile canvas');
     await mobile.locator('canvas').waitFor();
     assert.ok(
