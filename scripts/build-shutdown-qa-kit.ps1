@@ -8,8 +8,8 @@ Copy-Item -LiteralPath (Join-Path $taskRoot 'release/0.3.0/CIVITAS-0.3.0-Windows
 Copy-Item -LiteralPath (Join-Path $taskRoot 'release/0.3.0/win-unpacked') -Destination (Join-Path $taskKit 'release/0.3.0/win-unpacked') -Recurse
 Copy-Item -LiteralPath (Join-Path $taskRoot 'node_modules/electron/dist') -Destination (Join-Path $taskKit 'runtimes/current') -Recurse
 Copy-Item -LiteralPath (Join-Path $taskRoot 'artifacts/qa/shutdown-closure/minimal-packaged') -Destination (Join-Path $taskKit 'runtimes/minimal-packaged') -Recurse
-foreach($taskFile in @('shutdown-closure.ps1','repro-electron-quit.cjs')){Copy-Item -LiteralPath (Join-Path $PSScriptRoot $taskFile) -Destination (Join-Path $taskKit 'scripts')}
-'{"name":"civitas-shutdown-qa","version":"0.3.0"}' | Set-Content -LiteralPath (Join-Path $taskKit 'package.json') -Encoding utf8
+foreach($taskFile in @('shutdown-closure.ps1','repro-electron-quit.cjs','exit-playwright-launch.ts')){Copy-Item -LiteralPath (Join-Path $PSScriptRoot $taskFile) -Destination (Join-Path $taskKit 'scripts')}
+'{"name":"civitas-shutdown-qa","version":"0.3.0","private":true,"type":"module","devDependencies":{"playwright":"1.63.0","tsx":"4.23.15"}}' | Set-Content -LiteralPath (Join-Path $taskKit 'package.json') -Encoding utf8
 $taskRunner=@'
 $ErrorActionPreference='Stop'
 $taskShell=(Get-Process -Id $PID).Path
@@ -61,6 +61,13 @@ e1a8570ade13912697bd40a165df06a7f4868d407fc4a21dfa97a4c4a0e7577d
 
 Record the OS build and return the artifacts directory, including failures.
 This kit is prepared for a second host; preparation alone is not a second-host pass.
+
+For the stronger warm-load reproduction, install Node 24 and run pnpm install
+in this kit. Then run:
+`powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/shutdown-closure.ps1 -Target Unpacked -Launcher Playwright -Stress -Case second-host-warm -Repetitions 5 -TimeoutSeconds 10 -StopWhenExited`
+This additionally creates 1000 residents, advances 20 days and checks 3D before
+sending native WM_CLOSE. Keep its separate raw result; it is not part of the
+four cold-case summary.
 '@ | Set-Content -LiteralPath (Join-Path $taskKit 'README.md') -Encoding utf8
 $taskHash=(Get-FileHash -LiteralPath (Join-Path $taskKit 'release/0.3.0/CIVITAS-0.3.0-Windows-portable.exe') -Algorithm SHA256).Hash.ToLowerInvariant()
 if($taskHash -ne 'e1a8570ade13912697bd40a165df06a7f4868d407fc4a21dfa97a4c4a0e7577d'){throw 'QA kit candidate must match frozen tested bytes'}

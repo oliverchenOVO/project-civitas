@@ -19,7 +19,7 @@ for (const name of fs.readdirSync(qa).filter((n) => n.startsWith('exit-closure-'
   cases.push({
     case: first.case, target: first.target, launcher: first.launcher,
     gpuOff: first.gpuOff ?? false, sandboxOff: first.sandboxOff ?? false,
-    versions: startup?.versions ?? owner?.versions ?? null, packaged: startup?.isPackaged ?? null,
+    versions: startup?.versions ?? owner?.electron?.versions ?? null, packaged: startup?.isPackaged ?? null,
     executable: first.executable ?? null,
     executableSha256: first.executable && fs.existsSync(first.executable) ? hash(first.executable) : null,
     completed: runs.length, passed: runs.filter((r) => r.passed).length,
@@ -27,8 +27,9 @@ for (const name of fs.readdirSync(qa).filter((n) => n.startsWith('exit-closure-'
     rawPath: path.relative(root, file), rawSha256: hash(file),
     runs: runs.map((r) => ({
       iteration: r.iteration, rootPid: r.rootPid, mainPid: r.mainPid,
-      launched: r.launched, passed: r.passed, lifecycleComplete: r.lifecycleComplete,
-      kernelExited: r.kernelExited, cimAbsent: r.cimAbsent,
+      launched: r.launched, passed: r.passed, lifecycleComplete: r.lifecycleComplete ?? null,
+      kernelExited: r.kernelExited ?? (r.mainExited && r.allChildrenExited),
+      cimAbsent: r.cimAbsent ?? (r.cimRowsAfterHandleRelease == null ? null : r.cimRowsAfterHandleRelease === 0),
       windowClosed: r.windowClosed, kernelExitUpperBoundMs: r.kernelExitUpperBoundMs,
       finalCimAbsenceCheckMs: r.finalCimAbsenceCheckMs,
       forceCleanupPerformed: r.forceCleanupPerformed,

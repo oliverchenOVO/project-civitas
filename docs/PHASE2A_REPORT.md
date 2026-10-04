@@ -2,6 +2,8 @@
 
 Status: **implementation complete; acceptance blocked by native shutdown, NOT a completed Phase 2A release**. Local application candidate **0.3.0**, simulation **0.2.0**, observatory save **3**. No release or release-candidate tag has been published or created by this development task. Published v0.2.0 and the v0.1.0 / v0.1.0-rc.1 tags remain unchanged.
 
+2026-10-04 closure investigation: **PHASE 2A NATIVE SHUTDOWN GATE STILL BLOCKED**. Controlled minimal/launcher/GPU matrices and a dependency-only Electron 44.5.1 worktree experiment are recorded in [SHUTDOWN_CLOSURE_REPORT.md](SHUTDOWN_CLOSURE_REPORT.md). The formal upgraded candidate failed unpacked and portable native closes; successful follow-up runs do not erase those failures. The upgrade was not merged, the original candidate SHA remains unchanged, and a second-host reproduction kit has been prepared but not externally tested. No release or Phase 2B work is authorized by these results.
+
 ## Model and evidence
 
 Education is basic / secondary / vocational / tertiary; skills are integer general / technical / service / managerial values in 0–100. Childhood and parental education affect opportunity and performance, not inherited skill or guaranteed class. Initial adults and immigrants have marked starting capabilities; only observed childhood supports an intergenerational comparison. There is no invented pre-initialization education history.

@@ -1,0 +1,12 @@
+{
+  "createdAt": "2026-10-04T06:34:19.1366101Z",
+  "archive": "artifacts/qa/shutdown-closure/CIVITAS-native-shutdown-repro.zip",
+  "sha256": "717d39b884cbffb593ea67b78bf12f753e5620b3c1526abc1b59f445eb776854",
+  "bytes": 507892125,
+  "entryCount": 240,
+  "portableSha256": "e1a8570ade13912697bd40a165df06a7f4868d407fc4a21dfa97a4c4a0e7577d",
+  "secondHostTested": false,
+  "coldRepetitionsPerTarget": 5,
+  "warmProbeIncluded": true,
+  "windowsPowerShell5RunnerParsePassed": true
+}

@@ -1,5 +1,5 @@
 {
-  "collectedAt": "2026-10-04T06:13:53.481Z",
+  "collectedAt": "2026-10-04T06:35:29.408Z",
   "criterion": "Real owned native window; WM_CLOSE; all tracked kernel handles signaled; owned identities absent after observer handle release; within 10000ms; no forced cleanup. Lifecycle is a separate observation, not a substitute.",
   "environment": {
     "collectedAt": "2026-10-04T04:19:07.0728683Z",
@@ -2059,12 +2059,1052 @@
       ]
     },
     {
+      "case": "closure-e44-candidate-portable",
+      "target": "Portable",
+      "launcher": "StartProcess",
+      "gpuOff": false,
+      "sandboxOff": false,
+      "versions": null,
+      "packaged": null,
+      "executable": "F:\\CodeX開發小東東\\civitas-shutdown-electron44\\release\\0.3.0\\CIVITAS-0.3.0-Windows-portable.exe",
+      "executableSha256": "9f6371192f44abfd01519cfb83234319927c4fd0e463f162b7de2c95b567046d",
+      "completed": 3,
+      "passed": 1,
+      "failed": 2,
+      "rawPath": "artifacts\\qa\\exit-closure-e44-candidate-portable\\result.json",
+      "rawSha256": "3465e339a09e005666c351f02c33ed754beeccda63d54719bec97745fbcfec72",
+      "runs": [
+        {
+          "iteration": 1,
+          "rootPid": 21572,
+          "mainPid": 74172,
+          "launched": true,
+          "passed": false,
+          "lifecycleComplete": null,
+          "kernelExited": false,
+          "cimAbsent": null,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": null,
+          "forceCleanupPerformed": true,
+          "remainingProcesses": [
+            {
+              "pid": 5632,
+              "ppid": 74172,
+              "role": "gpu-process",
+              "name": "Project CIVITAS.exe",
+              "executablePath": "C:\\Users\\oliver\\AppData\\Local\\Temp\\3KDbbNRbGsU2XTc3NYpPJ75TBQD\\Project CIVITAS.exe",
+              "commandLine": "\"C:\\Users\\oliver\\AppData\\Local\\Temp\\3KDbbNRbGsU2XTc3NYpPJ75TBQD\\Project CIVITAS.exe\" --type=gpu-process --user-data-dir=\"C:\\Users\\oliver\\AppData\\Roaming\\project-civitas\" --gpu-preferences=WAAAAAAAAADgAAAEAAAAAAAAAAAAAGAAQAAAAAAAAAADAAAAAAAAADgAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAKAAAAAAAAAAoAAAAAAAAAAgAAAAAAAAAEAAAAAIAAAABAAAAAAAAAAgAAAAAAAAACAAAAAAAAAA= --field-trial-handle=2520,i,14209246151155607996,5104087352066491138,262144 --enable-features=AllowWindowCaptureExclusionInRemoteSessions,PdfUseShowSaveFilePicker --disable-features=DropInputEventsWhilePaintHolding,LocalNetworkAccessChecks,NetworkServiceSandbox,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation --variations-seed-version --pseudonymization-salt-handle=2524,i,4503543538691629053,6176486897507126008,4 --trace-process-track-uuid=3190708988185955192 --mojo-platform-channel-handle=2508 /prefetch:2",
+              "startTime": "2026-10-04T06:28:46.8686480Z",
+              "cimPresent": true,
+              "kernelSignaled": false,
+              "exitCode": 0,
+              "alive": true,
+              "exitObservedAt": null
+            },
+            {
+              "pid": 21572,
+              "ppid": 8904,
+              "role": "portable-wrapper",
+              "name": "CIVITAS-0.3.0-Windows-portable.exe",
+              "executablePath": "F:\\CodeX開發小東東\\civitas-shutdown-electron44\\release\\0.3.0\\CIVITAS-0.3.0-Windows-portable.exe",
+              "commandLine": "\"F:\\CodeX開發小東東\\civitas-shutdown-electron44\\release\\0.3.0\\CIVITAS-0.3.0-Windows-portable.exe\" ",
+              "startTime": "2026-10-04T06:28:35.9499310Z",
+              "cimPresent": true,
+              "kernelSignaled": false,
+              "exitCode": 259,
+              "alive": true,
+              "exitObservedAt": null
+            },
+            {
+              "pid": 41476,
+              "ppid": 74172,
+              "role": "renderer",
+              "name": "Project CIVITAS.exe",
+              "executablePath": "C:\\Users\\oliver\\AppData\\Local\\Temp\\3KDbbNRbGsU2XTc3NYpPJ75TBQD\\Project CIVITAS.exe",
+              "commandLine": "\"C:\\Users\\oliver\\AppData\\Local\\Temp\\3KDbbNRbGsU2XTc3NYpPJ75TBQD\\Project CIVITAS.exe\" --type=renderer --user-data-dir=\"C:\\Users\\oliver\\AppData\\Roaming\\project-civitas\" --app-path=\"C:\\Users\\oliver\\AppData\\Local\\Temp\\3KDbbNRbGsU2XTc3NYpPJ75TBQD\\resources\\app.asar\" --enable-sandbox --video-capture-use-gpu-memory-buffer --lang=zh-CN --device-scale-factor=1.25 --num-raster-threads=4 --enable-main-frame-before-activation --renderer-client-id=4 --launch-time-ticks=163603247433 --field-trial-handle=2520,i,14209246151155607996,5104087352066491138,262144 --enable-features=AllowWindowCaptureExclusionInRemoteSessions,PdfUseShowSaveFilePicker --disable-features=DropInputEventsWhilePaintHolding,LocalNetworkAccessChecks,NetworkServiceSandbox,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation --variations-seed-version --pseudonymization-salt-handle=2524,i,4503543538691629053,6176486897507126008,4 --trace-process-track-uuid=3190708990060038890 --mojo-platform-channel-handle=3524 /prefetch:1",
+              "startTime": "2026-10-04T06:28:47.0723200Z",
+              "cimPresent": true,
+              "kernelSignaled": false,
+              "exitCode": 0,
+              "alive": true,
+              "exitObservedAt": null
+            },
+            {
+              "pid": 50544,
+              "ppid": 74172,
+              "role": "utility",
+              "name": "Project CIVITAS.exe",
+              "executablePath": "C:\\Users\\oliver\\AppData\\Local\\Temp\\3KDbbNRbGsU2XTc3NYpPJ75TBQD\\Project CIVITAS.exe",
+              "commandLine": "\"C:\\Users\\oliver\\AppData\\Local\\Temp\\3KDbbNRbGsU2XTc3NYpPJ75TBQD\\Project CIVITAS.exe\" --type=utility --utility-sub-type=network.mojom.NetworkService --lang=zh-CN --service-sandbox-type=none --user-data-dir=\"C:\\Users\\oliver\\AppData\\Roaming\\project-civitas\" --field-trial-handle=2520,i,14209246151155607996,5104087352066491138,262144 --enable-features=AllowWindowCaptureExclusionInRemoteSessions,PdfUseShowSaveFilePicker --disable-features=DropInputEventsWhilePaintHolding,LocalNetworkAccessChecks,NetworkServiceSandbox,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation --variations-seed-version --pseudonymization-salt-handle=2524,i,4503543538691629053,6176486897507126008,4 --trace-process-track-uuid=3190708989122997041 --mojo-platform-channel-handle=2764 /prefetch:11",
+              "startTime": "2026-10-04T06:28:46.8770680Z",
+              "cimPresent": true,
+              "kernelSignaled": false,
+              "exitCode": 0,
+              "alive": true,
+              "exitObservedAt": null
+            },
+            {
+              "pid": 74172,
+              "ppid": 21572,
+              "role": "browser-main",
+              "name": "Project CIVITAS.exe",
+              "executablePath": "C:\\Users\\oliver\\AppData\\Local\\Temp\\3KDbbNRbGsU2XTc3NYpPJ75TBQD\\Project CIVITAS.exe",
+              "commandLine": "\"C:\\Users\\oliver\\AppData\\Local\\Temp\\3KDbbNRbGsU2XTc3NYpPJ75TBQD\\Project CIVITAS.exe\" ",
+              "startTime": "2026-10-04T06:28:46.0834430Z",
+              "cimPresent": true,
+              "kernelSignaled": false,
+              "exitCode": 259,
+              "alive": true,
+              "exitObservedAt": null
+            }
+          ],
+          "processJobs": [
+            {
+              "pid": 5632,
+              "role": "gpu-process"
+            },
+            {
+              "pid": 21572,
+              "role": "portable-wrapper"
+            },
+            {
+              "pid": 41476,
+              "role": "renderer"
+            },
+            {
+              "pid": 50544,
+              "role": "utility"
+            },
+            {
+              "pid": 74172,
+              "role": "browser-main"
+            }
+          ]
+        },
+        {
+          "iteration": 2,
+          "rootPid": 47336,
+          "mainPid": 31996,
+          "launched": true,
+          "passed": false,
+          "lifecycleComplete": null,
+          "kernelExited": false,
+          "cimAbsent": null,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": null,
+          "forceCleanupPerformed": true,
+          "remainingProcesses": [
+            {
+              "pid": 24964,
+              "ppid": 31996,
+              "role": "renderer",
+              "name": "Project CIVITAS.exe",
+              "executablePath": "C:\\Users\\oliver\\AppData\\Local\\Temp\\3KDbbNRbGsU2XTc3NYpPJ75TBQD\\Project CIVITAS.exe",
+              "commandLine": "\"C:\\Users\\oliver\\AppData\\Local\\Temp\\3KDbbNRbGsU2XTc3NYpPJ75TBQD\\Project CIVITAS.exe\" --type=renderer --user-data-dir=\"C:\\Users\\oliver\\AppData\\Roaming\\project-civitas\" --app-path=\"C:\\Users\\oliver\\AppData\\Local\\Temp\\3KDbbNRbGsU2XTc3NYpPJ75TBQD\\resources\\app.asar\" --enable-sandbox --video-capture-use-gpu-memory-buffer --lang=zh-CN --device-scale-factor=1.25 --num-raster-threads=4 --enable-main-frame-before-activation --renderer-client-id=4 --launch-time-ticks=163637225096 --field-trial-handle=2488,i,1556038186047891165,15791388770316508755,262144 --enable-features=AllowWindowCaptureExclusionInRemoteSessions,PdfUseShowSaveFilePicker --disable-features=DropInputEventsWhilePaintHolding,LocalNetworkAccessChecks,NetworkServiceSandbox,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation --variations-seed-version --pseudonymization-salt-handle=2492,i,10494699763543433879,8991802398162005330,4 --trace-process-track-uuid=3190708990060038890 --mojo-platform-channel-handle=3336 /prefetch:1",
+              "startTime": "2026-10-04T06:29:21.0518470Z",
+              "cimPresent": true,
+              "kernelSignaled": false,
+              "exitCode": 0,
+              "alive": true,
+              "exitObservedAt": null
+            },
+            {
+              "pid": 31996,
+              "ppid": 47336,
+              "role": "browser-main",
+              "name": "Project CIVITAS.exe",
+              "executablePath": "C:\\Users\\oliver\\AppData\\Local\\Temp\\3KDbbNRbGsU2XTc3NYpPJ75TBQD\\Project CIVITAS.exe",
+              "commandLine": "\"C:\\Users\\oliver\\AppData\\Local\\Temp\\3KDbbNRbGsU2XTc3NYpPJ75TBQD\\Project CIVITAS.exe\" ",
+              "startTime": "2026-10-04T06:29:20.1663390Z",
+              "cimPresent": true,
+              "kernelSignaled": false,
+              "exitCode": 0,
+              "alive": true,
+              "exitObservedAt": null
+            },
+            {
+              "pid": 47336,
+              "ppid": 8904,
+              "role": "portable-wrapper",
+              "name": "CIVITAS-0.3.0-Windows-portable.exe",
+              "executablePath": "F:\\CodeX開發小東東\\civitas-shutdown-electron44\\release\\0.3.0\\CIVITAS-0.3.0-Windows-portable.exe",
+              "commandLine": "\"F:\\CodeX開發小東東\\civitas-shutdown-electron44\\release\\0.3.0\\CIVITAS-0.3.0-Windows-portable.exe\" ",
+              "startTime": "2026-10-04T06:29:10.0695390Z",
+              "cimPresent": true,
+              "kernelSignaled": false,
+              "exitCode": 259,
+              "alive": true,
+              "exitObservedAt": null
+            }
+          ],
+          "processJobs": [
+            {
+              "pid": 24964,
+              "role": "renderer"
+            },
+            {
+              "pid": 31996,
+              "role": "browser-main"
+            },
+            {
+              "pid": 47336,
+              "role": "portable-wrapper"
+            },
+            {
+              "pid": 50424,
+              "role": "utility"
+            },
+            {
+              "pid": 63452,
+              "role": "gpu-process"
+            }
+          ]
+        },
+        {
+          "iteration": 3,
+          "rootPid": 23264,
+          "mainPid": 74012,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": null,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 6074,
+          "finalCimAbsenceCheckMs": 7768,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "processJobs": [
+            {
+              "pid": 23264,
+              "role": "portable-wrapper"
+            },
+            {
+              "pid": 31000,
+              "role": "gpu-process"
+            },
+            {
+              "pid": 60760,
+              "role": "renderer"
+            },
+            {
+              "pid": 64480,
+              "role": "utility"
+            },
+            {
+              "pid": 74012,
+              "role": "browser-main"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "closure-e44-candidate-unpacked",
+      "target": "Unpacked",
+      "launcher": "StartProcess",
+      "gpuOff": false,
+      "sandboxOff": false,
+      "versions": null,
+      "packaged": null,
+      "executable": "F:\\CodeX開發小東東\\civitas-shutdown-electron44\\release\\0.3.0\\win-unpacked\\Project CIVITAS.exe",
+      "executableSha256": "e50dde5e9333720096b5bc3e8cda1f3e59bff3de29e06bbe74513a36bf15f416",
+      "completed": 5,
+      "passed": 4,
+      "failed": 1,
+      "rawPath": "artifacts\\qa\\exit-closure-e44-candidate-unpacked\\result.json",
+      "rawSha256": "77ab46eb3c7afeca25cc76a27d0e1004b9de5fa1ffee0120c635b6597e308b74",
+      "runs": [
+        {
+          "iteration": 1,
+          "rootPid": 76012,
+          "mainPid": 76012,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": null,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 777,
+          "finalCimAbsenceCheckMs": 2480,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "processJobs": [
+            {
+              "pid": 34344,
+              "role": "utility"
+            },
+            {
+              "pid": 65064,
+              "role": "gpu-process"
+            },
+            {
+              "pid": 75096,
+              "role": "renderer"
+            },
+            {
+              "pid": 76012,
+              "role": "browser-main"
+            }
+          ]
+        },
+        {
+          "iteration": 2,
+          "rootPid": 13804,
+          "mainPid": 13804,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": null,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 620,
+          "finalCimAbsenceCheckMs": 2068,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "processJobs": [
+            {
+              "pid": 13804,
+              "role": "browser-main"
+            },
+            {
+              "pid": 59364,
+              "role": "renderer"
+            },
+            {
+              "pid": 69956,
+              "role": "gpu-process"
+            },
+            {
+              "pid": 70956,
+              "role": "utility"
+            }
+          ]
+        },
+        {
+          "iteration": 3,
+          "rootPid": 48276,
+          "mainPid": 48276,
+          "launched": true,
+          "passed": false,
+          "lifecycleComplete": null,
+          "kernelExited": false,
+          "cimAbsent": null,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": null,
+          "forceCleanupPerformed": true,
+          "remainingProcesses": [
+            {
+              "pid": 20684,
+              "ppid": 48276,
+              "role": "utility",
+              "name": "Project CIVITAS.exe",
+              "executablePath": "F:\\CodeX開發小東東\\civitas-shutdown-electron44\\release\\0.3.0\\win-unpacked\\Project CIVITAS.exe",
+              "commandLine": "\"F:\\CodeX開發小東東\\civitas-shutdown-electron44\\release\\0.3.0\\win-unpacked\\Project CIVITAS.exe\" --type=utility --utility-sub-type=network.mojom.NetworkService --lang=zh-CN --service-sandbox-type=none --user-data-dir=\"C:\\Users\\oliver\\AppData\\Roaming\\project-civitas\" --field-trial-handle=2512,i,7246164321089042722,3129891453588786047,262144 --enable-features=AllowWindowCaptureExclusionInRemoteSessions,PdfUseShowSaveFilePicker --disable-features=DropInputEventsWhilePaintHolding,LocalNetworkAccessChecks,NetworkServiceSandbox,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation --variations-seed-version --pseudonymization-salt-handle=2516,i,4368197311354382450,16566933989065874805,4 --trace-process-track-uuid=3190708989122997041 --mojo-platform-channel-handle=2812 /prefetch:11",
+              "startTime": "2026-10-04T06:27:36.9985270Z",
+              "cimPresent": true,
+              "kernelSignaled": false,
+              "exitCode": 0,
+              "alive": true,
+              "exitObservedAt": null
+            },
+            {
+              "pid": 44608,
+              "ppid": 48276,
+              "role": "gpu-process",
+              "name": "Project CIVITAS.exe",
+              "executablePath": "F:\\CodeX開發小東東\\civitas-shutdown-electron44\\release\\0.3.0\\win-unpacked\\Project CIVITAS.exe",
+              "commandLine": "\"F:\\CodeX開發小東東\\civitas-shutdown-electron44\\release\\0.3.0\\win-unpacked\\Project CIVITAS.exe\" --type=gpu-process --user-data-dir=\"C:\\Users\\oliver\\AppData\\Roaming\\project-civitas\" --gpu-preferences=WAAAAAAAAADgAAAEAAAAAAAAAAAAAGAAQAAAAAAAAAADAAAAAAAAADgAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAKAAAAAAAAAAoAAAAAAAAAAgAAAAAAAAAEAAAAAIAAAABAAAAAAAAAAgAAAAAAAAACAAAAAAAAAA= --field-trial-handle=2512,i,7246164321089042722,3129891453588786047,262144 --enable-features=AllowWindowCaptureExclusionInRemoteSessions,PdfUseShowSaveFilePicker --disable-features=DropInputEventsWhilePaintHolding,LocalNetworkAccessChecks,NetworkServiceSandbox,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation --variations-seed-version --pseudonymization-salt-handle=2516,i,4368197311354382450,16566933989065874805,4 --trace-process-track-uuid=3190708988185955192 --mojo-platform-channel-handle=2492 /prefetch:2",
+              "startTime": "2026-10-04T06:27:36.9818080Z",
+              "cimPresent": true,
+              "kernelSignaled": false,
+              "exitCode": 0,
+              "alive": true,
+              "exitObservedAt": null
+            },
+            {
+              "pid": 48276,
+              "ppid": 63500,
+              "role": "browser-main",
+              "name": "Project CIVITAS.exe",
+              "executablePath": "F:\\CodeX開發小東東\\civitas-shutdown-electron44\\release\\0.3.0\\win-unpacked\\Project CIVITAS.exe",
+              "commandLine": "\"F:\\CodeX開發小東東\\civitas-shutdown-electron44\\release\\0.3.0\\win-unpacked\\Project CIVITAS.exe\" ",
+              "startTime": "2026-10-04T06:27:36.5735870Z",
+              "cimPresent": true,
+              "kernelSignaled": false,
+              "exitCode": 0,
+              "alive": true,
+              "exitObservedAt": null
+            },
+            {
+              "pid": 76700,
+              "ppid": 48276,
+              "role": "renderer",
+              "name": "Project CIVITAS.exe",
+              "executablePath": "F:\\CodeX開發小東東\\civitas-shutdown-electron44\\release\\0.3.0\\win-unpacked\\Project CIVITAS.exe",
+              "commandLine": "\"F:\\CodeX開發小東東\\civitas-shutdown-electron44\\release\\0.3.0\\win-unpacked\\Project CIVITAS.exe\" --type=renderer --user-data-dir=\"C:\\Users\\oliver\\AppData\\Roaming\\project-civitas\" --app-path=\"F:\\CodeX開發小東東\\civitas-shutdown-electron44\\release\\0.3.0\\win-unpacked\\resources\\app.asar\" --enable-sandbox --video-capture-use-gpu-memory-buffer --lang=zh-CN --device-scale-factor=1.25 --num-raster-threads=4 --enable-main-frame-before-activation --renderer-client-id=4 --launch-time-ticks=163533246506 --field-trial-handle=2512,i,7246164321089042722,3129891453588786047,262144 --enable-features=AllowWindowCaptureExclusionInRemoteSessions,PdfUseShowSaveFilePicker --disable-features=DropInputEventsWhilePaintHolding,LocalNetworkAccessChecks,NetworkServiceSandbox,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation --variations-seed-version --pseudonymization-salt-handle=2516,i,4368197311354382450,16566933989065874805,4 --trace-process-track-uuid=3190708990060038890 --mojo-platform-channel-handle=3380 /prefetch:1",
+              "startTime": "2026-10-04T06:27:37.0589810Z",
+              "cimPresent": true,
+              "kernelSignaled": false,
+              "exitCode": 0,
+              "alive": true,
+              "exitObservedAt": null
+            }
+          ],
+          "processJobs": [
+            {
+              "pid": 20684,
+              "role": "utility"
+            },
+            {
+              "pid": 44608,
+              "role": "gpu-process"
+            },
+            {
+              "pid": 48276,
+              "role": "browser-main"
+            },
+            {
+              "pid": 76700,
+              "role": "renderer"
+            }
+          ]
+        },
+        {
+          "iteration": 4,
+          "rootPid": 75388,
+          "mainPid": 75388,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": null,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 505,
+          "finalCimAbsenceCheckMs": 1964,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "processJobs": [
+            {
+              "pid": 31524,
+              "role": "utility"
+            },
+            {
+              "pid": 64788,
+              "role": "renderer"
+            },
+            {
+              "pid": 65044,
+              "role": "gpu-process"
+            },
+            {
+              "pid": 75388,
+              "role": "browser-main"
+            }
+          ]
+        },
+        {
+          "iteration": 5,
+          "rootPid": 34548,
+          "mainPid": 34548,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": null,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 511,
+          "finalCimAbsenceCheckMs": 2146,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "processJobs": [
+            {
+              "pid": 34548,
+              "role": "browser-main"
+            },
+            {
+              "pid": 36332,
+              "role": "utility"
+            },
+            {
+              "pid": 37764,
+              "role": "gpu-process"
+            },
+            {
+              "pid": 57912,
+              "role": "renderer"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "closure-e44-worktree-minimal",
+      "target": "Minimal",
+      "launcher": "StartProcess",
+      "gpuOff": false,
+      "sandboxOff": false,
+      "versions": {
+        "node": "24.21.0",
+        "acorn": "8.18.0",
+        "ada": "4.0.0",
+        "amaro": "1.1.11",
+        "ares": "1.34.8",
+        "brotli": "1.2.0",
+        "cldr": "48.0",
+        "icu": "78.2",
+        "llhttp": "9.4.3",
+        "merve": "1.2.2",
+        "modules": "149",
+        "napi": "10",
+        "nbytes": "0.1.4",
+        "ncrypto": "0.0.1",
+        "nghttp2": "1.70.0",
+        "nghttp3": "",
+        "ngtcp2": "",
+        "openssl": "0.0.0",
+        "simdjson": "4.6.7",
+        "simdutf": "7.7.0",
+        "sqlite": "3.53.4",
+        "tz": "2025c",
+        "undici": "7.29.1",
+        "unicode": "17.0",
+        "uv": "1.52.1",
+        "uvwasi": "0.0.23",
+        "v8": "15.2.124.28-electron.0",
+        "zlib": "1.3.2.1-motley",
+        "zstd": "1.6.0",
+        "electron": "44.5.1",
+        "chrome": "152.0.7977.130"
+      },
+      "packaged": false,
+      "executable": "F:\\CodeX開發小東東\\civitas-shutdown-electron44\\node_modules\\electron\\dist\\electron.exe",
+      "executableSha256": "49b61a030a520fc36a4b8fa5cce53fb4e935a7bdbbe4b80e9222f598e49cc7fa",
+      "completed": 5,
+      "passed": 5,
+      "failed": 0,
+      "rawPath": "artifacts\\qa\\exit-closure-e44-worktree-minimal\\result.json",
+      "rawSha256": "1a955f6aec47b444b945170263949b7289c43cf1631dc26912237603752c8da9",
+      "runs": [
+        {
+          "iteration": 1,
+          "rootPid": 30064,
+          "mainPid": 30064,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 317,
+          "finalCimAbsenceCheckMs": 1432,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 30064,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 38116,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 48952,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 70168,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 2,
+          "rootPid": 18960,
+          "mainPid": 18960,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 320,
+          "finalCimAbsenceCheckMs": 1240,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 18960,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 44732,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 65496,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 67284,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 3,
+          "rootPid": 76284,
+          "mainPid": 76284,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 321,
+          "finalCimAbsenceCheckMs": 1368,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 31140,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 31524,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 57008,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 76284,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 4,
+          "rootPid": 43224,
+          "mainPid": 43224,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 440,
+          "finalCimAbsenceCheckMs": 1518,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 43224,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 63128,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 72492,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 73528,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 5,
+          "rootPid": 4584,
+          "mainPid": 4584,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": true,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 441,
+          "finalCimAbsenceCheckMs": 1484,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 2828,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 2888,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 4584,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 59760,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": "closure-e44-worktree-portable",
+      "target": "Portable",
+      "launcher": "StartProcess",
+      "gpuOff": false,
+      "sandboxOff": false,
+      "versions": null,
+      "packaged": null,
+      "executable": "F:\\CodeX開發小東東\\civitas-shutdown-electron44\\release\\0.3.0\\CIVITAS-0.3.0-Windows-portable.exe",
+      "executableSha256": "9f6371192f44abfd01519cfb83234319927c4fd0e463f162b7de2c95b567046d",
+      "completed": 5,
+      "passed": 5,
+      "failed": 0,
+      "rawPath": "artifacts\\qa\\exit-closure-e44-worktree-portable\\result.json",
+      "rawSha256": "c01a49902f634418bd84535a025b1a31b67c6c97bc5d333388959af707f8ff40",
+      "runs": [
+        {
+          "iteration": 1,
+          "rootPid": 35308,
+          "mainPid": 14204,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": null,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 477,
+          "finalCimAbsenceCheckMs": 1564,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 14204,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 35308,
+              "role": "portable-wrapper",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 58788,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 69556,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 74096,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 2,
+          "rootPid": 48124,
+          "mainPid": 24768,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": null,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 751,
+          "finalCimAbsenceCheckMs": 2130,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 23600,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 24768,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 29376,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 48124,
+              "role": "portable-wrapper",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 57784,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 3,
+          "rootPid": 57108,
+          "mainPid": 4556,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": null,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 933,
+          "finalCimAbsenceCheckMs": 2191,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 4556,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 34548,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 43288,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 57108,
+              "role": "portable-wrapper",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 60764,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 4,
+          "rootPid": 58764,
+          "mainPid": 35064,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": null,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 567,
+          "finalCimAbsenceCheckMs": 1914,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 35064,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 58764,
+              "role": "portable-wrapper",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 70584,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 70844,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 77356,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        },
+        {
+          "iteration": 5,
+          "rootPid": 57432,
+          "mainPid": 46984,
+          "launched": true,
+          "passed": true,
+          "lifecycleComplete": null,
+          "kernelExited": true,
+          "cimAbsent": true,
+          "windowClosed": true,
+          "kernelExitUpperBoundMs": 1296,
+          "finalCimAbsenceCheckMs": 2569,
+          "forceCleanupPerformed": false,
+          "remainingProcesses": [],
+          "cimRowsBeforeCleanup": [],
+          "threadEvidenceBeforeCleanup": [],
+          "processJobs": [
+            {
+              "pid": 46984,
+              "role": "browser-main",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 57432,
+              "role": "portable-wrapper",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 69852,
+              "role": "renderer",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 76988,
+              "role": "gpu-process",
+              "inJob": true,
+              "querySucceeded": true
+            },
+            {
+              "pid": 77296,
+              "role": "utility",
+              "inJob": true,
+              "querySucceeded": true
+            }
+          ]
+        }
+      ]
+    },
+    {
       "case": "closure-runtime44-warm-wm",
       "target": "RuntimeExperiment",
       "launcher": "Playwright",
       "gpuOff": false,
       "sandboxOff": false,
-      "versions": null,
+      "versions": {
+        "node": "24.21.0",
+        "acorn": "8.18.0",
+        "ada": "4.0.0",
+        "amaro": "1.1.11",
+        "ares": "1.34.8",
+        "brotli": "1.2.0",
+        "cldr": "48.0",
+        "icu": "78.2",
+        "llhttp": "9.4.3",
+        "merve": "1.2.2",
+        "modules": "149",
+        "napi": "10",
+        "nbytes": "0.1.4",
+        "ncrypto": "0.0.1",
+        "nghttp2": "1.70.0",
+        "nghttp3": "",
+        "ngtcp2": "",
+        "openssl": "0.0.0",
+        "simdjson": "4.6.7",
+        "simdutf": "7.7.0",
+        "sqlite": "3.53.4",
+        "tz": "2025c",
+        "undici": "7.29.1",
+        "unicode": "17.0",
+        "uv": "1.52.1",
+        "uvwasi": "0.0.23",
+        "v8": "15.2.124.28-electron.0",
+        "zlib": "1.3.2.1-motley",
+        "zstd": "1.6.0",
+        "electron": "44.5.1",
+        "chrome": "152.0.7977.130"
+      },
       "packaged": null,
       "executable": "C:\\Program Files\\nodejs\\node.exe",
       "executableSha256": "d14ba95cdce1ef7dc9ad3ac74949ca5db38b27378ee30f30a23cf26f9e875a11",
