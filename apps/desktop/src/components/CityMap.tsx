@@ -184,6 +184,25 @@ export function CityMap({ state, revision }: { state: CityState; revision: numbe
         })}
       </div>
       <div className="map-camera" role="group" aria-label="城市視角控制">
+        <label className="map-district-navigation">
+          前往
+          <select
+            aria-label="前往行政區"
+            value={selected?.kind === 'district' ? selected.id : ''}
+            onChange={(e) => {
+              if (!e.target.value) return;
+              select('district', e.target.value);
+              sceneRef.current?.focusDistrict(e.target.value);
+            }}
+          >
+            <option value="">選擇行政區</option>
+            {layouts.map((district) => (
+              <option key={district.id} value={district.id}>
+                {district.name}
+              </option>
+            ))}
+          </select>
+        </label>
         <label>
           仰角 <output>{Math.round(view.elevation)}°</output>
           <input
@@ -197,9 +216,30 @@ export function CityMap({ state, revision }: { state: CityState; revision: numbe
           />
         </label>
         <div>
-          <button onClick={() => sceneRef.current?.setElevation(90)}>俯視 90°</button>
-          <button onClick={() => sceneRef.current?.setElevation(45)}>斜視 45°</button>
-          <button onClick={() => sceneRef.current?.setElevation(0)}>水平 0°</button>
+          <button
+            aria-pressed={Math.abs(view.elevation - 90) < 0.5}
+            onClick={() => sceneRef.current?.setElevation(90)}
+          >
+            俯視 90°
+          </button>
+          <button
+            aria-pressed={Math.abs(view.elevation - 45) < 0.5}
+            onClick={() => sceneRef.current?.setElevation(45)}
+          >
+            斜視 45°
+          </button>
+          <button
+            aria-pressed={Math.abs(view.elevation - 15) < 0.5}
+            onClick={() => sceneRef.current?.setElevation(15)}
+          >
+            街景 15°
+          </button>
+          <button
+            aria-pressed={Math.abs(view.elevation) < 0.5}
+            onClick={() => sceneRef.current?.setElevation(0)}
+          >
+            水平 0°
+          </button>
           <button aria-label="向左旋轉城市" onClick={() => sceneRef.current?.rotate(-30)}>
             ↶
           </button>
@@ -226,6 +266,7 @@ export function CityMap({ state, revision }: { state: CityState; revision: numbe
           </button>
         </div>
         <small>拖曳旋轉 · 右鍵 / 雙指平移 · 滾輪 / 捏合縮放</small>
+        <small>點選畫面後：方向鍵調整角度 · WASD 平移 · ＋ / － 縮放 · R 重設</small>
       </div>
       <div className="map-scale" aria-label="示意比例，無實際距離單位">
         <i />

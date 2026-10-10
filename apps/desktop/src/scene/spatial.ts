@@ -5,6 +5,9 @@ export function buildingHeight(seed: string, p: Parcel): number {
   const n = visualHash(`${seed}:${p.id}:height`);
   return p.type === 'commercial' ? 14 + (n % 32) : 9 + (n % 18);
 }
+export function roofHeight(p: Parcel): number {
+  return p.type === 'commercial' ? 1.2 : Math.min(8, p.width * 0.3);
+}
 export function cameraOffset(elevation: number, azimuth: number, distance: number) {
   const angle = (Math.max(0, Math.min(90, elevation)) * Math.PI) / 180;
   const heading = (azimuth * Math.PI) / 180;

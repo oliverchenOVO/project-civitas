@@ -20,7 +20,7 @@ import {
   type MapSelection,
   type SceneData,
 } from './data';
-import { buildingHeight, cameraOffset } from './spatial';
+import { buildingHeight, roofHeight, cameraOffset } from './spatial';
 import type { MapLayers } from './renderer';
 
 export interface CameraView {
@@ -80,7 +80,7 @@ export class CityScene3D {
   private frame = 0;
   private renderedFrames = 0;
   private disposed = false;
-  private start = { x: 0, y: 0 };
+  private gesture?: { id: number; x: number; y: number; dragged: boolean };
   private ray = new T.Raycaster();
   private observer: ResizeObserver;
   private onView: (view: CameraView, labels: LabelPosition[]) => void;
@@ -98,7 +98,7 @@ export class CityScene3D {
     });
     this.renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
     this.renderer.shadowMap.enabled = true;
-    this.renderer.shadowMap.type = T.PCFSoftShadowMap;
+    this.renderer.shadowMap.type = T.PCFShadowMap;
     this.renderer.toneMapping = T.ACESFilmicToneMapping;
     this.renderer.toneMappingExposure = 1.08;
     this.renderer.domElement.setAttribute(
@@ -107,8 +107,8 @@ export class CityScene3D {
     );
     this.renderer.domElement.tabIndex = 0;
     host.prepend(this.renderer.domElement);
-    this.scene.background = new T.Color('#213942');
-    this.scene.fog = new T.Fog('#213942', 1300, 2900);
+    this.scene.background = new T.Color('#8faeb7');
+    this.scene.fog = new T.Fog('#8faeb7', 1300, 2900);
     this.scene.add(new T.HemisphereLight('#cbdfe6', '#24352d', 1.6));
     const sun = new T.DirectionalLight('#ffe5b1', 2.8);
     sun.position.set(-350, 700, 250);
@@ -140,6 +140,7 @@ export class CityScene3D {
     const canvas = this.renderer.domElement;
     canvas.addEventListener('pointerdown', this.down);
     canvas.addEventListener('pointerup', this.up);
+    canvas.addEventListener('pointercancel', this.cancelGesture);
     canvas.addEventListener('pointermove', this.move);
     canvas.addEventListener('pointerleave', this.leave);
     canvas.addEventListener('keydown', this.key);
@@ -179,11 +180,7 @@ export class CityScene3D {
     const offset = cameraOffset(
       elevation,
       reset ? -12 : view.azimuth,
-      reset
-        ? Math.max(940, 1400 / this.camera.aspect)
-        : elevation === 0
-          ? Math.min(500, view.distance || 500)
-          : view.distance || 940,
+      reset ? Math.max(940, 1400 / this.camera.aspect) : view.distance || 940,
     );
     this.camera.position
       .copy(this.controls.target)
@@ -209,8 +206,25 @@ export class CityScene3D {
     this.camera.position.copy(this.controls.target).add(v);
     this.controls.update();
   }
+  pan(right: number, forward: number) {
+    const heading = (this.getView().azimuth * Math.PI) / 180;
+    const step = Math.max(4, this.getView().distance * 0.04);
+    const offset = new T.Vector3(
+      (Math.cos(heading) * right - Math.sin(heading) * forward) * step,
+      0,
+      (-Math.sin(heading) * right - Math.cos(heading) * forward) * step,
+    );
+    this.controls.target.add(offset);
+    this.camera.position.add(offset);
+    this.controls.update();
+  }
   private key = (e: KeyboardEvent) => {
-    if (e.key === 'ArrowLeft') this.rotate(-10);
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    if (e.key.toLowerCase() === 'w') this.pan(0, 1);
+    else if (e.key.toLowerCase() === 's') this.pan(0, -1);
+    else if (e.key.toLowerCase() === 'a') this.pan(-1, 0);
+    else if (e.key.toLowerCase() === 'd') this.pan(1, 0);
+    else if (e.key === 'ArrowLeft') this.rotate(-10);
     else if (e.key === 'ArrowRight') this.rotate(10);
     else if (e.key === 'ArrowUp') this.setElevation(this.getView().elevation + 5);
     else if (e.key === 'ArrowDown') this.setElevation(this.getView().elevation - 5);
@@ -256,7 +270,7 @@ export class CityScene3D {
           h + 1,
           b.parcel.y - 325,
           enabled ? b.parcel.width * 1.08 : 0,
-          Math.min(8, b.parcel.width * 0.3),
+          roofHeight(b.parcel),
           b.parcel.height * 1.08,
           b.parcel.rotation,
         ),
@@ -300,7 +314,7 @@ export class CityScene3D {
     const heights = new Map(
       this.data.buildings.map((b) => [
         b.parcel.id,
-        buildingHeight(this.seed, b.parcel) + Math.min(8, b.parcel.width * 0.3) + 4,
+        buildingHeight(this.seed, b.parcel) + roofHeight(b.parcel) + 4,
       ]),
     );
     this.data.residents.forEach((r, i) => {
@@ -338,7 +352,7 @@ export class CityScene3D {
   }
   private buildTerrain() {
     clear(this.terrain);
-    const land = new T.Mesh(new T.BoxGeometry(7000, 12, 7000), this.material('#283f35'));
+    const land = new T.Mesh(new T.BoxGeometry(7000, 12, 7000), this.material('#b7c6aa'));
     const textureCanvas = document.createElement('canvas');
     textureCanvas.width = 128;
     textureCanvas.height = 128;
@@ -543,6 +557,65 @@ export class CityScene3D {
         floors = Math.max(1, Math.floor(h / 5));
       const windows = windowsByType[p.type],
         details = detailsByType[p.type];
+      // Facade-local details remain attached to the real parcel and its layer.
+      const local = (x: number, z: number) => ({
+        x: p.x + x * Math.cos(p.rotation) - z * Math.sin(p.rotation),
+        y: p.y + x * Math.sin(p.rotation) + z * Math.cos(p.rotation),
+      });
+      windows.push(this.box(local(0, p.height / 2 + 0.12), 3, p.width * 0.2, 4, 0.2, p.rotation));
+      details.push(this.box(local(0, p.height / 2 + 1), 5.5, p.width * 0.35, 0.6, 2.4, p.rotation));
+      details.push(this.box(p, h + 0.8, p.width * 1.09, 0.7, p.height * 1.09, p.rotation));
+      if (p.type === 'commercial') {
+        for (const side of [-1, 1]) {
+          details.push(
+            this.box(local((side * p.width) / 2, 0), h + 2, 0.6, 2, p.height, p.rotation),
+          );
+          details.push(
+            this.box(local(0, (side * p.height) / 2), h + 2, p.width, 2, 0.6, p.rotation),
+          );
+        }
+        details.push(
+          this.box(local(-p.width * 0.2, 0), h + 3, p.width * 0.3, 3, p.height * 0.3, p.rotation),
+        );
+        windows.push(
+          this.box(
+            local(-p.width * 0.2, 0),
+            h + 4.6,
+            p.width * 0.28,
+            0.2,
+            p.height * 0.28,
+            p.rotation,
+          ),
+        );
+      } else {
+        const chimney = local(p.width * 0.24, -p.height * 0.2);
+        details.push(
+          this.box(chimney, h + roofHeight(p) * 0.65, 1.5, roofHeight(p) + 2, 1.5, p.rotation),
+        );
+        if (p.variant % 2 === 0)
+          for (let f = 1; f < floors; f++) {
+            details.push(
+              this.box(
+                local(0, p.height / 2 + 1.1),
+                2.7 + f * 5,
+                p.width * 0.65,
+                0.5,
+                2.4,
+                p.rotation,
+              ),
+            );
+            details.push(
+              this.box(
+                local(0, p.height / 2 + 2.2),
+                3.5 + f * 5,
+                p.width * 0.65,
+                1.3,
+                0.25,
+                p.rotation,
+              ),
+            );
+          }
+      }
       for (let f = 0; f < floors; f++)
         for (const side of [-1, 1])
           for (let col = 0; col < 3; col++) {
@@ -596,7 +669,7 @@ export class CityScene3D {
     const draw = (refs: MapSelection[], color: string) => {
       const geos: T.BufferGeometry[] = [];
       for (const p of affectedParcels(this.data, refs)) {
-        const h = buildingHeight(this.seed, p) + Math.min(8, p.width * 0.3) + 2;
+        const h = buildingHeight(this.seed, p) + roofHeight(p) + 5;
         const geometry = new T.BoxGeometry(p.width + 3, h, p.height + 3);
         geometry.rotateY(-p.rotation);
         geometry.translate(p.x - 500, h / 2, p.y - 325);
@@ -632,13 +705,35 @@ export class CityScene3D {
       this.selected?.kind === 'district'
         ? this.layout.districts.find((d) => d.id === this.selected!.id)
         : undefined;
-    const p = parcel ?? district?.label;
+    if (district) {
+      this.focusDistrict(district.id);
+      return;
+    }
+    const p = parcel;
     if (!p) return;
     const offset = this.camera.position
       .clone()
       .sub(this.controls.target)
       .setLength(parcel ? 180 : 400);
     this.controls.target.copy(point(p, parcel ? buildingHeight(this.seed, parcel) / 2 : 14));
+    this.camera.position.copy(this.controls.target).add(offset);
+    this.controls.update();
+  }
+  focusDistrict(id: string) {
+    const district = this.layout.districts.find((d) => d.id === id);
+    if (!district) return;
+    const center = district.polygon.reduce(
+      (sum, p) => ({
+        x: sum.x + p.x / district.polygon.length,
+        y: sum.y + p.y / district.polygon.length,
+      }),
+      { x: 0, y: 0 },
+    );
+    const offset = this.camera.position
+      .clone()
+      .sub(this.controls.target)
+      .setLength(Math.max(460, 600 / this.camera.aspect));
+    this.controls.target.copy(point(center, 14));
     this.camera.position.copy(this.controls.target).add(offset);
     this.controls.update();
   }
@@ -683,21 +778,40 @@ export class CityScene3D {
     }
   }
   private down = (e: PointerEvent) => {
-    this.start = { x: e.clientX, y: e.clientY };
+    if (this.gesture) {
+      this.gesture.dragged = true;
+      return;
+    }
+    this.gesture = { id: e.pointerId, x: e.clientX, y: e.clientY, dragged: false };
+  };
+  private cancelGesture = () => {
+    this.gesture = undefined;
   };
   private up = (e: PointerEvent) => {
-    if (e.button !== 0 || Math.hypot(e.clientX - this.start.x, e.clientY - this.start.y) > 5)
+    const gesture = this.gesture;
+    if (gesture?.id !== e.pointerId) return;
+    this.gesture = undefined;
+    if (
+      e.button !== 0 ||
+      gesture.dragged ||
+      Math.hypot(e.clientX - gesture.x, e.clientY - gesture.y) > 5
+    )
       return;
     const hit = this.pick(e);
     if (hit) this.select(hit.selection.kind, hit.selection.id);
   };
   private move = (e: PointerEvent) => {
+    if (this.gesture && Math.hypot(e.clientX - this.gesture.x, e.clientY - this.gesture.y) > 5)
+      this.gesture.dragged = true;
     if (!this.data || e.buttons) return;
     const hit = this.pick(e);
     this.hover(hit?.label ?? '');
     this.renderer.domElement.style.cursor = hit ? 'pointer' : 'grab';
   };
-  private leave = () => this.hover('');
+  private leave = () => {
+    this.hover('');
+    if (this.gesture) this.gesture.dragged = true;
+  };
   render() {
     this.renderer.render(this.scene, this.camera);
     this.host.dataset.frame = String(++this.renderedFrames);
@@ -730,7 +844,7 @@ export class CityScene3D {
                 this.seed,
                 this.layout.parcels.find((p) => p.id === r.buildingId)!,
               ) +
-                Math.min(8, this.layout.parcels.find((p) => p.id === r.buildingId)!.width * 0.3) +
+                roofHeight(this.layout.parcels.find((p) => p.id === r.buildingId)!) +
                 4,
             ),
           })),
@@ -763,6 +877,7 @@ export class CityScene3D {
     const c = this.renderer.domElement;
     c.removeEventListener('pointerdown', this.down);
     c.removeEventListener('pointerup', this.up);
+    c.removeEventListener('pointercancel', this.cancelGesture);
     c.removeEventListener('pointermove', this.move);
     c.removeEventListener('pointerleave', this.leave);
     c.removeEventListener('keydown', this.key);

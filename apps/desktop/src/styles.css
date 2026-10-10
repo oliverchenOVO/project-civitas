@@ -1577,6 +1577,23 @@ tbody tr:hover {
   color: #a6e6d1;
   min-width: 32px;
 }
+.map-camera .map-district-navigation {
+  margin-bottom: 7px;
+}
+.map-camera select {
+  min-width: 150px;
+  padding: 4px 7px;
+  font-size: 11px;
+  background: #152c35;
+  color: #cee3e5;
+  border: 1px solid #38515b;
+  border-radius: 3px;
+}
+.map-camera button[aria-pressed='true'] {
+  border-color: #91ceb9;
+  background: #284a4b;
+  color: #c4ffed;
+}
 .map-camera input {
   width: 180px;
   accent-color: #91ceb9;
@@ -1605,7 +1622,7 @@ tbody tr:hover {
   display: none;
 }
 .map-host[data-renderer='three-webgl'] .map-hover {
-  bottom: 178px;
+  bottom: 215px;
   left: 20px;
 }
 .map-host:fullscreen {
