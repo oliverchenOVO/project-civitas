@@ -36,6 +36,8 @@ import {
   GovernmentPage,
 } from './components/Pages';
 import { Inspector } from './components/Inspector';
+import { SocialFabricPage } from './components/SocialFabric';
+import { ChroniclePage } from './components/Chronicle';
 import { HumanDevelopmentPage } from './components/HumanDevelopment';
 import packageMetadata from '../../../package.json';
 import {
@@ -54,6 +56,13 @@ const nav = [
   { page: 'Citizens' as Page, label: '居民', description: 'People & households', Icon: Users },
   { page: 'Companies' as Page, label: '企業', description: 'Firms & economy', Icon: Building2 },
   { page: 'Events' as Page, label: '事件', description: 'History & evidence', Icon: Newspaper },
+  { page: 'Social' as Page, label: '社會關係', description: 'Social & family', Icon: Users },
+  {
+    page: 'Chronicle' as Page,
+    label: '城市紀事',
+    description: 'Chronicle & news',
+    Icon: Newspaper,
+  },
   {
     page: 'Development' as Page,
     label: '人力發展',
@@ -468,6 +477,10 @@ function Observatory() {
             <EventsPage state={state} />
           ) : page === 'Development' ? (
             <HumanDevelopmentPage state={state} />
+          ) : page === 'Social' ? (
+            <SocialFabricPage state={state} />
+          ) : page === 'Chronicle' ? (
+            <ChroniclePage state={state} />
           ) : page === 'History' ? (
             <CityHistoryPage state={state} />
           ) : page === 'Metrics' ? (

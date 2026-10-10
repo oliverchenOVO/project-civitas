@@ -180,6 +180,24 @@ export function Inspector({ state }: { state: CityState }) {
             <i style={{ width: `${citizen.happiness}%` }} />
           </div>
           <CitizenDevelopment key={citizen.id} citizen={citizen} state={state} />
+          <div className="filter-bar">
+            <button
+              onClick={() => {
+                usePresentation.getState().setPage('Social');
+                usePresentation.setState({ socialView: 'network' });
+              }}
+            >
+              查看社交網路
+            </button>
+            <button
+              onClick={() => {
+                usePresentation.getState().setPage('Social');
+                usePresentation.setState({ socialView: 'family' });
+              }}
+            >
+              查看家族樹
+            </button>
+          </div>
           <h4>人際關係</h4>
           <div className="relationship-list">
             {state.relationships

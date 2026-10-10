@@ -8,7 +8,9 @@ export type Page =
   | 'Metrics'
   | 'History'
   | 'Scenarios'
-  | 'Development';
+  | 'Development'
+  | 'Social'
+  | 'Chronicle';
 export interface Selection {
   kind: 'citizen' | 'company' | 'household' | 'district' | 'metric' | 'event';
   id: string;
@@ -36,6 +38,8 @@ export interface MapCamera {
 }
 interface Context {
   page: Page;
+  socialView: 'network' | 'family';
+  chronicleDay?: number;
   mapCamera?: MapCamera;
   selected?: Selection;
   overlay?: AffectedOverlay;
@@ -45,6 +49,8 @@ interface Context {
 function context(s: Presentation): Context {
   return {
     page: s.page,
+    socialView: s.socialView,
+    chronicleDay: s.chronicleDay,
     mapCamera: s.mapCamera,
     selected: s.selected,
     overlay: s.overlay,
@@ -65,6 +71,8 @@ function context(s: Presentation): Context {
 interface Presentation {
   citizenFilter: string;
   page: Page;
+  socialView: 'network' | 'family';
+  chronicleDay?: number;
   mapCamera?: MapCamera;
   selected?: Selection;
   overlay?: AffectedOverlay;
@@ -85,6 +93,7 @@ interface Presentation {
 export const usePresentation = create<Presentation>((set, get) => ({
   citizenFilter: 'alive',
   page: 'City',
+  socialView: 'network',
   notice: '',
   stack: [],
   navigationRevision: 0,
